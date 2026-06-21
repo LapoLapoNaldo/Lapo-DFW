@@ -123,7 +123,7 @@ function tokenize(source) {
             continue;
         }
 
-        if (/[{}();:,]/.test(ch)) {
+        if (/[{}();:,=.]/.test(ch)) {
             addToken(ch);
             i += 1;
             continue;
@@ -135,9 +135,9 @@ function tokenize(source) {
             continue;
         }
 
-        if (/[A-Za-z0-9_#.-]/.test(ch)) {
+        if (/[A-Za-z0-9_#-]/.test(ch)) {
             let j = i;
-            while (j < source.length && /[A-Za-z0-9_#.-]/.test(source[j])) j += 1;
+            while (j < source.length && /[A-Za-z0-9_#-]/.test(source[j])) j += 1;
             addToken("ident", source.slice(i, j));
             i = j;
             continue;
@@ -160,6 +160,15 @@ class Parser {
 
     peek(offset = 0) {
         return this.tokens[this.pos + offset] || { type: "eof" };
+    }
+
+    isCustom(offset = 0) {
+        return (
+            this.peek(offset).type === "ident" &&
+            this.peek(offset).value === "custom" &&
+            this.peek(offset + 1).type === ":" &&
+            this.peek(offset + 2).type === ":"
+        );
     }
 
     advance() {
@@ -241,9 +250,14 @@ class Parser {
         const ast = {
             directive: null,
             includes: [],
+            usings: {},
+            extensionsEnabled: { alert: false, badge: false },
+            extensions: { alerts: {}, badges: {} },
             project: {},
             docs: { layout: "stnd", sections: [] }
         };
+
+        this.extensionsEnabled = ast.extensionsEnabled;
 
         if (this.peek().type === "directive") {
             ast.directive = this.advance().value;
@@ -254,6 +268,15 @@ class Parser {
             const includeToken = this.expect("directive");
             ast.includes.push(includeToken.value);
             this.match(";");
+        }
+
+        while (this.peek().type === "ident" && this.peek().value === "using") {
+            this.parseUsingStatement(ast);
+        }
+
+        if (this.match("ident", "Extensions")) {
+            this.expect(":");
+            ast.extensions = this.parseExtensionsBlock();
         }
 
         if (this.match("ident", "Project")) {
@@ -272,6 +295,98 @@ class Parser {
         }
 
         return ast;
+    }
+
+    parseUsingStatement(ast) {
+        this.expect("ident", "using");
+        const first = this.expect("ident").value;
+
+        if (first === "Extensions" && this.match(".")) {
+            const feature = this.expect("ident").value;
+            if (feature === "alert" || feature === "badge") {
+                ast.extensionsEnabled[feature] = true;
+            } else {
+                throw new Error(`Extensions desconhecida: ${feature}. Use alert ou badge`);
+            }
+            this.match(";");
+            return;
+        }
+
+        if (this.match("=")) {
+            ast.usings[first] = this.parseExtensionRef();
+        } else {
+            ast.usings[first] = first;
+        }
+
+        this.match(";");
+    }
+
+    parseExtensionRef() {
+        if (this.isCustom()) {
+            this.advance(); this.advance(); this.advance();
+            return { kind: "custom", params: this.parseCustomParams() };
+        }
+        const first = this.expect("ident").value;
+
+        if (this.match(":") && this.match(":")) {
+            return `${first}::${this.expect("ident").value}`;
+        }
+
+        return first;
+    }
+
+    parseCustomParams() {
+        this.expect("(");
+        const params = [];
+        while (this.peek().type !== ")") {
+            if (params.length > 0) this.expect(",");
+            params.push(this.parseValue());
+        }
+        this.expect(")");
+        return params;
+    }
+
+    parseExtensionsBlock() {
+        const extensions = { alerts: {}, badges: {} };
+        this.blockOpen();
+
+        while (!this.blockMatch()) {
+            if (this.match("ident", "alert")) {
+                const name = this.parseExtensionRef();
+                if (typeof name !== "string") {
+                    throw new Error("Extensions: alert precisa de um nome, não custom::()");
+                }
+                extensions.alerts[name] = this.parseExtensionConfig();
+                continue;
+            }
+
+            if (this.match("ident", "badge")) {
+                const name = this.parseExtensionRef();
+                if (typeof name !== "string") {
+                    throw new Error("Extensions: badge precisa de um nome, não custom::()");
+                }
+                extensions.badges[name] = this.parseExtensionConfig();
+                continue;
+            }
+
+            throw new Error("Campo Extensions inválido: use alert ou badge");
+        }
+
+        return extensions;
+    }
+
+    parseExtensionConfig() {
+        this.blockOpen();
+        const config = {};
+
+        while (!this.blockMatch()) {
+            const key = this.expect("ident").value;
+            this.expect(":");
+            config[key] = this.parseValue();
+            this.match(";");
+        }
+
+        return config;
     }
 
     parseObjectBlock() {
@@ -294,6 +409,11 @@ class Parser {
         if (token.type === "string") {
             this.advance();
             return token.value;
+        }
+
+        if (this.isCustom()) {
+            this.advance(); this.advance(); this.advance();
+            return { kind: "custom", params: this.parseCustomParams() };
         }
 
         if (token.type === "ident") {
@@ -427,6 +547,14 @@ class Parser {
             return this.parseStandaloneCard();
         }
 
+        if (token.type === "ident" && token.value === "table") {
+            return this.parseTableBlock();
+        }
+
+        if (token.type === "ident" && token.value === "tabs") {
+            return this.parseTabsBlock();
+        }
+
         throw new Error(`Bloco de conteúdo desconhecido: ${token.type === "ident" ? token.value : token.type}`);
     }
 
@@ -518,8 +646,23 @@ class Parser {
 
     parseAlertBlock() {
         this.expect("ident", "alert");
-        const variant = this.expect("ident").value;
-        const title = this.expect("string").value;
+        let variant, title;
+
+        if (this.isCustom()) {
+            this.advance(); this.advance(); this.advance();
+            variant = { kind: "custom", params: this.parseCustomParams() };
+            title = variant.params[0] || "";
+        } else if (
+            this.extensionsEnabled?.alert &&
+            this.peek().type === "("
+        ) {
+            variant = { kind: "custom", params: this.parseCustomParams() };
+            title = variant.params[0] || "";
+        } else {
+            variant = this.parseExtensionRef();
+            title = this.expect("string").value;
+        }
+
         this.blockOpen();
         const lines = this.parseTextLines();
         this.blockClose();
@@ -567,6 +710,142 @@ class Parser {
         return lines;
     }
 
+    parseTableBlock() {
+        this.expect("ident", "table");
+        let preset = null;
+
+        if (this.peek().type === "ident" && this.peek().value === "config") {
+            preset = "config";
+            this.advance();
+        }
+
+        this.blockOpen();
+        let headers = [];
+        const rows = [];
+
+        while (!this.blockMatch()) {
+            if (this.match("ident", "header")) {
+                while (this.peek().type === "string") {
+                    headers.push(this.advance().value);
+                }
+                this.match(";");
+                continue;
+            }
+
+            if (this.match("ident", "row")) {
+                rows.push(this.parseTableRow(preset));
+                this.match(";");
+                continue;
+            }
+
+            throw new Error("Campo table inválido: use header ou row");
+        }
+
+        if (preset === "config") {
+            headers = ["Parâmetro", "Tipo", "Padrão", "Descrição"];
+        } else if (headers.length === 0) {
+            throw new Error("Tabela genérica requer pelo menos um header");
+        }
+
+        return { type: "table", preset, headers, rows };
+    }
+
+    parseTableRow(preset) {
+        if (preset === "config") {
+            const param = this.expect("string").value;
+            let type;
+
+            if (this.isCustom()) {
+                this.advance(); this.advance(); this.advance();
+                type = { kind: "custom", params: this.parseCustomParams() };
+            } else if (
+                this.extensionsEnabled?.badge &&
+                this.peek().type === "("
+            ) {
+                type = { kind: "custom", params: this.parseCustomParams() };
+            } else {
+                type = this.expect("ident").value;
+            }
+
+            const defaultVal = this.expect("string").value;
+            const description = this.expect("string").value;
+
+            return {
+                cells: [
+                    { kind: "param", value: param },
+                    { kind: "badge", value: type },
+                    { kind: "code", value: defaultVal },
+                    { kind: "text", value: description }
+                ]
+            };
+        }
+
+        const cells = [];
+
+        while (
+            this.peek().type === "string" ||
+            (this.peek().type === "ident" && this.peek().value === "badge") ||
+            this.isCustom() ||
+            (this.extensionsEnabled?.badge && this.peek().type === "(")
+        ) {
+            if (this.peek().type === "string") {
+                cells.push({ kind: "text", value: this.advance().value });
+                continue;
+            }
+
+            if (this.isCustom()) {
+                this.advance(); this.advance(); this.advance();
+                cells.push({ kind: "badge", value: { kind: "custom", params: this.parseCustomParams() }, label: null });
+                continue;
+            }
+
+            if (this.extensionsEnabled?.badge && this.peek().type === "(") {
+                cells.push({ kind: "badge", value: { kind: "custom", params: this.parseCustomParams() }, label: null });
+                continue;
+            }
+
+            this.advance();
+            this.expect(":");
+            const badgeType = this.expect("ident").value;
+            let label = badgeType;
+
+            if (this.peek().type === "string") {
+                label = this.advance().value;
+            } else if (this.peek().type === "ident") {
+                label = this.advance().value;
+            }
+
+            cells.push({ kind: "badge", value: badgeType, label });
+        }
+
+        if (cells.length === 0) {
+            throw new Error("Linha de tabela vazia");
+        }
+
+        return { cells };
+    }
+
+    parseTabsBlock() {
+        this.expect("ident", "tabs");
+        this.blockOpen();
+        const tabs = [];
+
+        while (!this.blockMatch()) {
+            this.expect("ident", "tab");
+            const name = this.expect("string").value;
+            this.blockOpen();
+            const blocks = [];
+            while (!this.blockMatch()) {
+                if (this.match(";")) continue;
+                blocks.push(this.parseBlock());
+                this.match(";");
+            }
+            tabs.push({ name, blocks });
+        }
+
+        return { type: "tabs", tabs };
+    }
+
 }
 
 function slugify(value) {
@@ -579,12 +858,18 @@ function slugify(value) {
         .replace(/^-|-$/g, "");
 }
 
-function parse(source) {
+function parse(source, options = {}) {
     const cleaned = stripComments(source);
     const { processed, blocks } = preprocessCodeBlocks(cleaned);
     const tokens = tokenize(processed);
     const parser = new Parser(tokens, blocks);
-    return parser.parseFile();
+    const ast = parser.parseFile();
+
+    if (!options.library && ast.directive && ast.directive !== "StartFW") {
+        throw new Error(`Diretiva inválida: #>${ast.directive}. Use #> StartFW`);
+    }
+
+    return ast;
 }
 
 module.exports = { parse, slugify, tokenize };

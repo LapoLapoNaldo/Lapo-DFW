@@ -1,23 +1,23 @@
 # LDFW — Lapo's Documentation Framework
 
-Framework para gerar sites de documentação com visual premium a partir de arquivos `.ldfw`.
+Compila arquivos `.ldfw` para sites de documentação estáticos com visual premium. Zero dependências runtime.
 
 ## Instalação
 
 ```bash
 cd ldfw
+npm install
 npm link
 ```
 
 ## Uso
 
 ```bash
-ldfw build examples/lapo-hub/main.ldfw -o dist
+ldfw build main.ldfw -o ./dist
+npx serve ./dist -l 8080
 ```
 
-Abra `dist/index.html` no navegador (ou sirva com qualquer static server).
-
-## Exemplo `.ldfw`
+## Sintaxe
 
 ```ldfw
 #> StartFW
@@ -25,75 +25,115 @@ include #> Standard;
 
 Project: {
     title: "Meu Projeto";
-    subtitle: "Docs";
     version: "v1.0.0";
-    status: "Estável";
-    github: "https://github.com/user/repo";
 }
 
 Docs: {
     layout #> stnd;
 
-    section "Começando" {
-        page Inicial {
+    section "Introdução" {
+        page Home {
             route: "home";
-            icon: "ri-home-4-line";
-            nav: "Início";
-            breadcrumb: "Início";
 
             hero {
                 badge: "Novo";
                 title: "Meu Projeto";
-                desc: "Descrição curta do projeto.";
+                desc: "Descrição curta.";
                 btn primary "Começar" -> getting-started;
             }
 
-            h2 "Features";
-            grid 2 {
-                card "Rápido" icon "ri-flashlight-line" {
-                    "Descrição do recurso.";
-                }
-            }
-
+            h2 "Código";
             code lua {
 print("Hello LDFW")
             }
 
-            alert tip "Dica" {
-                "Texto com **negrito** suportado.";
+            h2 "Tabs";
+            tabs {
+                tab "Lua" {
+                    code lua {
+print("Hello")
+                    }
+                }
+                tab "Python" {
+                    code python {
+print("Hello")
+                    }
+                }
+            }
+
+            h2 "Alerta Custom";
+            alert custom::("Título", "#ff6b6b", "rgba(255,107,107,0.08)", "ri-star-line") {
+                "Alerta com cores inline.";
+            }
+
+            h2 "Tabela com Badge";
+            table config {
+                row "title" custom::("string","#3b82f6","rgba(59,130,246,0.1)") "\"valor\"" "Descrição";
             }
         }
     }
 }
 ```
 
-## Componentes MVP
+## Componentes
 
 | Componente | Sintaxe |
 |---|---|
 | Hero | `hero { badge, title, desc, btn }` |
 | Grid + Cards | `grid 2 { card "Título" icon "ri-..." { "texto" } }` |
+| Card avulso | `card "Título" icon "ri-..." { "texto" }` |
 | Code block | `code lua { ... }` |
-| Alert | `alert tip\|warning\|danger\|info "Título" { "texto" }` |
-| Títulos | `h1`, `h2`, `h3` |
-| Parágrafo | `p "texto"` |
-| Listas | `ul { "item"; }` / `ol { "item"; }` |
+| Alert (preset) | `alert tip\|info\|warning\|danger\|important "Título" { "texto" }` |
+| Alert (custom) | `alert custom::("Título","#cor","bg","ri-icon","emoji") { "texto" }` |
+| Alert (shorthand) | `alert ("Título","#cor","bg","ri-icon") { "texto" }` (com `using Extensions.alert`) |
+| Table config | `table config { row "param" tipo "default" "desc"; }` |
+| Table genérica | `table { header "A" "B"; row "a" "b"; }` |
+| Badge custom | `custom::("texto","#cor","bg")` |
+| Badge shorthand | `("texto","#cor","bg")` (com `using Extensions.badge`) |
+| Tabs | `tabs { tab "Nome" { ... } }` |
 | FAQ | `faq { q "pergunta" { "resposta" } }` |
+| Listas | `ul { "item" }` / `ol { "item" }` |
+| Headings | `h1`, `h2`, `h3` |
+| Parágrafo | `p "texto"` |
+
+## Extensions
+
+```ldfw
+include #> Extensions;
+using Extensions.alert;
+using Extensions.badge;
+
+alert ("Título", "#10b981", "rgba(16,185,129,0.08)", "ri-check-line") {
+    "Shorthand sem custom::()."
+}
+
+table config {
+    row "name" ("string", "#3b82f6", "rgba(59,130,246,0.1)")  "\"nome\""  "Descrição.";
+}
+```
+
+## VSCode Extension
+
+Em `vscode/` — fornece syntax highlighting, autocomplete e diagnóstico de erros.
+
+```bash
+# Cursor
+ln -sf $(pwd)/vscode ~/.cursor/extensions/ldfw-language-support
+
+# VSCode
+ln -sf $(pwd)/vscode ~/.vscode/extensions/ldfw-language-support
+```
 
 ## Estrutura
 
 ```
 ldfw/
-├── bin/ldfw.js          # CLI
-├── compiler/            # Parser + codegen
-├── templates/           # runtime.js + style.css base
-├── std/Standard.ldfw    # Layout padrão
-└── examples/            # Projetos de exemplo
+├── bin/ldfw.js          # CLI entry
+├── compiler/            # parser.js, codegen.js, components.js, extensions.js
+├── templates/           # runtime.js + style.css
+├── std/                 # Standard.ldfw, Extensions.ldfw
+├── vscode/              # Extensão VSCode/Cursor
+├── examples/            # Projetos de exemplo
+├── Makefile             # build/serve/test shortcuts
+└── package.json
 ```
-
-## Próximos passos (extensions)
-
-- Simulador interativo
-- Tabelas API
-- Temas customizados
-- Hot reload (`ldfw dev`)

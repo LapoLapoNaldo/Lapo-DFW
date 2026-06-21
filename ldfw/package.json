@@ -1,6 +1,6 @@
 {
   "name": "ldfw",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Lapo's Documentation Framework — compila .ldfw para sites de documentação",
   "bin": {
     "ldfw": "./bin/ldfw.js"
@@ -13,8 +13,17 @@
   "keywords": [
     "documentation",
     "static-site",
-    "ldfw"
+    "ldfw",
+    "docs"
   ],
   "author": "Lapo",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LapoLapoNaldo/Lapos-DWS-Framework.git"
+  },
+  "homepage": "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework",
+  "bugs": {
+    "url": "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework/issues"
+  }
 }

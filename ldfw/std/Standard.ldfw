@@ -3,5 +3,6 @@
 // Layout padrão LDFW
 layout #> stnd;
 
-// Componentes disponíveis no MVP:
-// hero, grid, card, code, alert, h1-h3, p, ul, ol, faq
+// Componentes disponíveis:
+// hero, grid, card, code, alert (tip/info/warning/danger/important),
+// table, table config, h1-h3, p, ul, ol, faq

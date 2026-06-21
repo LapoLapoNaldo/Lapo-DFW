@@ -52,7 +52,6 @@ function activate(context) {
     );
     const saveSub = vscode.workspace.onDidSaveTextDocument(validateDocument);
 
-    // Validate already-open .ldfw files
     vscode.workspace.textDocuments.forEach(validateDocument);
 
     context.subscriptions.push(
@@ -90,6 +89,8 @@ function activate(context) {
 
                 // --- Language keywords ---
                 completions.push(kw("include", "Include standard library"));
+                completions.push(kw("using", "using Extensions.alert / Extensions.badge"));
+                completions.push(kw("Extensions", "Custom alert/badge presets block"));
                 completions.push(kw("Project", "Project metadata block"));
                 completions.push(kw("Docs", "Documentation block"));
                 completions.push(kw("section", "Add a section"));
@@ -103,8 +104,11 @@ function activate(context) {
                 completions.push(kw("alert", "Alert box"));
                 completions.push(kw("code", "Code block"));
                 completions.push(kw("faq", "FAQ accordion"));
+                completions.push(kw("table", "Table"));
                 completions.push(kw("ul", "Unordered list"));
                 completions.push(kw("ol", "Ordered list"));
+                completions.push(kw("tabs", "Tabbed component"));
+                completions.push(kw("tab", "Tab inside tabs"));
 
                 // --- Headings & text ---
                 completions.push(kw("h1", "Heading 1"));
@@ -113,7 +117,7 @@ function activate(context) {
                 completions.push(kw("p", "Paragraph"));
 
                 // --- Hero properties ---
-                completions.push(kw("badge", "Hero badge"));
+                completions.push(kw("badge", "Hero badge (text or custom::())"));
                 completions.push(kw("title", "Title"));
                 completions.push(kw("desc", "Description"));
                 completions.push(kw("btn", "Hero button"));
@@ -137,12 +141,55 @@ function activate(context) {
                 completions.push(kw("description", "Meta description"));
                 completions.push(kw("lang", "Language"));
 
-                // --- Snippets (expanded templates) ---
+                // --- Extensions shorthands ---
+                completions.push(kw("custom", "Inline custom params: custom::()"));
+
+                // --- Snippets ---
                 completions.push(
                     snippet(
-                        "include",
+                        "include Standard",
                         "Include Standard library",
-                        'include #> Standard;'
+                        "include #> Standard;"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "include Extensions",
+                        "Include Extensions library",
+                        "include #> Extensions;"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "using Extensions.alert",
+                        "Enable alert inline shorthand (no custom:: needed)",
+                        "using Extensions.alert;"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "using Extensions.badge",
+                        "Enable badge inline shorthand (no custom:: needed)",
+                        "using Extensions.badge;"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "StartFW",
+                        "LDFW file header",
+                        "#> StartFW"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "Extensions: {}",
+                        "Custom alert/badge presets block",
+                        "Extensions: {\n\talert ${1:nome} {\n\t\ticon: \"${2:ri-star-line}\";\n\t\tcolor: \"${3:#6366f1}\";\n\t\tbackground: \"${4:rgba(99, 102, 241, 0.08)}\";\n\t\tborder: \"${5:#6366f1}\";\n\t}\n\tbadge ${6:nome} {\n\t\tcolor: \"${7:#e8a838}\";\n\t\tbackground: \"${8:rgba(232, 168, 56, 0.1)}\";\n\t}\n}"
                     )
                 );
 
@@ -182,7 +229,39 @@ function activate(context) {
                     snippet(
                         "hero {}",
                         "Hero section",
-                        "hero {\n\tbadge: \"${1:Novo}\";\n\ttitle: \"${2:Título}\";\n\tdesc: \"${3:Descrição}\";\n\tbtn ${4|primary,outline|} \"${5:Começar}\" -> ${6:pagina};\n}"
+                        "hero {\n\tbadge: custom::(\"${1:Badge}\", \"${2:#6366f1}\", \"${3:rgba(99,102,241,0.1)}\");\n\ttitle: \"${4:Título}\";\n\tdesc: \"${5:Descrição}\";\n\tbtn ${6|primary,outline|} \"${7:Começar}\" -> ${8:pagina};\n}"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "hero badge: custom::()",
+                        "Hero badge with custom inline colors",
+                        'badge: custom::("${1:Texto}", "${2:#7850ff}", "${3:rgba(120,80,255,0.15)}");'
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "alert custom::()",
+                        "Alert with inline custom colors (no preset needed)",
+                        'alert custom::("${1:Título}", "${2:#ff6b6b}", "${3:rgba(255,107,107,0.08)}", "${4:ri-star-line}", "${5:📝}") {\n\t"${6:Texto}";\n}'
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "alert shorthand ()",
+                        "Alert shorthand (requires using Extensions.alert)",
+                        'alert ("${1:Título}", "${2:#10b981}", "${3:rgba(16,185,129,0.08)}", "${4:ri-check-line}") {\n\t"${5:Texto}";\n}'
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "alert {}",
+                        "Alert box (preset)",
+                        'alert ${1|tip,warning,danger,info,important|} "${2:Título}" {\n\t"${3:Texto}";\n}'
                     )
                 );
 
@@ -190,7 +269,7 @@ function activate(context) {
                     snippet(
                         "grid {}",
                         "Card grid",
-                        "grid ${1:2} {\n\tcard \"${2:Título}\" icon \"${3:ri-icon-line}\" {\n\t\t\"${4:Texto}\";\n\t}\n}"
+                        "grid ${1:2} {\n\tcard \"${2:Título}\" icon \"${3:ri-icon-line}\" {\n\t\t\"${4:Texto}\";\n\t}\n\tcard \"${5:Título}\" icon \"${6:ri-icon-line}\" {\n\t\t\"${7:Texto}\";\n\t}\n}"
                     )
                 );
 
@@ -199,14 +278,6 @@ function activate(context) {
                         "card {}",
                         "Card inside grid",
                         'card "${1:Título}" icon "${2:ri-layout-grid-line}" {\n\t"${3:Texto}";\n}'
-                    )
-                );
-
-                completions.push(
-                    snippet(
-                        "alert {}",
-                        "Alert box",
-                        'alert ${1|tip,warning,danger,info|} "${2:Título}" {\n\t"${3:Texto}";\n}'
                     )
                 );
 
@@ -222,7 +293,7 @@ function activate(context) {
                     snippet(
                         "faq {}",
                         "FAQ block",
-                        "faq {\n\tq \"${1:Pergunta}\" {\n\t\t\"${2:Resposta}\";\n\t}\n}"
+                        "faq {\n\tq \"${1:Pergunta}\" {\n\t\t\"${2:Resposta}\";\n\t}\n\tq \"${3:Pergunta}\" {\n\t\t\"${4:Resposta}\";\n\t}\n}"
                     )
                 );
 
@@ -230,7 +301,7 @@ function activate(context) {
                     snippet(
                         "ul {}",
                         "Unordered list",
-                        "ul {\n\t\"${1:item}\";\n}"
+                        "ul {\n\t\"${1:item}\";\n\t\"${2:item}\";\n}"
                     )
                 );
 
@@ -238,7 +309,55 @@ function activate(context) {
                     snippet(
                         "ol {}",
                         "Ordered list",
-                        "ol {\n\t\"${1:item}\";\n}"
+                        "ol {\n\t\"${1:item}\";\n\t\"${2:item}\";\n}"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "table config {}",
+                        "Config table with custom badges",
+                        "table config {\n\trow \"${1:param}\" custom::(\"${2:string}\", \"${3:#3b82f6}\", \"${4:rgba(59,130,246,0.1)}\")  \"${5:default}\"  \"${6:Descrição}\";\n}"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "table config shorthand",
+                        "Config table with badge shorthand (requires using Extensions.badge)",
+                        "table config {\n\trow \"${1:param}\" (\"${2:string}\", \"${3:#3b82f6}\", \"${4:rgba(59,130,246,0.1)}\")  \"${5:default}\"  \"${6:Descrição}\";\n}"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "table {}",
+                        "Generic table",
+                        "table {\n\theader \"${1:Col1}\" \"${2:Col2}\" \"${3:Col3}\";\n\trow \"${4:valor}\" custom::(\"${5:tipo}\", \"${6:#a855f7}\", \"${7:rgba(168,85,247,0.1)}\") \"${8:desc}\";\n}"
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "custom::()",
+                        "Inline custom params: (label, color, bg, icon, emoji)",
+                        'custom::("${1:texto}", "${2:#7850ff}", "${3:rgba(120,80,255,0.1)}"${4})'
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "tabs {}",
+                        "Tabbed component",
+                        'tabs {\n\ttab "${1:Lua}" {\n\t\t"${2:Conteúdo}";\n\t}\n\ttab "${3:Python}" {\n\t\t"${4:Conteúdo}";\n\t}\n}'
+                    )
+                );
+
+                completions.push(
+                    snippet(
+                        "tab {}",
+                        "Tab inside tabs block",
+                        'tab "${1:Nome}" {\n\t"${2:Conteúdo}";\n}'
                     )
                 );
 

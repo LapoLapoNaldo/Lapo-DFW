@@ -62,6 +62,7 @@ function renderPage(pageKey, page) {
         }
 
         setupCodeCopyButtons();
+        setupTabs();
 
         if (page.faq) {
             setupFaqAccordion();
@@ -256,6 +257,23 @@ function setupKeyboardShortcuts() {
             searchInput.blur();
             document.getElementById("searchResults").classList.remove("active");
         }
+    });
+}
+
+function setupTabs() {
+    document.querySelectorAll(".tabs-container").forEach(container => {
+        const buttons = container.querySelectorAll(".tab-btn");
+        const contents = container.querySelectorAll(".tab-content");
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const tabIndex = btn.getAttribute("data-tab");
+                buttons.forEach(b => b.classList.remove("active"));
+                contents.forEach(c => c.classList.remove("active"));
+                btn.classList.add("active");
+                container.querySelector(`.tab-content[data-tab="${tabIndex}"]`).classList.add("active");
+            });
+        });
     });
 }
 

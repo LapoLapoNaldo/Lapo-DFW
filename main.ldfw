@@ -1,5 +1,9 @@
 #> StartFW
 include #> Standard;
+include #> Extensions;
+
+using Extensions.badge;
+using Extensions.alert;
 
 Project: {
     title: "Meu Projeto";
@@ -23,14 +27,140 @@ Docs: {
             title: "Bem-vindo";
 
             hero {
-                badge: "LDFW";
+                badge: custom::("LDFW", "#7850ff", "rgba(120, 80, 255, 0.15)");
                 title: "Meu Projeto";
                 desc: "Documentação gerada com Lapo's Documentation Framework.";
                 btn primary "Começar" -> getting-started;
+                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+            }
+
+            h2 "Alertas com Extensions";
+
+            alert custom::("Custom Alert", "#ff6b6b", "rgba(255, 107, 107, 0.08)", "ri-star-line") {
+                "Alerta inline com cor, background e ícone personalizados.";
+            }
+
+            alert custom::("Com Emoji", "#a855f7", "rgba(168, 85, 247, 0.08)", "", "📝") {
+                "Alerta inline usando emoji no lugar do ícone.";
+            }
+
+            h2 "Alertas com using Extensions.alert";
+
+            alert ("Usando Shorthand", "#10b981", "rgba(16, 185, 129, 0.08)", "ri-check-line") {
+                "Com `using Extensions.alert`, não precisa do `custom::`.";
+            }
+
+            h2 "Exemplo de Tabela com Badge Custom";
+
+            table config {
+                row "title"    custom::("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"Meu Projeto\""  "Título exibido no site.";
+                row "version"  custom::("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"v1.0.0\""       "Versão atual do projeto.";
+                row "enabled"  custom::("boolean", "#10b981", "rgba(16, 185, 129, 0.1)") "true"             "Se o recurso está ativo.";
+            }
+
+            h2 "Tabela Genérica com Badge Custom";
+
+            table {
+                header "Função" "Retorno" "Descrição";
+                row "`minhaFuncao()`" custom::("table", "#a855f7", "rgba(168, 85, 247, 0.1)") "Faz algo incrível.";
+                row "`outraFuncao()`" custom::("void", "#64748b", "rgba(100, 116, 139, 0.1)") "Não retorna nada.";
+            }
+
+            h2 "Usando Shorthand (using Extensions.badge)";
+
+            table config {
+                row "name"     ("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"nome\""  "Nome do item.";
+                row "count"    ("number", "#f59e0b", "rgba(245, 158, 11, 0.1)") "0"         "Quantidade.";
+            }
+
+            h2 "Código";
+            code lua {
+                print("Rock da o Toba")
+            }
+
+            h2 "Perguntas Frequentes";
+
+            faq {
+                q "O que é LDFW?" {
+                    "Lapo's Documentation Framework — um compilador de .ldfw para sites de documentação premium.";
+                }
+                q "Precisa de Node.js?" {
+                    "Sim. O compilador é escrito em Node.js e requer a runtime instalada.";
+                }
+            }
+
+            h2 "Componente Tabs";
+
+            tabs {
+                tab "Lua" {
+                    p "Código exemplo em Lua:";
+                    code lua {
+-- Exemplo em Lua
+local function greet(name)
+    return "Hello, " .. name .. "!"
+end
+print(greet("LDFW"))
+                    }
+                }
+                tab "Python" {
+                    p "Código exemplo em Python:";
+                    code python {
+# Exemplo em Python
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("LDFW"))
+                    }
+                }
+                tab "JavaScript" {
+                    p "Código exemplo em JavaScript:";
+                    code javascript {
+// Exemplo em JavaScript
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+console.log(greet("LDFW"));
+                    }
+                }
             }
 
             h2 "Sobre";
             p "Esta documentação foi gerada com **LDFW**, o framework de documentação do Lapo.";
+        }
+
+        page Sobre {
+            route: "about";
+            icon: "ri-information-line";
+            nav: "Sobre";
+            breadcrumb: "Sobre";
+            title: "Sobre o Projeto";
+
+            hero {
+                badge: "Sobre";
+                title: "Sobre o Projeto";
+                desc: "Conheça mais sobre este projeto e sua estrutura.";
+                btn primary "Ver Documentação" -> getting-started;
+            }
+
+            p "Este projeto foi criado para demonstrar as capacidades do **LDFW** na geração de documentações premium de forma simples e rápida.";
+            p "Com uma sintaxe limpa e indentação obrigatória, o LDFW transforma arquivos .ldfw em sites completos com navegação lateral, busca, tema escuro/claro e diversos componentes prontos.";
+        }
+
+        page Contato {
+            route: "contact";
+            icon: "ri-phone-line";
+            nav: "Contato";
+            breadcrumb: "Contato";
+            title: "Contato";
+
+            hero {
+                badge: "Contato";
+                title: "Entre em Contato";
+                desc: "Canais para entrar em contato conosco.";
+                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+            }
+
+            p "Para suporte, dúvidas ou contribuições, acesse nosso repositório no GitHub.";
         }
     }
 
@@ -42,8 +172,26 @@ Docs: {
             breadcrumb: "Getting Started";
             title: "Getting Started";
 
-            h2 "Primeiros Passos";
-            p "Esta é a página inicial do guia.";
+            hero {
+                badge: custom::("Guia", "#f59e0b", "rgba(245, 158, 11, 0.15)");
+                title: "Primeiros Passos";
+                desc: "Aprenda a usar o LDFW para criar sua própria documentação.";
+                btn primary "Ver Exemplos" -> home;
+            }
+
+            h2 "Pré-requisitos";
+            ul {
+                "**Node.js >= 18** instalado.";
+                "Arquivo .ldfw criado com a sintaxe correta.";
+            }
+
+            h2 "Compilando";
+            code bash {
+                ldfw build main.ldfw -o ./dist
+            }
+
+            p "O comando acima compila o arquivo .ldfw e gera os arquivos HTML, CSS e JS no diretório `dist/`.";
+            p "Abra `dist/index.html` no navegador e pronto — sua documentação está no ar.";
         }
     }
 }

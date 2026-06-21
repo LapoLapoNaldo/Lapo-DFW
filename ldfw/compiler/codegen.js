@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const { renderPageContent } = require("./components");
+const { createRenderContext, generateExtensionCss } = require("./extensions");
 
 function escapeJsString(value) {
     return JSON.stringify(value);
@@ -10,11 +11,12 @@ function escapeJsString(value) {
 
 function buildPagesObject(ast) {
     const pages = {};
+    const context = createRenderContext(ast);
 
     for (const section of ast.docs.sections) {
         for (const page of section.pages) {
             const route = page.meta.route;
-            const content = renderPageContent(page.blocks);
+            const content = renderPageContent(page.blocks, context);
 
             pages[route] = {
                 category: page.meta.category || section.name,
@@ -185,11 +187,14 @@ function generateSite(ast, outputDir, templatesDir) {
     const indexHtml = renderIndexHtml(ast);
     const appJs = renderAppJsClean(ast, pages);
     const stylePath = path.join(templatesDir, "style.css");
+    const baseStyle = fs.readFileSync(stylePath, "utf8");
+    const extensionCss = generateExtensionCss(ast.extensions);
+    const finalStyle = `${baseStyle}${extensionCss}`;
 
     fs.mkdirSync(outputDir, { recursive: true });
     fs.writeFileSync(path.join(outputDir, "index.html"), indexHtml, "utf8");
     fs.writeFileSync(path.join(outputDir, "app.js"), appJs, "utf8");
-    fs.copyFileSync(stylePath, path.join(outputDir, "style.css"));
+    fs.writeFileSync(path.join(outputDir, "style.css"), finalStyle, "utf8");
 
     return {
         pages: Object.keys(pages).length,

@@ -33,8 +33,5 @@
             }
         ]
     },
-    "activationEvents": [
-        "onLanguage:ldfw"
-    ],
     "main": "./extension.js"
 }

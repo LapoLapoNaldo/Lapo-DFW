@@ -1,0 +1,51 @@
+#> Extensions
+
+// Presets opcionais inspirados no site Lapo Hub X (docs/).
+// Use: include #> Extensions;  +  using -r = recycle;
+
+Extensions: {
+    alert recycle {
+        icon: "ri-recycle-line";
+        color: "#6366f1";
+        background: "rgba(99, 102, 241, 0.08)";
+        border: "#6366f1";
+    }
+
+    alert shield {
+        icon: "ri-shield-check-line";
+        color: "#6366f1";
+        background: "rgba(99, 102, 241, 0.08)";
+        border: "#6366f1";
+    }
+
+    alert pulse {
+        icon: "ri-pulse-line";
+        color: "#f59e0b";
+        background: "rgba(245, 158, 11, 0.08)";
+        border: "#f59e0b";
+    }
+
+    alert retro {
+        icon: "ri-checkbox-circle-line";
+        color: "#10b981";
+        background: "rgba(16, 185, 129, 0.08)";
+        border: "#10b981";
+    }
+
+    alert devnote {
+        emoji: "📝";
+        color: "#a855f7";
+        background: "rgba(168, 85, 247, 0.08)";
+        border: "#a855f7";
+    }
+
+    badge lua {
+        color: "#e8a838";
+        background: "rgba(232, 168, 56, 0.1)";
+    }
+
+    badge self {
+        color: "#64748b";
+        background: "rgba(100, 116, 139, 0.1)";
+    }
+}

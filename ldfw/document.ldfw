@@ -1,5 +1,6 @@
 #> StartFW
 include #> Standard;
+include #> Extensions;
 
 Project: {
     title: "LDFW";
@@ -504,6 +505,105 @@ grid 3 {
             }
         }
 
+        page Tabs {
+            route: "componente-tabs";
+            icon: "ri-tab-line";
+            nav: "Tabs";
+            breadcrumb: "Tabs";
+            title: "Componente Tabs";
+
+            h1 "Tabs";
+            p "O componente Tabs organiza conteúdo em abas. Cada `tab { }` dentro de `tabs { }` é um painel independente com qualquer componente dentro: texto, código, grid, alertas, etc.";
+
+            h2 "Sintaxe";
+            code ldfw {
+tabs {
+    tab "Lua" {
+        code lua {
+print("Hello World")
+        }
+    }
+    tab "Python" {
+        code python {
+print("Hello World")
+        }
+    }
+    tab "JavaScript" {
+        code javascript {
+console.log("Hello World")
+        }
+    }
+}
+            }
+
+            h2 "Exemplo ao Vivo";
+            p "Abaixo, um exemplo funcional com código em diferentes linguagens:";
+            tabs {
+                tab "Lua" {
+                    code lua {
+-- Exemplo em Lua
+local function greet(name)
+    return "Hello, " .. name .. "!"
+end
+print(greet("LDFW"))
+                    }
+                }
+                tab "Python" {
+                    code python {
+# Exemplo em Python
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("LDFW"))
+                    }
+                }
+                tab "JavaScript" {
+                    code javascript {
+// Exemplo em JavaScript
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+console.log(greet("LDFW"));
+                    }
+                }
+            }
+
+            h2 "Aninhamento";
+            p "Tabs podem conter qualquer componente, incluindo alertas, listas, grids e até outras tabs (nested tabs):";
+            code ldfw {
+tabs {
+    tab "Instalação" {
+        alert tip "Dica" {
+            "Use o comando `make build` para compilar."
+        }
+    }
+    tab "Configuração" {
+        ul {
+            "Defina o layout em Docs.";
+            "Adicione seções e páginas.";
+        }
+    }
+}
+            }
+
+            h2 "Uso com Extensions";
+            p "Tabs funcionam com Extensions normalmente. Basta incluir `using Extensions.alert` ou `using Extensions.badge` no início do arquivo:";
+            code ldfw {
+tabs {
+    tab "Alertas" {
+        alert ("Título", "#10b981", "rgba(16,185,129,0.08)", "ri-check-line") {
+            "Este alerta usa a sintaxe abreviada do Extensions.";
+        }
+    }
+    tab "Tabela" {
+        table config {
+            row "parametro" ("string", "#3b82f6", "rgba(59,130,246,0.1)")  "valor"  "Descrição";
+        }
+    }
+}
+            }
+        }
+
         page CodeBlock {
             route: "componente-code";
             icon: "ri-code-box-line";
@@ -571,6 +671,9 @@ greet("LDFW");
                 card "danger" icon "ri-error-warning-line" {
                     "Tom vermelho. Para erros e perigos.";
                 }
+                card "important" icon "ri-information-line" {
+                    "Tom roxo com ícone de info. Para notas técnicas importantes de API.";
+                }
             }
 
             h2 "Sintaxe";
@@ -598,6 +701,10 @@ alert danger "Cuidado" {
     "Use `alert danger` para erros ou ações irreversíveis.";
 }
 
+alert important "Importante sobre `:Set`" {
+    "Trocar opções com `handle:Set({ ... })` **não** dispara o callback. Atualize a variável manualmente para `options[1]`.";
+}
+
 alert tip "Múltiplas Linhas" {
     "Alertas também suportam textos longos.";
     "Basta usar múltiplas strings dentro das chaves.";
@@ -620,6 +727,62 @@ alert tip "Múltiplas Linhas" {
 
             alert danger "Danger" {
                 "Isso é um alerta do tipo **danger**. Use para perigos.";
+            }
+
+            alert important "Important" {
+                "Isso é um alerta do tipo **important**. Use para notas técnicas de API com suporte a `código` inline.";
+            }
+        }
+
+        page Tabelas {
+            route: "componente-tabelas";
+            icon: "ri-table-2";
+            nav: "Tabelas";
+            breadcrumb: "Tabelas";
+            title: "Tabelas de API";
+
+            h1 "Tabelas";
+            p "Use tabelas para documentar parâmetros de configuração, métodos e cheat sheets de API.";
+
+            h2 "Tabela de Configuração";
+            p "O preset `table config` gera automaticamente as colunas **Parâmetro | Tipo | Padrão | Descrição**.";
+
+            code ldfw {
+table config {
+    row "title"    string  "\"Lapo Hub X\""  "O título do balão de notificação.";
+    row "content"  string  "\"\""            "O conteúdo descritivo da mensagem.";
+    row "duration" number  "4"               "Tempo de exibição em segundos.";
+}
+            }
+
+            h2 "Argumentos da Configuração";
+            table config {
+                row "title"    string  "\"Lapo Hub X\""  "O título do balão de notificação.";
+                row "content"  string  "\"\""            "O conteúdo descritivo da mensagem.";
+                row "duration" number  "4"               "Tempo de exibição em segundos.";
+            }
+
+            h2 "Tabela Genérica";
+            p "Defina os headers manualmente. Use `badge:tipo` seguido do rótulo para badges de tipo.";
+
+            code ldfw {
+table {
+    header "Função" "Retorno" "O que faz";
+    row "`LapoHub:Notify(config)`" badge:table self "Balão flutuante. `config = { title, content, duration }`.";
+}
+            }
+
+            h2 "Exemplo Genérico";
+            table {
+                header "Função" "Retorno" "O que faz";
+                row "`LapoHub:Notify(config)`" badge:table self "Balão flutuante. `config = { title, content, duration }`.";
+            }
+
+            h2 "Tipos de Badge";
+            p "Tipos reconhecidos: `string`, `number`, `boolean`, `function`, `table`, `void`.";
+
+            alert important "Inline Markdown" {
+                "Tabelas e alertas suportam **negrito** e `código inline` nas células de texto e descrições.";
             }
         }
 
@@ -718,6 +881,169 @@ faq {
                 q "O .ldfw é uma linguagem completa?" {
                     "É uma DSL focada em documentação. Não é Turing-completa — não tem variáveis, loops ou condicionais. É propositalmente simples.";
                 }
+            }
+        }
+    }
+
+    section "Extensions" {
+        page Extensions {
+            route: "extensions";
+            icon: "ri-palette-line";
+            nav: "Extensions";
+            breadcrumb: "Extensions";
+            title: "Extensions";
+
+            h1 "Extensions";
+            p "A biblioteca **Extensions** permite customizar cores, ícones e emojis de alertas e badges inline com `custom::()`. É 100% opcional.";
+
+            h2 "Ativando";
+            code ldfw {
+#> StartFW
+include #> Standard;
+include #> Extensions;
+            }
+
+            h2 "custom::() — Parâmetros Inline";
+
+            p "O `custom::()` é a função principal do Extensions. Ela recebe parâmetros posicionais pra configurar cor, fundo, ícone e emoji:";
+
+            table {
+                header "Contexto" "Parâmetros" "Exemplo";
+                row "`alert`" custom::("(título, cor, bg, icon, emoji)", "#a855f7", "") 'alert custom::("Título", "#ff6b6b", "rgba(...)", "ri-star-line") { }';
+                row "`badge` (tabela)" custom::("(label, cor, bg)", "#3b82f6", "") 'custom::("string", "#3b82f6", "rgba(...)")';
+                row "`badge` (hero)" custom::("(texto, cor, bg)", "#f59e0b", "") 'badge: custom::("Guia", "#f59e0b", "rgba(...)");';
+            }
+
+            h2 "Alert com custom::()";
+
+            p "Use `custom::()` no lugar do preset pra definir cores inline:";
+
+            code ldfw {
+alert custom::("Custom Alert", "#ff6b6b", "rgba(255, 107, 107, 0.08)", "ri-star-line") {
+    "Alerta inline com cor, background e ícone personalizados.";
+}
+
+alert custom::("Com Emoji", "#a855f7", "rgba(168, 85, 247, 0.08)", "", "📝") {
+    "Alerta inline usando emoji no lugar do ícone.";
+}
+            }
+
+            p "Parâmetros do `alert custom::()`:";
+            ul {
+                "**1º — título:** texto do título do alerta.";
+                "**2º — cor:** cor do título e da borda (hex).";
+                "**3º — background:** cor de fundo (rgb/rgba/hex).";
+                "**4º — ícone:** classe RemixIcon (opcional).";
+                "**5º — emoji:** emoji no lugar do ícone (opcional).";
+            }
+
+            h2 "using Extensions.alert / using Extensions.badge";
+
+            p "A diretiva `using` importa o shorthand pra não precisar escrever `custom::` toda vez:";
+
+            code ldfw {
+using Extensions.alert;
+using Extensions.badge;
+
+alert ("Shorthand", "#10b981", "rgba(16, 185, 129, 0.08)", "ri-check-line") {
+    "Com `using Extensions.alert`, o `custom::` fica implícito.";
+}
+            }
+
+            p "Com `using`, você usa `(...)` no lugar de `custom::(...)`.";
+
+            h2 "Badge custom::() em Tabelas";
+
+            p "O campo de tipo em tabelas aceita `custom::()` pra customizar a cor do badge:";
+
+            code ldfw {
+table config {
+    row "title"    custom::("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"Meu Projeto\""  "Título exibido no site.";
+    row "enabled"  custom::("boolean", "#10b981", "rgba(16, 185, 129, 0.1)") "true"             "Se está ativo.";
+}
+
+// Com using Extensions.badge:
+table config {
+    row "count"  ("number", "#f59e0b", "rgba(245, 158, 11, 0.1)") "0"  "Quantidade.";
+}
+            }
+
+            h2 "Hero Badge com custom::()";
+
+            p "O `badge` do hero aceita `custom::()` pra personalizar as cores:";
+
+            code ldfw {
+hero {
+    badge: custom::("LDFW", "#7850ff", "rgba(120, 80, 255, 0.15)");
+    title: "Meu Projeto";
+    desc: "Descrição aqui.";
+    btn primary "Começar" -> home;
+}
+            }
+
+            h2 "Presets (Extensions: { })";
+
+            p "O bloco `Extensions:` cria presets reutilizáveis:";
+
+            code ldfw {
+Extensions: {
+    alert recycle {
+        icon: "ri-recycle-line";
+        color: "#6366f1";
+        background: "rgba(99, 102, 241, 0.08)";
+        border: "#6366f1";
+    }
+
+    badge lua {
+        color: "#e8a838";
+        background: "rgba(232, 168, 56, 0.1)";
+    }
+}
+            }
+
+            p "Presets são usados pelo nome:";
+
+            code ldfw {
+alert recycle "Título" {
+    "Texto do alerta usando preset.";
+}
+            }
+
+            h2 "Presets Inclusos";
+            p "Ao incluir `#> Extensions`, estes presets já vêm prontos:";
+
+            table config {
+                row "recycle"  string  "`ri-recycle-line`"  "Anti-duplicação / recarregar scripts.";
+                row "shield"   string  "`ri-shield-check-line`" "Segurança e foco liberado.";
+                row "pulse"    string  "`ri-pulse-line`"  "Avisos de performance / loops.";
+                row "retro"    string  "`ri-checkbox-circle-line`" "Compatibilidade / changelog.";
+                row "devnote"  string  "📝 emoji"         "Notas com emoji 📝.";
+            }
+
+            h2 "Renderização";
+            alert recycle "Recycle" {
+                "Preset `recycle` — ícone `ri-recycle-line`, tom roxo.";
+            }
+
+            alert shield "Shield" {
+                "Preset `shield` — ícone `ri-shield-check-line`.";
+            }
+
+            alert devnote "Devnote" {
+                "Preset `devnote` — emoji 📝 e tom violeta.";
+            }
+
+            h2 "Badges Customizados (Presets + Inline)";
+
+            table config {
+                row "callback" function  "function()end"  "Badge built-in (amarelo).";
+                row "lang"     lua      "lua"            "Badge via preset `lua` do Extensions.";
+            }
+
+            p "Inline custom::() — independe de preset:";
+
+            table config {
+                row "timeout" custom::("number", "#f59e0b", "rgba(245, 158, 11, 0.1)") "4" "Badge inline, cor laranja.";
             }
         }
     }
@@ -999,9 +1325,27 @@ card "Título" icon "ri-icon" { "texto"; }
 code linguagem { conteudo }
             }
 
-            p "`alert` — Alerta colorido (tip, warning, danger, info).";
+            p "`alert` — Alerta colorido (tip, info, warning, danger, important).";
             code ldfw {
 alert variante "Título" { "texto"; }
+            }
+
+            p "`table config` — Tabela de parâmetros de configuração (Parâmetro, Tipo, Padrão, Descrição).";
+            code ldfw {
+table config { row "param" string "default" "descrição"; }
+            }
+
+            p "`table` — Tabela genérica com headers customizados.";
+            code ldfw {
+table { header "Col1" "Col2"; row "valor" badge:table self "texto"; }
+            }
+
+            p "`Extensions` + `using` — Alertas/badges customizados (opcional).";
+            code ldfw {
+include #> Extensions;
+using -c = recycle;
+Extensions: { alert custom { icon: "ri-star-line"; color: "#6366f1"; background: "rgba(99,102,241,0.08)"; border: "#6366f1"; } }
+alert -c "Título" { "texto"; }
             }
 
             p "`ul` / `ol` — Lista não ordenada / ordenada.";

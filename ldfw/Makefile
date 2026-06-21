@@ -16,13 +16,13 @@ build-example:
 	@echo "✔ Exemplo compilado para $(OUTPUT)/"
 
 build-docs:
-	@node bin/ldfw.js build $(EXAMPLE) -o ../docs
-	@echo "✔ Docs compilado para ../docs/"
+	@node bin/ldfw.js build document.ldfw -o dist-docs
+	@echo "✔ Documentação compilada para dist-docs/"
 
 # --- Servidor local ---------------------------------------
 serve: build-docs
 	@echo "→ Servindo em http://localhost:8080"
-	@npx -y serve ../docs -l 8080 --no-clipboard
+	@npx -y serve dist-docs -l 8080 --no-clipboard
 
 dev:
 	@node bin/ldfw.js dev $(INPUT) -o $(OUTPUT) -p 8080
@@ -31,7 +31,7 @@ dev-example:
 	@node bin/ldfw.js dev $(EXAMPLE) -o $(OUTPUT) -p 8080
 
 dev-docs:
-	@node bin/ldfw.js dev $(EXAMPLE) -o ../docs -p 8080
+	@node bin/ldfw.js dev document.ldfw -o dist-docs -p 8080
 
 # --- Testes -----------------------------------------------
 test: test-good test-bad
