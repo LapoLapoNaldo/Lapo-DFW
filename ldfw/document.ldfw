@@ -507,7 +507,7 @@ grid 3 {
 
         page Tabs {
             route: "componente-tabs";
-            icon: "ri-tab-line";
+            icon: "ri-file-list-3-line";
             nav: "Tabs";
             breadcrumb: "Tabs";
             title: "Componente Tabs";

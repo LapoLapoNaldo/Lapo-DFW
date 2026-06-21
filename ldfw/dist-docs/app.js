@@ -698,17 +698,17 @@ h3 "Seção Menor";</code></pre>
                     <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
                 </div>
                 <pre class="language-ldfw"><code>tabs {
-    tab "Lua" {
+    tab "Lua" icon "ri-code-line" {
         code lua {
 print("Hello World")
         }
     }
-    tab "Python" {
+    tab "Python" icon "ri-code-line" {
         code python {
 print("Hello World")
         }
     }
-    tab "JavaScript" {
+    tab "JavaScript" icon "ri-code-line" {
         code javascript {
 console.log("Hello World")
         }
@@ -722,9 +722,9 @@ console.log("Hello World")
 
             <div class="tabs-container">
                 <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="0">Lua</button>
-<button class="tab-btn" data-tab="1">Python</button>
-<button class="tab-btn" data-tab="2">JavaScript</button>
+                    <button class="tab-btn active" data-tab="0"><i class="ri-code-line"></i> Lua</button>
+<button class="tab-btn" data-tab="1"><i class="ri-code-line"></i> Python</button>
+<button class="tab-btn" data-tab="2"><i class="ri-code-line"></i> JavaScript</button>
                 </div>
                 <div class="tabs-body">
                     <div class="tab-content active" data-tab="0">
@@ -781,12 +781,12 @@ console.log(greet("LDFW"));</code></pre>
                     <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
                 </div>
                 <pre class="language-ldfw"><code>tabs {
-    tab "Instalação" {
+    tab "Instalação" icon "ri-download-line" {
         alert tip "Dica" {
             "Use o comando \`make build\` para compilar."
         }
     }
-    tab "Configuração" {
+    tab "Configuração" icon "ri-settings-line" {
         ul {
             "Defina o layout em Docs.";
             "Adicione seções e páginas.";
@@ -805,12 +805,12 @@ console.log(greet("LDFW"));</code></pre>
                     <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
                 </div>
                 <pre class="language-ldfw"><code>tabs {
-    tab "Alertas" {
+    tab "Alertas" icon "ri-notification-line" {
         alert ("Título", "#10b981", "rgba(16,185,129,0.08)", "ri-check-line") {
             "Este alerta usa a sintaxe abreviada do Extensions.";
         }
     }
-    tab "Tabela" {
+    tab "Tabela" icon "ri-table-line" {
         table config {
             row "parametro" ("string", "#3b82f6", "rgba(59,130,246,0.1)")  "valor"  "Descrição";
         }
