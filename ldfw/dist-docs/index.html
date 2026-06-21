@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDFW | Documentação</title>
+    <meta name="description" content="Documentação oficial do LDFW — o framework que compila .ldfw para sites de documentação premium.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" id="prism-theme-dark">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#home" class="logo-area">
+                    <div class="logo-icon">
+                        <i class="ri-hexagon-fill"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">LDFW</span>
+                        <span class="logo-subtitle">Lapo's Documentation Framework</span>
+                    </div>
+                </a>
+                <button class="close-sidebar-btn" id="closeSidebarBtn">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <i class="ri-search-line search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Pesquisar documentação..." autocomplete="off">
+                    <span class="search-shortcut">/</span>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Começando</h3>
+                    <ul class="nav-list">
+                        <li><a href="#home" class="nav-link active" data-route="home"><i class="ri-home-4-line"></i> Sobre o LDFW</a></li>
+                        <li><a href="#instalacao" class="nav-link" data-route="instalacao"><i class="ri-download-cloud-line"></i> Instalação</a></li>
+                        <li><a href="#primeiros-passos" class="nav-link" data-route="primeiros-passos"><i class="ri-rocket-line"></i> Primeiros Passos</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Linguagem</h3>
+                    <ul class="nav-list">
+                        <li><a href="#estrutura" class="nav-link" data-route="estrutura"><i class="ri-file-code-line"></i> Estrutura do Arquivo</a></li>
+                        <li><a href="#secoes-paginas" class="nav-link" data-route="secoes-paginas"><i class="ri-layout-line"></i> Seções e Páginas</a></li>
+                        <li><a href="#indentacao" class="nav-link" data-route="indentacao"><i class="ri-space"></i> Indentação</a></li>
+                        <li><a href="#blocos-texto" class="nav-link" data-route="blocos-texto"><i class="ri-text"></i> Blocos de Texto</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Componentes</h3>
+                    <ul class="nav-list">
+                        <li><a href="#componente-hero" class="nav-link" data-route="componente-hero"><i class="ri-bookmark-3-line"></i> Hero</a></li>
+                        <li><a href="#componente-grid" class="nav-link" data-route="componente-grid"><i class="ri-layout-grid-line"></i> Grid e Cards</a></li>
+                        <li><a href="#componente-tabs" class="nav-link" data-route="componente-tabs"><i class="ri-tab-line"></i> Tabs</a></li>
+                        <li><a href="#componente-code" class="nav-link" data-route="componente-code"><i class="ri-code-box-line"></i> Bloco de Código</a></li>
+                        <li><a href="#componente-alert" class="nav-link" data-route="componente-alert"><i class="ri-notification-line"></i> Alertas</a></li>
+                        <li><a href="#componente-tabelas" class="nav-link" data-route="componente-tabelas"><i class="ri-table-2"></i> Tabelas</a></li>
+                        <li><a href="#componente-listas" class="nav-link" data-route="componente-listas"><i class="ri-list-unordered"></i> Listas</a></li>
+                        <li><a href="#componente-faq" class="nav-link" data-route="componente-faq"><i class="ri-question-answer-line"></i> FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Extensions</h3>
+                    <ul class="nav-list">
+                        <li><a href="#extensions" class="nav-link" data-route="extensions"><i class="ri-palette-line"></i> Extensions</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Ferramentas</h3>
+                    <ul class="nav-list">
+                        <li><a href="#cli" class="nav-link" data-route="cli"><i class="ri-terminal-box-line"></i> CLI</a></li>
+                        <li><a href="#makefile" class="nav-link" data-route="makefile"><i class="ri-tools-line"></i> Makefile</a></li>
+                        <li><a href="#vscode" class="nav-link" data-route="vscode"><i class="ri-code-s-slash-line"></i> VS Code</a></li>
+                        <li><a href="#exemplos" class="nav-link" data-route="exemplos"><i class="ri-image-line"></i> Exemplos Completos</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-section-title">Referência</h3>
+                    <ul class="nav-list">
+                        <li><a href="#ref-componentes" class="nav-link" data-route="ref-componentes"><i class="ri-table-line"></i> Tabela de Componentes</a></li>
+                        <li><a href="#dicas" class="nav-link" data-route="dicas"><i class="ri-lightbulb-line"></i> Dicas e Boas Práticas</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="footer-meta">
+                    <span>Versão v0.1.0</span>
+                    <span class="status-badge online"><span class="pulse-dot"></span>Em Desenvolvimento</span>
+                </div>
+            </div>
+        </aside>
+
+        <div class="main-layout">
+            <header class="top-header">
+                <div class="top-header-left">
+                    <button class="menu-toggle-btn" id="menuToggleBtn">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                    <div class="breadcrumb" id="breadcrumb">
+                        <span class="breadcrumb-item">Começando</span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item active">Sobre</span>
+                    </div>
+                </div>
+                <div class="top-header-right">
+                    <a href="https://github.com/LapoLapoNaldo/Lapos-DWS-Framework" target="_blank" class="github-link" title="Ver Repositório no GitHub">
+                        <i class="ri-github-fill"></i>
+                        <span class="github-text">GitHub</span>
+                    </a>
+                    <div class="theme-toggle-wrapper">
+                        <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar Tema (Dark/Light)">
+                            <i class="ri-sun-line light-icon"></i>
+                            <i class="ri-moon-line dark-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-viewport" id="contentViewport"></main>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
