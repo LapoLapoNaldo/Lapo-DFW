@@ -1,0 +1,49 @@
+#> StartFW
+include #> Standard;
+
+Project: {
+    title: "Meu Projeto";
+    subtitle: "Documentação";
+    version: "v1.0.0";
+    status: "Estável";
+    github: "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+    description: "Documentação gerada com LDFW.";
+    lang: "pt-BR";
+}
+
+Docs: {
+    layout #> stnd;
+
+    section "Introdução" {
+        page Home {
+            route: "home";
+            icon: "ri-home-4-line";
+            nav: "Início";
+            breadcrumb: "Início";
+            title: "Bem-vindo";
+
+            hero {
+                badge: "LDFW";
+                title: "Meu Projeto";
+                desc: "Documentação gerada com Lapo's Documentation Framework.";
+                btn primary "Começar" -> getting-started;
+            }
+
+            h2 "Sobre";
+            p "Esta documentação foi gerada com **LDFW**, o framework de documentação do Lapo.";
+        }
+    }
+
+    section "Guia" {
+        page GettingStarted {
+            route: "getting-started";
+            icon: "ri-rocket-line";
+            nav: "Getting Started";
+            breadcrumb: "Getting Started";
+            title: "Getting Started";
+
+            h2 "Primeiros Passos";
+            p "Esta é a página inicial do guia.";
+        }
+    }
+}

@@ -1,5 +1,6 @@
 dist/
 ldfw/dist-docs/
+.vscode/
 .DS_Store
 *.log
 node_modules/
