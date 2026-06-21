@@ -262,7 +262,8 @@ function renderList(block) {
 function renderTabs(block, context = null) {
     const tabHeaders = block.tabs.map((tab, i) => {
         const active = i === 0 ? " active" : "";
-        return `<button class="tab-btn${active}" data-tab="${i}">${escapeHtml(tab.name)}</button>`;
+        const iconHtml = tab.icon ? `<i class="${escapeHtml(tab.icon)}"></i> ` : "";
+        return `<button class="tab-btn${active}" data-tab="${i}">${iconHtml}${escapeHtml(tab.name)}</button>`;
     }).join("\n");
 
     const tabContents = block.tabs.map((tab, i) => {

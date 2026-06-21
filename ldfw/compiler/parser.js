@@ -833,6 +833,10 @@ class Parser {
         while (!this.blockMatch()) {
             this.expect("ident", "tab");
             const name = this.expect("string").value;
+            let icon = "";
+            if (this.match("ident", "icon")) {
+                icon = this.expect("string").value;
+            }
             this.blockOpen();
             const blocks = [];
             while (!this.blockMatch()) {
@@ -840,7 +844,7 @@ class Parser {
                 blocks.push(this.parseBlock());
                 this.match(";");
             }
-            tabs.push({ name, blocks });
+            tabs.push({ name, icon, blocks });
         }
 
         return { type: "tabs", tabs };

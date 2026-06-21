@@ -92,7 +92,7 @@ Docs: {
             h2 "Componente Tabs";
 
             tabs {
-                tab "Lua" {
+                tab "Lua" icon "ri-code-line" {
                     p "Código exemplo em Lua:";
                     code lua {
 -- Exemplo em Lua
@@ -102,7 +102,7 @@ end
 print(greet("LDFW"))
                     }
                 }
-                tab "Python" {
+                tab "Python" icon "ri-code-line" {
                     p "Código exemplo em Python:";
                     code python {
 # Exemplo em Python
@@ -112,7 +112,7 @@ def greet(name):
 print(greet("LDFW"))
                     }
                 }
-                tab "JavaScript" {
+                tab "JavaScript" icon "ri-code-line" {
                     p "Código exemplo em JavaScript:";
                     code javascript {
 // Exemplo em JavaScript

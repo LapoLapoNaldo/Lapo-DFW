@@ -349,7 +349,7 @@ function activate(context) {
                     snippet(
                         "tabs {}",
                         "Tabbed component",
-                        'tabs {\n\ttab "${1:Lua}" {\n\t\t"${2:Conteúdo}";\n\t}\n\ttab "${3:Python}" {\n\t\t"${4:Conteúdo}";\n\t}\n}'
+                        'tabs {\n\ttab "${1:Lua}" icon "${2:ri-code-line}" {\n\t\t"${3:Conteúdo}";\n\t}\n\ttab "${4:Python}" icon "${5:ri-code-line}" {\n\t\t"${6:Conteúdo}";\n\t}\n}'
                     )
                 );
 

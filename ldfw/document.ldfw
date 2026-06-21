@@ -518,17 +518,17 @@ grid 3 {
             h2 "Sintaxe";
             code ldfw {
 tabs {
-    tab "Lua" {
+    tab "Lua" icon "ri-code-line" {
         code lua {
 print("Hello World")
         }
     }
-    tab "Python" {
+    tab "Python" icon "ri-code-line" {
         code python {
 print("Hello World")
         }
     }
-    tab "JavaScript" {
+    tab "JavaScript" icon "ri-code-line" {
         code javascript {
 console.log("Hello World")
         }
@@ -539,7 +539,7 @@ console.log("Hello World")
             h2 "Exemplo ao Vivo";
             p "Abaixo, um exemplo funcional com código em diferentes linguagens:";
             tabs {
-                tab "Lua" {
+                tab "Lua" icon "ri-code-line" {
                     code lua {
 -- Exemplo em Lua
 local function greet(name)
@@ -548,7 +548,7 @@ end
 print(greet("LDFW"))
                     }
                 }
-                tab "Python" {
+                tab "Python" icon "ri-code-line" {
                     code python {
 # Exemplo em Python
 def greet(name):
@@ -557,7 +557,7 @@ def greet(name):
 print(greet("LDFW"))
                     }
                 }
-                tab "JavaScript" {
+                tab "JavaScript" icon "ri-code-line" {
                     code javascript {
 // Exemplo em JavaScript
 function greet(name) {
@@ -572,12 +572,12 @@ console.log(greet("LDFW"));
             p "Tabs podem conter qualquer componente, incluindo alertas, listas, grids e até outras tabs (nested tabs):";
             code ldfw {
 tabs {
-    tab "Instalação" {
+    tab "Instalação" icon "ri-download-line" {
         alert tip "Dica" {
             "Use o comando `make build` para compilar."
         }
     }
-    tab "Configuração" {
+    tab "Configuração" icon "ri-settings-line" {
         ul {
             "Defina o layout em Docs.";
             "Adicione seções e páginas.";
@@ -590,12 +590,12 @@ tabs {
             p "Tabs funcionam com Extensions normalmente. Basta incluir `using Extensions.alert` ou `using Extensions.badge` no início do arquivo:";
             code ldfw {
 tabs {
-    tab "Alertas" {
+    tab "Alertas" icon "ri-notification-line" {
         alert ("Título", "#10b981", "rgba(16,185,129,0.08)", "ri-check-line") {
             "Este alerta usa a sintaxe abreviada do Extensions.";
         }
     }
-    tab "Tabela" {
+    tab "Tabela" icon "ri-table-line" {
         table config {
             row "parametro" ("string", "#3b82f6", "rgba(59,130,246,0.1)")  "valor"  "Descrição";
         }
