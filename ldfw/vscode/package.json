@@ -1,0 +1,40 @@
+{
+    "name": "ldfw-language-support",
+    "displayName": "LDFW Language Support",
+    "description": "Syntax highlighting, diagnostics e autocomplete para arquivos .ldfw",
+    "version": "0.1.0",
+    "publisher": "lapo",
+    "private": true,
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "ldfw",
+                "aliases": [
+                    "LDFW",
+                    "ldfw"
+                ],
+                "extensions": [
+                    ".ldfw"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "ldfw",
+                "scopeName": "source.ldfw",
+                "path": "./syntaxes/ldfw.tmLanguage.json"
+            }
+        ]
+    },
+    "activationEvents": [
+        "onLanguage:ldfw"
+    ],
+    "main": "./extension.js"
+}

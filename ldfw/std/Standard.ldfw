@@ -1,0 +1,7 @@
+#> Standard
+
+// Layout padrão LDFW
+layout #> stnd;
+
+// Componentes disponíveis no MVP:
+// hero, grid, card, code, alert, h1-h3, p, ul, ol, faq

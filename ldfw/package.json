@@ -1,0 +1,20 @@
+{
+  "name": "ldfw",
+  "version": "0.1.0",
+  "description": "Lapo's Documentation Framework — compila .ldfw para sites de documentação",
+  "bin": {
+    "ldfw": "./bin/ldfw.js"
+  },
+  "main": "compiler/index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "documentation",
+    "static-site",
+    "ldfw"
+  ],
+  "author": "Lapo",
+  "license": "MIT"
+}

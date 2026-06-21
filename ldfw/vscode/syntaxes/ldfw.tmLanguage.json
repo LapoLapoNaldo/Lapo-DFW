@@ -1,0 +1,82 @@
+{
+    "scopeName": "source.ldfw",
+    "name": "LDFW",
+    "fileTypes": [".ldfw"],
+    "patterns": [
+        { "include": "#comments" },
+        { "include": "#directives" },
+        { "include": "#strings" },
+        { "include": "#arrows" },
+        { "include": "#headings" },
+        { "include": "#keywords" },
+        { "include": "#punctuation" },
+        { "include": "#identifiers" }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [{
+                "name": "comment.line.double-slash.ldfw",
+                "match": "//.*$"
+            }]
+        },
+        "directives": {
+            "patterns": [{
+                "name": "keyword.directive.ldfw",
+                "match": "#>[A-Za-z0-9_]+"
+            }]
+        },
+        "strings": {
+            "patterns": [{
+                "name": "string.quoted.double.ldfw",
+                "begin": "\"",
+                "end": "\"",
+                "patterns": [{
+                    "name": "constant.character.escape.ldfw",
+                    "match": "\\\\."
+                }]
+            }]
+        },
+        "arrows": {
+            "patterns": [{
+                "name": "keyword.operator.arrow.ldfw",
+                "match": "->"
+            }]
+        },
+        "headings": {
+            "patterns": [{
+                "name": "markup.heading.ldfw",
+                "match": "\\b(h1|h2|h3)\\b"
+            }]
+        },
+        "keywords": {
+            "patterns": [
+                { "name": "keyword.control.include.ldfw", "match": "\\binclude\\b" },
+                { "name": "keyword.control.import.ldfw", "match": "\\blayout\\b" },
+                { "name": "entity.name.type.project.ldfw", "match": "\\bProject\\b" },
+                { "name": "entity.name.type.docs.ldfw", "match": "\\bDocs\\b" },
+                { "name": "entity.name.function.section.ldfw", "match": "\\bsection\\b" },
+                { "name": "entity.name.function.page.ldfw", "match": "\\bpage\\b" },
+                { "name": "keyword.other.block.ldfw", "match": "\\b(hero|grid|card|alert|code|faq|ul|ol)\\b" },
+                { "name": "keyword.other.element.ldfw", "match": "\\b(p|btn|external)\\b" },
+                { "name": "support.type.property-name.ldfw", "match": "\\b(icon|badge|title|desc|route|nav|breadcrumb|variant|status|github|version|subtitle|description|lang|default|callback|text|options|search|placeholder|primary|outline)\\b" },
+                { "name": "keyword.other.faq.ldfw", "match": "\\bq\\b" },
+                { "name": "constant.numeric.grid.ldfw", "match": "(?<=grid\\s+)\\d+" },
+                { "name": "constant.numeric.ldfw", "match": "\\b\\d+(\\.\\d+)?\\b" }
+            ]
+        },
+        "punctuation": {
+            "patterns": [
+                { "name": "punctuation.definition.brace.ldfw", "match": "[{}]" },
+                { "name": "punctuation.terminator.ldfw", "match": ";" },
+                { "name": "punctuation.separator.ldfw", "match": ":" },
+                { "name": "punctuation.separator.comma.ldfw", "match": "," }
+            ]
+        },
+        "identifiers": {
+            "patterns": [{
+                "name": "variable.other.ldfw",
+                "match": "[A-Za-z_][A-Za-z0-9_-]*"
+            }]
+        }
+    }
+}

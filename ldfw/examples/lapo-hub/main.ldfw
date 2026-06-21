@@ -1,0 +1,156 @@
+#> StartFW
+include #> Standard;
+
+Project: {
+    title: "Lapo Hub X";
+    subtitle: "UI Library";
+    version: "v1.1.0";
+    status: "Estável";
+    github: "https://github.com/LapoLapoNaldo/Lapo-X";
+    description: "Documentação completa para a biblioteca de interface Lapo Hub X para Roblox.";
+    lang: "pt-BR";
+}
+
+Docs: {
+    layout #> stnd;
+
+    section "Começando" {
+        page Inicial {
+            route: "home";
+            icon: "ri-home-4-line";
+            nav: "Início";
+            breadcrumb: "Início";
+            title: "Lapo Hub X";
+
+            hero {
+                badge: "Biblioteca UI Profissional";
+                title: "Lapo Hub X";
+                desc: "Uma biblioteca de interface de usuário ultra-rápida de estilo executivo para scripts de Roblox. Construída sobre a API de Drawing nativa dos executores.";
+                btn primary "Começar Agora" -> getting-started;
+            }
+
+            h2 "Recursos Principais";
+
+            grid 2 {
+                card "Renderização em Drawing API" icon "ri-cpu-line" {
+                    "Bypassa a árvore do CoreGui padrão renderizando diretamente via tela sobreposta.";
+                }
+                card "Otimização Mobile" icon "ri-smartphone-line" {
+                    "Adapta automaticamente o layout, tamanho e escala da janela em dispositivos touch.";
+                }
+                card "Tema Premium Synapse-Vibe" icon "ri-palette-line" {
+                    "Interface escura e moderna com acentos em degradê violeta e glow discreto.";
+                }
+                card "Input Sinking Avançado" icon "ri-keyboard-line" {
+                    "Utiliza ContextActionService com prioridade máxima para afundar os cliques.";
+                }
+            }
+
+            h2 "Visualização Rápida";
+
+            code lua {
+-- Carrega a library da nuvem
+local LapoHub = loadstring(game:HttpGet("https://raw.githubusercontent.com/LapoLapoNaldo/Lapo-X/refs/heads/main/Library.lua"))()
+
+-- Inicializa a janela principal
+LapoHub:Init({
+    Title = "Lapo Hub X",
+    ToggleKey = "End"
+})
+
+-- Adiciona abas e widgets
+LapoHub:AddTab("Principal", "🎮")
+LapoHub:AddButton("Principal", {
+    text = "Executar Ação",
+    callback = function()
+        LapoHub:Notify({
+            title = "Ação Executada!",
+            content = "O código foi rodado com sucesso.",
+            duration = 3
+        })
+    end
+})
+            }
+
+            alert tip "Dica de Desenvolvimento" {
+                "Use este site gerado com **LDFW** para publicar documentação com o mesmo visual premium em poucas horas.";
+            }
+        }
+
+        page Introducao {
+            route: "getting-started";
+            icon: "ri-rocket-line";
+            nav: "Introdução";
+            breadcrumb: "Introdução";
+            title: "Primeiros Passos";
+
+            h1 "Primeiros Passos";
+            p "Entenda os requisitos, carregamento básico e a estrutura para criar seu primeiro script usando Lapo Hub X.";
+
+            h2 "Requisitos Prévios";
+            ul {
+                "**Executor compatível com Drawing API:** Suporte completo às funções Drawing.new().";
+                "**Capacidade de escrita:** Acesso às funções writefile e readfile para configs locais.";
+                "**Acesso HTTP:** O executor deve suportar game:HttpGet para obter arquivos remotos.";
+            }
+
+            h2 "Estrutura Básica de Script";
+            ol {
+                "Carregar a biblioteca via HTTP ou arquivo local.";
+                "Adicionar as abas necessárias (Tabs).";
+                "Inicializar a janela da interface (Init).";
+                "Configurar perfil e callbacks do rodapé (opcional).";
+                "Adicionar elementos interativos associados às abas.";
+            }
+
+            alert info "Gerado com LDFW" {
+                "Esta página foi escrita em .ldfw e compilada automaticamente para HTML, CSS e JS.";
+            }
+        }
+
+        page Instalacao {
+            route: "installation";
+            icon: "ri-download-cloud-line";
+            nav: "Instalação";
+            breadcrumb: "Instalação";
+            title: "Instalação";
+
+            h1 "Instalação";
+            p "Copie o loader abaixo e cole no seu executor Roblox compatível.";
+
+            code lua {
+local LapoHub = loadstring(game:HttpGet("URL_DO_SEU_REPOSITORIO/Library.lua"))()
+print("[Lapo Hub X] Biblioteca carregada com sucesso!")
+            }
+
+            alert warning "Atenção" {
+                "Substitua a URL pelo link raw correto do seu repositório antes de executar.";
+            }
+        }
+    }
+
+    section "Guias" {
+        page FAQ {
+            route: "faq";
+            icon: "ri-question-line";
+            nav: "Perguntas Frequentes";
+            breadcrumb: "FAQ";
+            title: "Perguntas Frequentes";
+
+            h1 "Perguntas Frequentes";
+            p "Respostas rápidas para as dúvidas mais comuns sobre Lapo Hub X.";
+
+            faq {
+                q "Preciso de executor pago?" {
+                    "Não necessariamente. Qualquer executor com suporte estável à Drawing API funciona.";
+                }
+                q "Funciona em mobile?" {
+                    "Sim. A biblioteca adapta escala e layout automaticamente para touch.";
+                }
+                q "Posso usar sem internet?" {
+                    "Sim, desde que você baixe o arquivo Library.lua localmente e use loadfile ou readfile.";
+                }
+            }
+        }
+    }
+}

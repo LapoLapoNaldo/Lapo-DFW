@@ -1,0 +1,1126 @@
+#> StartFW
+include #> Standard;
+
+Project: {
+    title: "LDFW";
+    subtitle: "Lapo's Documentation Framework";
+    version: "v0.1.0";
+    status: "Em Desenvolvimento";
+    github: "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+    description: "Documentação oficial do LDFW — o framework que compila .ldfw para sites de documentação premium.";
+    lang: "pt-BR";
+}
+
+Docs: {
+    layout #> stnd;
+
+    section "Começando" {
+        page Sobre {
+            route: "home";
+            icon: "ri-home-4-line";
+            nav: "Sobre o LDFW";
+            breadcrumb: "Sobre";
+            title: "O que é LDFW?";
+
+            hero {
+                badge: "Framework Próprio";
+                title: "Lapo's Documentation Framework";
+                desc: "Uma ferramenta CLI que compila arquivos .ldfw em sites de documentação estáticos com visual premium — dark/light mode, busca, FAQ accordion, copy-code e mais.";
+                btn primary "Ver Exemplo" -> exemplos;
+                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+            }
+
+            h2 "Visão Geral";
+            p "LDFW é um gerador de sites de documentação escrito em Node.js. Você escreve em uma linguagem própria (.ldfw), o compilador transforma em HTML + CSS + JS, e o resultado é um site completo com navegação lateral, busca, tema escuro/claro e vários componentes prontos.";
+
+            h2 "O Que Vem Incluso";
+            ul {
+                "**Parser** próprio com validação de indentação obrigatória.";
+                "**Codegen** que gera HTML semântico, CSS premium e JS SPA.";
+                "**Tema dark/light** com transição suave e localStorage.";
+                "**Busca global** com snippets do conteúdo.";
+                "**Componentes prontos:** hero, cards, alerts, FAQ, code blocks, listas.";
+                "**CLI** simples para compilar qualquer .ldfw.";
+                "**Extensão VS Code** com syntax highlighting, diagnostics e autocomplete.";
+            }
+
+            alert tip "Dogfooding" {
+                "Esta documentação foi escrita em .ldfw e compilada com o próprio LDFW. Acredite: funciona.";
+            }
+        }
+
+        page Instalacao {
+            route: "instalacao";
+            icon: "ri-download-cloud-line";
+            nav: "Instalação";
+            breadcrumb: "Instalação";
+            title: "Instalação e Uso";
+
+            h1 "Instalação e Uso";
+            p "Requisitos: **Node.js >= 18** e npm.";
+
+            h2 "Setup";
+            p "Entre na pasta do framework e link o CLI globalmente:";
+            code bash {
+cd ldfw
+npm link
+            }
+
+            p "Agora o comando `ldfw` está disponível no terminal.";
+
+            h2 "Compilar um Projeto";
+            p "Com um arquivo .ldfw pronto, use:";
+            code bash {
+ldfw build meu-projeto.ldfw -o ./dist
+            }
+
+            p "Abra `dist/index.html` no navegador. Pronto.";
+
+            h2 "Sem npm link";
+            p "Se preferir não instalar globalmente, use o binário diretamente:";
+            code bash {
+node ldfw/bin/ldfw.js build entrada.ldfw -o saida
+            }
+        }
+
+        page PrimeirosPassos {
+            route: "primeiros-passos";
+            icon: "ri-rocket-line";
+            nav: "Primeiros Passos";
+            breadcrumb: "Primeiros Passos";
+            title: "Primeiros Passos";
+
+            h1 "Primeiros Passos";
+            p "Vamos criar sua primeira página de documentação.";
+
+            h2 "1. Crie o arquivo";
+            p "Crie um arquivo `docs.ldfw` com o conteúdo mínimo:";
+            code ldfw {
+#> StartFW
+include #> Standard;
+
+Project: {
+    title: "Meu Projeto";
+    subtitle: "Documentação";
+}
+
+Docs: {
+    layout #> stnd;
+
+    section "Introdução" {
+        page Home {
+            route: "home";
+            icon: "ri-home-4-line";
+            nav: "Início";
+            breadcrumb: "Início";
+            title: "Meu Projeto";
+
+            hero {
+                badge: "Novo";
+                title: "Meu Projeto";
+                desc: "Descrição curta do projeto.";
+                btn primary "Começar" -> guia-rapido;
+            }
+
+            h2 "Bem-vindo";
+            p "Esta é minha primeira página gerada com LDFW.";
+        }
+    }
+}
+            }
+
+            h2 "2. Compile";
+            code bash {
+ldfw build docs.ldfw -o docs
+            }
+
+            h2 "3. Abra";
+            p "Abra `docs/index.html` no navegador. Sua documentação está no ar.";
+
+            h2 "Próximos Passos";
+            ul {
+                "Adicione mais páginas e seções.";
+                "Explore os componentes: grid, cards, alerts, FAQ.";
+                "Use a indentação correta (4 espaços por nível).";
+                "Ative a extensão VS Code para autocomplete e erros em tempo real.";
+            }
+
+            alert info "Lembrete" {
+                "A indentação é **obrigatória** no LDFW. Conteúdo dentro de blocos deve estar indentado com pelo menos 4 espaços a mais que a abertura. O compilador rejeita arquivos mal indentados.";
+            }
+        }
+    }
+
+    section "Linguagem" {
+        page Estrutura {
+            route: "estrutura";
+            icon: "ri-file-code-line";
+            nav: "Estrutura do Arquivo";
+            breadcrumb: "Estrutura";
+            title: "Estrutura do Arquivo .ldfw";
+
+            h1 "Estrutura do Arquivo .ldfw";
+            p "Todo arquivo .ldfw segue esta estrutura geral:";
+
+            h2 "1. Diretiva Inicial";
+            p "O arquivo deve começar com `#> StartFW`. Esta diretiva indica que o arquivo segue a sintaxe do LDFW.";
+            code ldfw {
+#> StartFW
+            }
+
+            h2 "2. Includes";
+            p "Em seguida, você pode incluir bibliotecas padrão com `include`:";
+            code ldfw {
+include #> Standard;
+            }
+            p "O include é opcional mas recomendado. A Standard define o layout padrão `stnd`.";
+
+            h2 "3. Bloco Project";
+            p "Define metadados do projeto. Todos os campos são opcionais:";
+            code ldfw {
+Project: {
+    title: "Nome do Projeto";
+    subtitle: "Subtítulo";
+    version: "v1.0.0";
+    status: "Estável";
+    github: "https://github.com/user/repo";
+    description: "Meta description para SEO.";
+    lang: "pt-BR";
+}
+            }
+
+            h2 "4. Bloco Docs";
+            p "Contém toda a documentação em si. É aqui que as seções e páginas são definidas:";
+            code ldfw {
+Docs: {
+    layout #> stnd;
+
+    section "Nome da Seção" {
+        page NomeDaPagina {
+            route: "rota";
+            icon: "ri-icon-line";
+            nav: "Nome no Menu";
+            breadcrumb: "Nome no Breadcrumb";
+            title: "Título da Página";
+            // ... blocos de conteúdo
+        }
+    }
+}
+            }
+        }
+
+        page SessoesPaginas {
+            route: "secoes-paginas";
+            icon: "ri-layout-line";
+            nav: "Seções e Páginas";
+            breadcrumb: "Seções e Páginas";
+            title: "Seções e Páginas";
+
+            h1 "Seções e Páginas";
+            p "A documentação é organizada em **seções** que contêm **páginas**.";
+
+            h2 "Seções (Section)";
+            p "Seções agrupam páginas relacionadas. Elas aparecem como blocos no menu lateral:";
+            code ldfw {
+section "Começando" {
+    // páginas aqui
+}
+
+section "Guias" {
+    // páginas aqui
+}
+            }
+            p "O nome da seção vira o título do grupo na sidebar.";
+
+            h2 "Páginas (Page)";
+            p "Cada página representa uma URL dentro da documentação:";
+            code ldfw {
+page NomeInterno {
+    route: "url-da-pagina";
+    icon: "ri-icon-line";
+    nav: "Texto no Menu";
+    breadcrumb: "Texto no Breadcrumb";
+    title: "Título da Página";
+    // conteúdo aqui
+}
+            }
+
+            h2 "Propriedades de Meta";
+            p "Todas as propriedades de meta de uma página:";
+
+            grid 2 {
+                card "route" icon "ri-link" {
+                    "Define a URL da página (hash). Ex: `route: \"instalacao\"` cria `#instalacao`.";
+                }
+                card "icon" icon "ri-palette-line" {
+                    "Ícone RemixIcon exibido no menu lateral. Ex: `icon: \"ri-home-4-line\"`.";
+                }
+                card "nav" icon "ri-menu-line" {
+                    "Texto exibido no menu de navegação lateral.";
+                }
+                card "breadcrumb" icon "ri-arrow-right-s-line" {
+                    "Texto exibido no breadcrumb do topo.";
+                }
+                card "title" icon "ri-font-size" {
+                    "Título da página usado no <title> da aba do navegador.";
+                }
+            }
+
+            alert tip "Rota Automática" {
+                "Se você não definir `route`, o LDFW gera automaticamente a partir do nome interno da página. Ex: `page MinhaPagina` vira `#minha-pagina`.";
+            }
+        }
+
+        page Indentacao {
+            route: "indentacao";
+            icon: "ri-space";
+            nav: "Indentação";
+            breadcrumb: "Indentação";
+            title: "Regras de Indentação";
+
+            h1 "Regras de Indentação";
+            p "Diferente de outras linguagens de template, o LDFW **exige** indentação correta. Isso garante que o código fonte fique organizado e legível.";
+
+            h2 "Regra 1: 4 Espaços por Nível";
+            p "Cada nível de aninhamento adiciona **4 espaços**. Use sempre espaços, não tabs.";
+            code ldfw {
+Project: {
+    title: "OK";    // 4 espaços
+}
+
+Docs: {
+    layout #> stnd; // 4 espaços
+
+    section "X" {   // 4 espaços
+        page Y {    // 8 espaços
+            route: "y"; // 12 espaços
+            hero {      // 12 espaços
+                title: "OK"; // 16 espaços
+            }
+        }
+    }
+}
+            }
+
+            h2 "Regra 2: Chaves na Mesma Coluna";
+            p "O `}` de fechamento deve estar na **mesma coluna** que a linha que abriu o bloco:";
+            code ldfw {
+section "Correto" {     // abertura na coluna 4
+    page OK {           // abertura na coluna 8
+    }                   // coluna 8
+}                       // coluna 4
+            }
+
+            h2 "Regra 3: Conteúdo Indentado";
+            p "Todo conteúdo dentro de um bloco deve ter **pelo menos 4 espaços a mais** que a abertura:";
+            code ldfw {
+hero {              // coluna 0
+    badge: "OK";    // coluna 4 (mínimo)
+    btn primary "Ver" -> pagina; // coluna 4
+}
+            }
+
+            h2 "Regra 4: Blocos Vazios";
+            p "Blocos sem conteúdo são permitidos (`{ }`), mas mantenha a consistência.";
+
+            alert warning "Importante" {
+                "O compilador **rejeita** arquivos com indentação incorreta com uma mensagem de erro clara indicando a linha e o esperado. Isso é proposital: força o código a ficar limpo.";
+            }
+
+            h2 "Exemplo de Erro";
+            p "Isso NÃO compila:";
+            code ldfw {
+hero {
+badge: "Erro"; // indentação insuficiente!
+}
+            }
+            p "O compilador mostra: `Indentação insuficiente na linha X: 0 espaços, mínimo 4 dentro do bloco`.";
+        }
+
+        page BlocosTexto {
+            route: "blocos-texto";
+            icon: "ri-text";
+            nav: "Blocos de Texto";
+            breadcrumb: "Blocos de Texto";
+            title: "Títulos, Parágrafos e Formatação";
+
+            h1 "Títulos, Parágrafos e Formatação";
+            p "O LDFW oferece headings e parágrafos com suporte a formatação inline.";
+
+            h2 "Headings";
+            p "Use `h1`, `h2` e `h3` para títulos:";
+            code ldfw {
+h1 "Título Principal";
+h2 "Subtítulo";
+h3 "Seção Menor";
+            }
+            p "Eles são renderizados como `<h1>`, `<h2>` e `<h3>` com estilos próprios.";
+
+            h2 "Parágrafo";
+            p "Use `p` para parágrafos:";
+            code ldfw {
+p "Texto do parágrafo aqui.";
+            }
+            p "Textos longos podem usar múltiplas strings dentro de chaves:";
+            code ldfw {
+p {
+    "Primeira linha do parágrafo.";
+    "Segunda linha do parágrafo.";
+}
+            }
+
+            h2 "Formatação em Linha";
+            p "Dentro de strings, use `**texto**` para **negrito**:";
+            code ldfw {
+p "Este é um texto com **negrito** e **mais negrito**.";
+            }
+
+            h2 "Dica: Strings Longas";
+            p "Para textos longos, prefira usar múltiplas strings em linhas separadas. Fica mais legível e a indentação é validada automaticamente:";
+            code ldfw {
+alert tip "Nota" {
+    "Este é um texto longo que pode ocupar várias linhas.";
+    "Cada linha é uma string separada por ponto e vírgula.";
+    "No HTML final, elas são unidas com quebra de linha.";
+}
+            }
+        }
+    }
+
+    section "Componentes" {
+        page Hero {
+            route: "componente-hero";
+            icon: "ri-bookmark-3-line";
+            nav: "Hero";
+            breadcrumb: "Hero";
+            title: "Componente Hero";
+
+            h1 "Hero";
+            p "O Hero é o banner principal da página inicial. Combina badge, título, descrição e botões.";
+
+            h2 "Sintaxe";
+            code ldfw {
+hero {
+    badge: "Novo";
+    title: "Título Principal";
+    desc: "Descrição curta e impactante.";
+    btn primary "Começar" -> pagina-inicial;
+    btn outline "GitHub" -> external "https://github.com/...";
+}
+            }
+
+            h2 "Propriedades";
+            grid 2 {
+                card "badge" icon "ri-price-tag-3-line" {
+                    "Pequeno rótulo colorido acima do título. Opcional.";
+                }
+                card "title" icon "ri-font-size-2" {
+                    "Título principal do hero. Opcional.";
+                }
+                card "desc" icon "ri-file-text-line" {
+                    "Descrição abaixo do título. Opcional.";
+                }
+                card "btn" icon "ri-rocket-line" {
+                    "Botão de ação. Pode ter múltiplos botões. Cada um em uma linha `btn ...`.";
+                }
+            }
+
+            h2 "Botões";
+            p "A sintaxe do botão é:";
+            code ldfw {
+btn primary|outline "Rótulo" -> destino;
+            }
+
+            p "O destino pode ser:";
+            ul {
+                "**Outra página:** `btn primary \"Ver Docs\" -> instalacao;` (usa a route da página)";
+                "**Link externo:** `btn outline \"GitHub\" -> external \"https://...\";`";
+            }
+
+            h2 "Exemplo Completo";
+            code ldfw {
+hero {
+    badge: "Framework v1.0";
+    title: "Lapo's Documentation Framework";
+    desc: "Crie sites de documentação premium compilando .ldfw.";
+    btn primary "Documentação" -> estrutura;
+    btn outline "Repositório" -> external "https://github.com/...";
+}
+            }
+        }
+
+        page GridCards {
+            route: "componente-grid";
+            icon: "ri-layout-grid-line";
+            nav: "Grid e Cards";
+            breadcrumb: "Grid e Cards";
+            title: "Grid e Cards";
+
+            h1 "Grid e Cards";
+            p "Use grids para exibir cards lado a lado.";
+
+            h2 "Grid";
+            p "O grid define quantas colunas terá. Suporta 2 ou 3 colunas:";
+            code ldfw {
+grid 2 {
+    card "Título 1" icon "ri-icon-1" {
+        "Descrição do card 1.";
+    }
+    card "Título 2" icon "ri-icon-2" {
+        "Descrição do card 2.";
+    }
+}
+            }
+
+            h2 "Card";
+            p "Cada card dentro de um grid tem:";
+            ul {
+                "**Título** (obrigatório) — texto em negrito no topo do card.";
+                "**Icon** (opcional) — classe RemixIcon exibida antes do título.";
+                "**Conteúdo** (obrigatório) — texto dentro de chaves, com suporte a **negrito**.";
+            }
+
+            h2 "Card Avulso";
+            p "Cards também podem ser usados fora de grids (ocupam a largura inteira):";
+            code ldfw {
+card "Aviso Importante" icon "ri-alert-line" {
+    "Use cards avulsos para destacar informações importantes.";
+}
+            }
+
+            h2 "Exemplo com 3 Colunas";
+            code ldfw {
+grid 3 {
+    card "Rápido" icon "ri-flashlight-line" {
+        "Compila em milissegundos.";
+    }
+    card "Premium" icon "ri-vip-crown-line" {
+        "Visual moderno e responsivo.";
+    }
+    card "Simples" icon "ri-code-line" {
+        "Sintaxe limpa e indentação validada.";
+    }
+}
+            }
+        }
+
+        page CodeBlock {
+            route: "componente-code";
+            icon: "ri-code-box-line";
+            nav: "Bloco de Código";
+            breadcrumb: "Bloco de Código";
+            title: "Bloco de Código";
+
+            h1 "Bloco de Código";
+            p "Exiba código com syntax highlighting usando o componente `code`.";
+
+            h2 "Sintaxe";
+            p "Especifique a linguagem após `code` e o conteúdo dentro de chaves:";
+            code ldfw {
+code lua {
+print("Hello LDFW!")
+local x = 1 + 2
+}
+            }
+
+            h2 "Linguagens Suportadas";
+            p "O highlighting usa Prism.js. Qualquer linguagem suportada pelo Prism funciona. Basta especificar o nome: `lua`, `javascript`, `python`, `bash`, `html`, `css`, etc.";
+
+            h2 "Funcionalidades";
+            ul {
+                "**Syntax highlighting** automático via Prism.js.";
+                "**Botão Copiar** — um clique copia o código para a área de transferência.";
+                "**Indentação livre** — o conteúdo dentro de code NÃO segue as regras de indentação do LDFW (é código literal).";
+            }
+
+            h2 "Exemplo com JavaScript";
+            code javascript {
+function greet(name) {
+    console.log(`Hello, ${name}!`);
+}
+
+greet("LDFW");
+            }
+
+            alert tip "Dica" {
+                "O conteúdo do code block é preservado exatamente como escrito. A indentação dentro dele é livre — as regras do LDFW não se aplicam aí.";
+            }
+        }
+
+        page Alertas {
+            route: "componente-alert";
+            icon: "ri-notification-line";
+            nav: "Alertas";
+            breadcrumb: "Alertas";
+            title: "Alertas";
+
+            h1 "Alertas";
+            p "Alertas são caixas coloridas para destacar informações importantes.";
+
+            h2 "Variantes";
+            grid 2 {
+                card "tip" icon "ri-lightbulb-line" {
+                    "Tom roxo/índigo. Para dicas e sugestões.";
+                }
+                card "info" icon "ri-information-line" {
+                    "Tom azul. Para informações gerais.";
+                }
+                card "warning" icon "ri-alert-line" {
+                    "Tom amarelo. Para avisos e cuidados.";
+                }
+                card "danger" icon "ri-error-warning-line" {
+                    "Tom vermelho. Para erros e perigos.";
+                }
+            }
+
+            h2 "Sintaxe";
+            code ldfw {
+alert tip "Título do Alerta" {
+    "Texto do alerta com suporte a **negrito**.";
+}
+            }
+
+            h2 "Exemplos";
+            code ldfw {
+alert tip "Dica" {
+    "Use `alert tip` para dicas úteis.";
+}
+
+alert info "Informação" {
+    "Use `alert info` para informações contextuais.";
+}
+
+alert warning "Atenção" {
+    "Use `alert warning` para alertar sobre algo importante.";
+}
+
+alert danger "Cuidado" {
+    "Use `alert danger` para erros ou ações irreversíveis.";
+}
+
+alert tip "Múltiplas Linhas" {
+    "Alertas também suportam textos longos.";
+    "Basta usar múltiplas strings dentro das chaves.";
+}
+            }
+
+            p "Renderização real dos alertas:";
+
+            alert tip "Tip" {
+                "Isso é um alerta do tipo **tip**. Use para dicas.";
+            }
+
+            alert info "Info" {
+                "Isso é um alerta do tipo **info**. Use para informações.";
+            }
+
+            alert warning "Warning" {
+                "Isso é um alerta do tipo **warning**. Use para avisos.";
+            }
+
+            alert danger "Danger" {
+                "Isso é um alerta do tipo **danger**. Use para perigos.";
+            }
+        }
+
+        page Listas {
+            route: "componente-listas";
+            icon: "ri-list-unordered";
+            nav: "Listas";
+            breadcrumb: "Listas";
+            title: "Listas Ordenadas e Não Ordenadas";
+
+            h1 "Listas";
+            p "O LDFW suporta listas ordenadas (`ol`) e não ordenadas (`ul`).";
+
+            h2 "Lista Não Ordenada (ul)";
+            code ldfw {
+ul {
+    "Item 1 com **negrito** suportado.";
+    "Item 2 com texto normal.";
+    "Item 3 com **destaque**.";
+}
+            }
+
+            p "Renderiza como:";
+            ul {
+                "Item 1 com **negrito** suportado.";
+                "Item 2 com texto normal.";
+                "Item 3 com **destaque**.";
+            }
+
+            h2 "Lista Ordenada (ol)";
+            code ldfw {
+ol {
+    "Primeiro passo.";
+    "Segundo passo.";
+    "Terceiro passo.";
+}
+            }
+
+            p "Renderiza como:";
+            ol {
+                "Primeiro passo.";
+                "Segundo passo.";
+                "Terceiro passo.";
+            }
+
+            h2 "Observações";
+            ul {
+                "Cada item é uma string delimitada por ponto e vírgula.";
+                "Suporta **negrito** inline.";
+                "Listas não podem conter sub-listas (por enquanto).";
+            }
+        }
+
+        page FAQ {
+            route: "componente-faq";
+            icon: "ri-question-answer-line";
+            nav: "FAQ";
+            breadcrumb: "FAQ";
+            title: "FAQ (Perguntas Frequentes)";
+
+            h1 "FAQ (Accordion)";
+            p "O componente `faq` cria um acordeão de perguntas e respostas.";
+
+            h2 "Sintaxe";
+            code ldfw {
+faq {
+    q "Qual a pergunta?" {
+        "Resposta aqui. Com **negrito** se quiser.";
+    }
+    q "Outra pergunta?" {
+        "Outra resposta. Suporta múltiplas linhas.";
+        "Segunda linha da resposta.";
+    }
+}
+            }
+
+            h2 "Comportamento";
+            ul {
+                "Apenas uma resposta fica aberta por vez (accordion).";
+                "Clique na pergunta para abrir/fechar.";
+                "Animação suave de abertura.";
+                "Ícone de `+` gira quando ativo.";
+            }
+
+            h2 "Exemplo Real";
+            faq {
+                q "O LDFW funciona sem Node.js?" {
+                    "Não. O compilador é escrito em Node.js e requer a runtime instalada.";
+                }
+                q "Posso customizar o tema?" {
+                    "Sim, editando `templates/style.css` antes de compilar, ou sobrescrevendo cores via CSS customizado após a compilação.";
+                }
+                q "Tem suporte a hot reload?" {
+                    "Ainda não, mas está nos planos (comando `ldfw dev`).";
+                }
+                q "O .ldfw é uma linguagem completa?" {
+                    "É uma DSL focada em documentação. Não é Turing-completa — não tem variáveis, loops ou condicionais. É propositalmente simples.";
+                }
+            }
+        }
+    }
+
+    section "Ferramentas" {
+        page CLI {
+            route: "cli";
+            icon: "ri-terminal-box-line";
+            nav: "CLI";
+            breadcrumb: "CLI";
+            title: "Linha de Comando";
+
+            h1 "CLI — Linha de Comando";
+            p "O LDFW vem com um CLI para compilar arquivos .ldfw.";
+
+            h2 "Comandos";
+            grid 2 {
+                card "build" icon "ri-hammer-line" {
+                    "Compila um arquivo .ldfw em HTML + CSS + JS. Principal e único comando por enquanto.";
+                }
+                card "--help" icon "ri-question-line" {
+                    "Exibe a ajuda do CLI com exemplos de uso.";
+                }
+            }
+
+            h2 "Uso";
+            code bash {
+ldfw build entrada.ldfw -o ./saida
+            }
+
+            h2 "Flags";
+            ul {
+                "`-o` — Diretório de saída (padrão: `dist`).";
+                "`-h`, `--help` — Exibe a ajuda.";
+            }
+
+            h2 "Exemplos";
+            code bash {
+# Compilar com saída padrão (./dist)
+ldfw build docs.ldfw
+
+# Compilar com saída customizada
+ldfw build docs.ldfw -o ./site
+
+# Ver ajuda
+ldfw --help
+            }
+
+            h2 "Sem Instalação Global";
+            p "Você pode executar diretamente sem npm link:";
+            code bash {
+node ldfw/bin/ldfw.js build entrada.ldfw -o saida
+            }
+        }
+
+        page Makefile {
+            route: "makefile";
+            icon: "ri-tools-line";
+            nav: "Makefile";
+            breadcrumb: "Makefile";
+            title: "Comandos Makefile";
+
+            h1 "Makefile";
+            p "O LDFW inclui um Makefile com comandos úteis para desenvolvimento.";
+
+            h2 "Comandos Disponíveis";
+
+            grid 2 {
+                card "make build" icon "ri-hammer-line" {
+                    "Compila um .ldfw. Use `INPUT=arq.ldfw OUTPUT=dir`.";
+                }
+                card "make build-example" icon "ri-file-code-line" {
+                    "Compila o exemplo `lapo-hub` para `dist/`.";
+                }
+                card "make build-docs" icon "ri-book-open-line" {
+                    "Compila a documentação oficial para `../docs`.";
+                }
+                card "make serve" icon "ri-server-line" {
+                    "Compila docs + sobe servidor em localhost:8080.";
+                }
+                card "make test" icon "ri-check-line" {
+                    "Valida compilação correta e rejeição de má indentação.";
+                }
+                card "make clean" icon "ri-delete-bin-line" {
+                    "Remove `dist/` e arquivos temporários.";
+                }
+            }
+
+            code bash {
+# Exemplos
+make build-example
+make test
+make serve
+            }
+        }
+
+        page VSCode {
+            route: "vscode";
+            icon: "ri-code-s-slash-line";
+            nav: "VS Code";
+            breadcrumb: "VS Code";
+            title: "Extensão VS Code";
+
+            h1 "Extensão VS Code para .ldfw";
+            p "O LDFW inclui uma extensão para VS Code (e Cursor) com três funcionalidades principais.";
+
+            h2 "Funcionalidades";
+            grid 2 {
+                card "Syntax Highlighting" icon "ri-palette-line" {
+                    "Destaque de sintaxe para arquivos .ldfw: diretivas, strings, keywords, blocos, comentários, etc.";
+                }
+                card "Diagnostics" icon "ri-error-warning-line" {
+                    "Erros do parser aparecem no Problems panel em tempo real. Indentação errada? Mostra na hora.";
+                }
+                card "Autocomplete" icon "ri-lightbulb-line" {
+                    "Sugere includes, componentes, propriedades e snippets completos enquanto você digita.";
+                }
+            }
+
+            h2 "Instalação";
+            p "A extensão fica em `ldfw/vscode/`. Para ativar:";
+            code bash {
+# No Cursor
+ln -s "/caminho/para/ldfw/vscode" ~/.cursor/extensions/ldfw-language-support
+
+# No VS Code
+ln -s "/caminho/para/ldfw/vscode" ~/.vscode/extensions/ldfw-language-support
+            }
+            p "Depois reinicie o editor. Qualquer arquivo `.ldfw` já reconhece automaticamente.";
+
+            h2 "O Que Cada Funcionalidade Faz";
+
+            h3 "Syntax Highlighting";
+            p "Define cores diferentes para: diretivas (`#> StartFW`), strings (`\"texto\"`), keywords (`include`, `Project`, `hero`, `grid`), headings (`h1`, `h2`), blocos (`{}`), setas (`->`), comentários (`//`), e números.";
+
+            h3 "Diagnostics";
+            p "Toda vez que você salva ou edita, o parser roda em segundo plano. Se tiver algum erro (indentação, sintaxe, etc.), aparece um sublinhado vermelho na linha e a mensagem no Problems. Erros detectados:";
+            ul {
+                "Indentação insuficiente dentro de blocos.";
+                "`}` na coluna errada.";
+                "Strings não fechadas.";
+                "Tokens inválidos.";
+                "Blocos desconhecidos.";
+            }
+
+            h3 "Autocomplete";
+            p "Ao digitar, o editor sugere:";
+            ul {
+                "**Palavras-chave**: `include`, `Project`, `Docs`, `section`, `page`, etc.";
+                "**Componentes**: `hero`, `grid`, `card`, `alert`, `code`, `faq`, `ul`, `ol`.";
+                "**Propriedades**: `route`, `icon`, `nav`, `breadcrumb`, `badge`, `title`, `desc`, `btn`.";
+                "**Snippets**: `include #> Standard;`, `Project: { }`, `Docs: { }`, `hero { }`, etc. com placeholders para preencher.";
+            }
+        }
+
+        page Exemplos {
+            route: "exemplos";
+            icon: "ri-image-line";
+            nav: "Exemplos Completos";
+            breadcrumb: "Exemplos";
+            title: "Exemplos Completos";
+
+            h1 "Exemplos Completos";
+
+            h2 "Estrutura Mínima";
+            p "O menor arquivo .ldfw possível:";
+            code ldfw {
+#> StartFW
+include #> Standard;
+
+Project: {
+    title: "Mínimo";
+}
+
+Docs: {
+    layout #> stnd;
+
+    section "Única" {
+        page Home {
+            route: "home";
+            icon: "ri-home-4-line";
+            nav: "Home";
+            breadcrumb: "Home";
+
+            h1 "Olá";
+            p "Esta é a documentação mínima do LDFW.";
+        }
+    }
+}
+            }
+
+            h2 "Página com Todos os Componentes";
+            code ldfw {
+page Completa {
+    route: "completa";
+    icon: "ri-star-line";
+    nav: "Página Completa";
+    breadcrumb: "Completa";
+    title: "Todos os Componentes";
+
+    hero {
+        badge: "Demonstração";
+        title: "Página Completa";
+        desc: "Todos os componentes do LDFW em uma página.";
+        btn primary "Ver" -> home;
+    }
+
+    h2 "Grid de Cards";
+    grid 2 {
+        card "Card 1" icon "ri-numbers-line" {
+            "Primeiro card do grid.";
+        }
+        card "Card 2" icon "ri-numbers-line" {
+            "Segundo card do grid.";
+        }
+    }
+
+    h2 "Alerta";
+    alert info "Informação" {
+        "Isso é um alerta de informação.";
+    }
+
+    h2 "Código";
+    code javascript {
+console.log("Hello LDFW!");
+    }
+
+    h2 "Lista";
+    ul {
+        "Item A";
+        "Item B";
+        "Item C";
+    }
+
+    h2 "FAQ";
+    faq {
+        q "Pergunta 1?" {
+            "Resposta 1.";
+        }
+        q "Pergunta 2?" {
+            "Resposta 2.";
+        }
+    }
+}
+            }
+        }
+    }
+
+    section "Referência" {
+        page TabelaComponentes {
+            route: "ref-componentes";
+            icon: "ri-table-line";
+            nav: "Tabela de Componentes";
+            breadcrumb: "Tabela de Componentes";
+            title: "Referência Rápida de Componentes";
+
+            h1 "Referência Rápida";
+            p "Tabela completa de todos os componentes, sua sintaxe e descrição.";
+
+            h2 "Componentes de Conteúdo";
+
+            p "`hero` — Banner principal com badge, título, descrição e botões.";
+            code ldfw {
+hero { badge: "badge"; title: "titulo"; desc: "desc"; btn primary "texto" -> alvo; }
+            }
+
+            p "`grid` + `card` — Grid de cards (2 ou 3 colunas).";
+            code ldfw {
+grid 2 { card "Título" icon "ri-icon" { "texto"; } }
+            }
+
+            p "`card` — Card avulso (fora de grid, ocupa largura total).";
+            code ldfw {
+card "Título" icon "ri-icon" { "texto"; }
+            }
+
+            p "`code` — Bloco de código com syntax highlighting.";
+            code ldfw {
+code linguagem { conteudo }
+            }
+
+            p "`alert` — Alerta colorido (tip, warning, danger, info).";
+            code ldfw {
+alert variante "Título" { "texto"; }
+            }
+
+            p "`ul` / `ol` — Lista não ordenada / ordenada.";
+            code ldfw {
+ul { "item"; "item"; }
+ol { "item"; "item"; }
+            }
+
+            p "`faq` — Acordeão de perguntas e respostas.";
+            code ldfw {
+faq { q "pergunta" { "resposta"; } }
+            }
+
+            p "`h1`, `h2`, `h3` — Títulos.";
+            code ldfw {
+h1 "Título"; h2 "Subtítulo"; h3 "Seção";
+            }
+
+            p "`p` — Parágrafo.";
+            code ldfw {
+p "Texto do parágrafo.";
+            }
+
+            h2 "Propriedades de Meta (Page)";
+
+            grid 2 {
+                card "route" icon "ri-link" {
+                    "URL da página (`route: \"home\"`).";
+                }
+                card "icon" icon "ri-palette-line" {
+                    "Ícone RemixIcon (`icon: \"ri-home-line\"`).";
+                }
+                card "nav" icon "ri-menu-line" {
+                    "Texto no menu lateral.";
+                }
+                card "breadcrumb" icon "ri-arrow-right-s-line" {
+                    "Texto no breadcrumb.";
+                }
+                card "title" icon "ri-font-size" {
+                    "Título da aba do navegador.";
+                }
+            }
+
+            h2 "Propriedades de Projeto (Project)";
+
+            grid 2 {
+                card "title" icon "ri-font-size-2" {
+                    "Nome do projeto. Usado no título do site.";
+                }
+                card "subtitle" icon "ri-subscript" {
+                    "Subtítulo exibido no logo da sidebar.";
+                }
+                card "version" icon "ri-price-tag-3-line" {
+                    "Versão atual do projeto.";
+                }
+                card "status" icon "ri-signal-wifi-line" {
+                    "Status: Estável, Em Desenvolvimento, etc.";
+                }
+                card "github" icon "ri-github-fill" {
+                    "URL do repositório GitHub. Adiciona link no header.";
+                }
+                card "description" icon "ri-file-text-line" {
+                    "Meta description para SEO.";
+                }
+                card "lang" icon "ri-translate" {
+                    "Idioma do site (`pt-BR`, `en`, etc.).";
+                }
+            }
+        }
+
+        page Dicas {
+            route: "dicas";
+            icon: "ri-lightbulb-line";
+            nav: "Dicas e Boas Práticas";
+            breadcrumb: "Dicas";
+            title: "Dicas e Boas Práticas";
+
+            h1 "Dicas e Boas Práticas";
+
+            h2 "Organização de Arquivos";
+            ul {
+                "Mantenha um arquivo .ldfw por projeto.";
+                "Para projetos grandes, considere dividir em múltiplos arquivos (futuro: suporte a `include` de outros .ldfw).";
+                "Use nomes significativos para páginas e rotas.";
+            }
+
+            h2 "Escrita de Conteúdo";
+            ul {
+                "Use `h2` para seções principais dentro da página. Reserve `h1` para o título principal.";
+                "Prefira textos curtos em cards e alerts. Textos muito longos ficam melhores em parágrafos.";
+                "Use `**negrito**` com moderação — apenas para destacar termos importantes.";
+                "Agrupe cards relacionados no mesmo grid. Um grid por grupo de conceito.";
+            }
+
+            h2 "Indentação";
+            ul {
+                "Configure seu editor para usar 4 espaços (não tabs).";
+                "A extensão VS Code do LDFW mostra erros de indentação em tempo real — use isso a seu favor.";
+                "Mantenha a consistência: se um bloco abriu na coluna 8, feche na coluna 8.";
+            }
+
+            h2 "Performance";
+            ul {
+                "O site gerado é 100% estático — HTML + CSS + JS puro. Não depende de servidor.";
+                "Os arquivos são pequenos e carregam rápido.";
+                "O Prism.js para highlighting é carregado via CDN. Offline não terá highlighting.";
+            }
+
+            h2 "Customização";
+            ul {
+                "Edite `ldfw/templates/style.css` para alterar cores, fontes e estilos globais.";
+                "Edite `ldfw/templates/runtime.js` para modificar o comportamento da SPA.";
+                "Após compilar, você pode sobrescrever `style.css` no diretório de saída sem recompilar.";
+            }
+
+            alert tip "Recomendação" {
+                "Se for customizar o template, faça um fork do LDFW ou mantenha suas alterações em um arquivo separado para não perder ao atualizar.";
+            }
+        }
+    }
+}
+
