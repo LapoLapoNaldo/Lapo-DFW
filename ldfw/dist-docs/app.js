@@ -1,7 +1,9 @@
 const PROJECT = {
     title: "LDFW",
     subtitle: "Lapo's Documentation Framework",
-    defaultRoute: "home"
+    defaultRoute: "home",
+    pageContent: true,
+    switchEnabled: true
 };
 
 const PAGES = {
@@ -10,2131 +12,232 @@ const PAGES = {
         title: "O que é LDFW?",
         breadcrumb: "Sobre",
         faq: false,
-        content: `
-            <div class="hero-section">
-                <span class="badge badge-primary">Framework Próprio</span>
-                <h1 class="page-title" style="margin-top: 10px;">Lapo&#039;s Documentation Framework</h1>
-                <p class="page-description">Uma ferramenta CLI que compila arquivos .ldfw em sites de documentação estáticos com visual premium — dark/light mode, busca, FAQ accordion, copy-code e mais.</p>
-                <div class="action-group"><a href="#exemplos" class="btn btn-primary"><i class="ri-rocket-line"></i> Ver Exemplo</a>
-                    <a href="https://github.com/LapoLapoNaldo/Lapos-DWS-Framework" class="btn btn-outline" target="_blank"><i class="ri-external-link-line"></i> GitHub</a></div>
-            </div>
-
-            <h2>Visão Geral</h2>
-
-            <p>LDFW é um gerador de sites de documentação escrito em Node.js. Você escreve em uma linguagem própria (.ldfw), o compilador transforma em HTML + CSS + JS, e o resultado é um site completo com navegação lateral, busca, tema escuro/claro e vários componentes prontos.</p>
-
-            <h2>O Que Vem Incluso</h2>
-
-            <ul class="list-default">
-                <li><strong>Parser</strong> próprio com validação de indentação obrigatória.</li>
-                <li><strong>Codegen</strong> que gera HTML semântico, CSS premium e JS SPA.</li>
-                <li><strong>Tema dark/light</strong> com transição suave e localStorage.</li>
-                <li><strong>Busca global</strong> com snippets do conteúdo.</li>
-                <li><strong>Componentes prontos:</strong> hero, cards, alerts, FAQ, code blocks, listas.</li>
-                <li><strong>CLI</strong> simples para compilar qualquer .ldfw.</li>
-                <li><strong>Extensão VS Code</strong> com syntax highlighting, diagnostics e autocomplete.</li>
-            </ul>
-
-            <div class="alert tip">
-                <div class="alert-icon"><i class="ri-lightbulb-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Dogfooding</div>
-                    <p class="alert-text">Esta documentação foi escrita em .ldfw e compilada com o próprio LDFW. Acredite: funciona.</p>
-                </div>
-            </div>`
-    },
-    "instalacao": {
-        category: "Começando",
-        title: "Instalação e Uso",
-        breadcrumb: "Instalação",
-        faq: false,
-        content: `
-            <h1 class="page-title">Instalação e Uso</h1>
-
-            <p>Requisitos: <strong>Node.js &gt;= 18</strong> e npm.</p>
-
-            <h2>Setup</h2>
-
-            <p>Entre na pasta do framework e link o CLI globalmente:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code>cd ldfw
-npm link</code></pre>
-            </div>
-
-            <p>Agora o comando <code>ldfw</code> está disponível no terminal.</p>
-
-            <h2>Compilar um Projeto</h2>
-
-            <p>Com um arquivo .ldfw pronto, use:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code>ldfw build meu-projeto.ldfw -o ./dist</code></pre>
-            </div>
-
-            <p>Abra <code>dist/index.html</code> no navegador. Pronto.</p>
-
-            <h2>Sem npm link</h2>
-
-            <p>Se preferir não instalar globalmente, use o binário diretamente:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code>node ldfw/bin/ldfw.js build entrada.ldfw -o saida</code></pre>
-            </div>`
+        search: "Framework Próprio Lapo's Documentation Framework Uma ferramenta CLI que compila arquivos .ldfw em sites de documentação fáceis e responsivos (desktop e mobile) — com visual premium, dark/light, busca e componentes prontos. Ver Exemplo GitHub Objetivo O LDFW existe pra facilitar a sua vida : criar sites de documentação bonitos, fáceis de escrever e responsivos (desktop, tablet e mobile) sem você tocar em HTML, CSS ou JS. Você foca no conteúdo ; o compilador cuida do resto. Visão Geral LDFW é um gerador de sites de documentação escrito em Node.js. Você escreve em uma linguagem própria (.ldfw), o compilador transforma em HTML + CSS + JS, e o resultado é um site completo com navegação lateral, busca, tema escuro/claro e vários componentes prontos. Por Que Usar Fácil de escrever Sintaxe simples e legível — sem tags nem boilerplate. Só o conteúdo e blocos prontos. Responsivo de fábrica O site se adapta sozinho a desktop, tablet e mobile. O menu lateral vira um drawer no celular. Zero runtime Saída 100% estática (HTML + CSS + JS puro). Hospeda em qualquer lugar e carrega rápido. Pronto pra usar Tema dark/light, busca, FAQ, copy-code e mais — tudo embutido, sem configurar. Responsivo por Padrão Você não precisa pensar em breakpoints — todo site gerado já se ajusta às telas: Desktop: navegação lateral fixa + (opcional) índice \"On This Page\". Tablet / Mobile: a sidebar vira um menu deslizante (drawer) com overlay. Toque: botões, tabs e accordions com áreas de toque confortáveis. Como Funciona Escreva o conteúdo em um arquivo .ldfw . Compile com ldfw build arquivo.ldfw -o ./dist . Publique a pasta dist/ em qualquer host estático (GitHub Pages, Netlify, Vercel…). O Que Vem Incluso Parser próprio com validação de indentação obrigatória. Codegen que gera HTML semântico, CSS premium e JS SPA. Tema dark/light com transição suave e localStorage. Busca global com snippets do conteúdo. Componentes prontos: hero, cards, alerts, FAQ, code blocks, tabs, tabelas, listas. Extensions: cores customizadas (Coloring/DocColors), On This Page e Switch de variantes. CLI simples ( build e dev com live reload). Dogfooding Esta documentação foi escrita em .ldfw e compilada com o próprio LDFW. Acredite: funciona — inclusive o que você está vendo agora é responsivo.",
+        content: "\n            <div class=\"hero-section\">\n                <span class=\"badge badge-primary\">Framework Próprio</span>\n                <h1 class=\"page-title\" id=\"lapo-s-documentation-framework\" style=\"margin-top: 10px;\">Lapo&#039;s Documentation Framework</h1>\n                <p class=\"page-description\">Uma ferramenta CLI que compila arquivos .ldfw em sites de documentação fáceis e responsivos (desktop e mobile) — com visual premium, dark/light, busca e componentes prontos.</p>\n                <div class=\"action-group\"><a href=\"#exemplos\" class=\"btn btn-primary\"><i class=\"ri-rocket-line\"></i> Ver Exemplo</a>\n                    <a href=\"https://github.com/LapoLapoNaldo/Lapo-DFW\" class=\"btn btn-outline\" target=\"_blank\"><i class=\"ri-external-link-line\"></i> GitHub</a></div>\n            </div>\n\n            <h2 id=\"objetivo\">Objetivo</h2>\n\n            <p>O LDFW existe pra <strong>facilitar a sua vida</strong>: criar sites de documentação bonitos, <strong>fáceis de escrever</strong> e <strong>responsivos</strong> (desktop, tablet e mobile) sem você tocar em HTML, CSS ou JS. Você foca no <strong>conteúdo</strong>; o compilador cuida do resto.</p>\n\n            <h2 id=\"visao-geral\">Visão Geral</h2>\n\n            <p>LDFW é um gerador de sites de documentação escrito em Node.js. Você escreve em uma linguagem própria (.ldfw), o compilador transforma em HTML + CSS + JS, e o resultado é um site completo com navegação lateral, busca, tema escuro/claro e vários componentes prontos.</p>\n\n            <h2 id=\"por-que-usar\">Por Que Usar</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-quill-pen-line\"></i> Fácil de escrever</div>\n                    <p class=\"card-description\">Sintaxe simples e legível — sem tags nem boilerplate. Só o conteúdo e blocos prontos.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-smartphone-line\"></i> Responsivo de fábrica</div>\n                    <p class=\"card-description\">O site se adapta sozinho a desktop, tablet e mobile. O menu lateral vira um drawer no celular.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-flashlight-line\"></i> Zero runtime</div>\n                    <p class=\"card-description\">Saída 100% estática (HTML + CSS + JS puro). Hospeda em qualquer lugar e carrega rápido.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-stack-line\"></i> Pronto pra usar</div>\n                    <p class=\"card-description\">Tema dark/light, busca, FAQ, copy-code e mais — tudo embutido, sem configurar.</p>\n                </div>\n            </div>\n\n            <h2 id=\"responsivo-por-padrao\">Responsivo por Padrão</h2>\n\n            <p>Você não precisa pensar em breakpoints — todo site gerado já se ajusta às telas:</p>\n\n            <ul class=\"list-default\">\n                <li><strong>Desktop:</strong> navegação lateral fixa + (opcional) índice &quot;On This Page&quot;.</li>\n                <li><strong>Tablet / Mobile:</strong> a sidebar vira um menu deslizante (drawer) com overlay.</li>\n                <li><strong>Toque:</strong> botões, tabs e accordions com áreas de toque confortáveis.</li>\n            </ul>\n\n            <h2 id=\"como-funciona\">Como Funciona</h2>\n\n            <ol class=\"list-default\">\n                <li>Escreva o conteúdo em um arquivo <code>.ldfw</code>.</li>\n                <li>Compile com <code>ldfw build arquivo.ldfw -o ./dist</code>.</li>\n                <li>Publique a pasta <code>dist/</code> em qualquer host estático (GitHub Pages, Netlify, Vercel…).</li>\n            </ol>\n\n            <h2 id=\"o-que-vem-incluso\">O Que Vem Incluso</h2>\n\n            <ul class=\"list-default\">\n                <li><strong>Parser</strong> próprio com validação de indentação obrigatória.</li>\n                <li><strong>Codegen</strong> que gera HTML semântico, CSS premium e JS SPA.</li>\n                <li><strong>Tema dark/light</strong> com transição suave e localStorage.</li>\n                <li><strong>Busca global</strong> com snippets do conteúdo.</li>\n                <li><strong>Componentes prontos:</strong> hero, cards, alerts, FAQ, code blocks, tabs, tabelas, listas.</li>\n                <li><strong>Extensions:</strong> cores customizadas (Coloring/DocColors), On This Page e Switch de variantes.</li>\n                <li><strong>CLI</strong> simples (<code>build</code> e <code>dev</code> com live reload).</li>\n            </ul>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Dogfooding</div>\n                    <p class=\"alert-text\">Esta documentação foi escrita em .ldfw e compilada com o próprio LDFW. Acredite: funciona — inclusive o que você está vendo agora é responsivo.</p>\n                </div>\n            </div>"
     },
     "primeiros-passos": {
         category: "Começando",
         title: "Primeiros Passos",
         breadcrumb: "Primeiros Passos",
         faq: false,
-        content: `
-            <h1 class="page-title">Primeiros Passos</h1>
-
-            <p>Vamos criar sua primeira página de documentação.</p>
-
-            <h2>1. Crie o arquivo</h2>
-
-            <p>Crie um arquivo <code>docs.ldfw</code> com o conteúdo mínimo:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>#&gt; StartFW
-include #&gt; Standard;
-
-Project: {
-    title: "Meu Projeto";
-    subtitle: "Documentação";
-}
-
-Docs: {
-    layout #&gt; stnd;
-
-    section "Introdução" {
-        page Home {
-            route: "home";
-            icon: "ri-home-4-line";
-            nav: "Início";
-            breadcrumb: "Início";
-            title: "Meu Projeto";
-
-            hero {
-                badge: "Novo";
-                title: "Meu Projeto";
-                desc: "Descrição curta do projeto.";
-                btn primary "Começar" -&gt; guia-rapido;
-            }
-
-            h2 "Bem-vindo";
-            p "Esta é minha primeira página gerada com LDFW.";
-        }
-    }
-}</code></pre>
-            </div>
-
-            <h2>2. Compile</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code>ldfw build docs.ldfw -o docs</code></pre>
-            </div>
-
-            <h2>3. Abra</h2>
-
-            <p>Abra <code>docs/index.html</code> no navegador. Sua documentação está no ar.</p>
-
-            <h2>Próximos Passos</h2>
-
-            <ul class="list-default">
-                <li>Adicione mais páginas e seções.</li>
-                <li>Explore os componentes: grid, cards, alerts, FAQ.</li>
-                <li>Use a indentação correta (4 espaços por nível).</li>
-                <li>Ative a extensão VS Code para autocomplete e erros em tempo real.</li>
-            </ul>
-
-            <div class="alert info">
-                <div class="alert-icon"><i class="ri-information-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Lembrete</div>
-                    <p class="alert-text">A indentação é <strong>obrigatória</strong> no LDFW. Conteúdo dentro de blocos deve estar indentado com pelo menos 4 espaços a mais que a abertura. O compilador rejeita arquivos mal indentados.</p>
-                </div>
-            </div>`
+        search: "Primeiros Passos Vamos criar sua primeira documentação em 3 passos. Comece copiando um dos exemplos abaixo. 1. Crie o arquivo Crie um arquivo docs.ldfw . Escolha a aba Mínimo para o essencial, ou Com Extensions para já sair com cores customizadas: Mínimo Com Extensions Ldfw Copiar #> StartFW include #> Standard; Project: { title: \"Meu Projeto\"; subtitle: \"Documentação\"; } Docs: { layout #> stnd; section \"Introdução\" { page Home { route: \"home\"; icon: \"ri-home-4-line\"; nav: \"Início\"; hero { badge: \"Novo\"; title: \"Meu Projeto\"; desc: \"Minha primeira documentação com LDFW.\"; btn primary \"Começar\" -> home; } h2 \"Bem-vindo\"; p \"Esta é minha primeira página gerada com LDFW.\"; } } } Ldfw Copiar #> StartFW include #> Standard; include #> Extensions; using Extensions.Coloring; Extensions: { DocColors { dark { primary: \"#a78bfa\"; } } } Project: { title: \"Meu Projeto\"; subtitle: \"Documentação\"; } Docs: { layout #> stnd; section \"Introdução\" { page Home { route: \"home\"; icon: \"ri-home-4-line\"; nav: \"Início\"; hero { badge: (\"Novo\", \"#a78bfa\", \"rgba(168,85,247,0.12)\"); title: \"Meu Projeto\"; desc: \"Documentação com cores customizadas.\"; btn primary \"Começar\" -> home; } h2 \"Bem-vindo\"; p \"Agora com **Extensions** ligado.\"; alert (\"Dica\", \"#10b981\", \"rgba(16,185,129,0.1)\", \"ri-lightbulb-line\") { \"Alerta colorido inline — só funciona com using Extensions.Coloring.\" } } } } 2. Compile Bash Copiar ldfw build docs.ldfw -o docs 3. Abra Abra docs/index.html no navegador. Sua documentação está no ar — e já é responsiva. Anatomia do Arquivo As peças que você acabou de usar: Parte Pra que serve #> StartFW Marca o início de um arquivo LDFW. include #> Standard Importa os componentes base. Project { } Metadados: título, versão, github… Docs { } Onde mora o conteúdo (seções e páginas). section \"Nome\" { } Um grupo no menu lateral. page Nome { } Uma página, com route , nav e blocos de conteúdo. Próximos Passos Adicione mais páginas e seções. Explore os componentes: grid, cards, alerts, tabs, FAQ. Ative o índice lateral com using Extensions.PageContent + #> PageContent . Customize as cores com using Extensions.Coloring (veja Extensions ). Lembrete A indentação é obrigatória no LDFW. Conteúdo dentro de blocos deve estar indentado com pelo menos 4 espaços a mais que a abertura. O compilador rejeita arquivos mal indentados.",
+        content: "\n            <h1 class=\"page-title\" id=\"primeiros-passos\">Primeiros Passos</h1>\n\n            <p>Vamos criar sua primeira documentação em 3 passos. Comece copiando um dos exemplos abaixo.</p>\n\n            <h2 id=\"1-crie-o-arquivo\">1. Crie o arquivo</h2>\n\n            <p>Crie um arquivo <code>docs.ldfw</code>. Escolha a aba <strong>Mínimo</strong> para o essencial, ou <strong>Com Extensions</strong> para já sair com cores customizadas:</p>\n\n            <div class=\"tabs-container\">\n                <div class=\"tabs-header\">\n                    <button class=\"tab-btn active\" data-tab=\"0\"><i class=\"ri-file-text-line\"></i> Mínimo</button>\n<button class=\"tab-btn\" data-tab=\"1\"><i class=\"ri-palette-line\"></i> Com Extensions</button>\n                </div>\n                <div class=\"tabs-body\">\n                    <div class=\"tab-content active\" data-tab=\"0\">\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>#&gt; StartFW\ninclude #&gt; Standard;\n\nProject: {\n    title: \"Meu Projeto\";\n    subtitle: \"Documentação\";\n}\n\nDocs: {\n    layout #&gt; stnd;\n\n    section \"Introdução\" {\n        page Home {\n            route: \"home\";\n            icon: \"ri-home-4-line\";\n            nav: \"Início\";\n\n            hero {\n                badge: \"Novo\";\n                title: \"Meu Projeto\";\n                desc: \"Minha primeira documentação com LDFW.\";\n                btn primary \"Começar\" -&gt; home;\n            }\n\n            h2 \"Bem-vindo\";\n            p \"Esta é minha primeira página gerada com LDFW.\";\n        }\n    }\n}</code></pre>\n            </div>\n            </div>\n<div class=\"tab-content\" data-tab=\"1\">\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>#&gt; StartFW\ninclude #&gt; Standard;\ninclude #&gt; Extensions;\nusing Extensions.Coloring;\n\nExtensions: {\n    DocColors {\n        dark { primary: \"#a78bfa\"; }\n    }\n}\n\nProject: {\n    title: \"Meu Projeto\";\n    subtitle: \"Documentação\";\n}\n\nDocs: {\n    layout #&gt; stnd;\n\n    section \"Introdução\" {\n        page Home {\n            route: \"home\";\n            icon: \"ri-home-4-line\";\n            nav: \"Início\";\n\n            hero {\n                badge: (\"Novo\", \"#a78bfa\", \"rgba(168,85,247,0.12)\");\n                title: \"Meu Projeto\";\n                desc: \"Documentação com cores customizadas.\";\n                btn primary \"Começar\" -&gt; home;\n            }\n\n            h2 \"Bem-vindo\";\n            p \"Agora com **Extensions** ligado.\";\n\n            alert (\"Dica\", \"#10b981\", \"rgba(16,185,129,0.1)\", \"ri-lightbulb-line\") {\n                \"Alerta colorido inline — só funciona com using Extensions.Coloring.\"\n            }\n        }\n    }\n}</code></pre>\n            </div>\n            </div>\n                </div>\n            </div>\n\n            <h2 id=\"2-compile\">2. Compile</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>ldfw build docs.ldfw -o docs</code></pre>\n            </div>\n\n            <h2 id=\"3-abra\">3. Abra</h2>\n\n            <p>Abra <code>docs/index.html</code> no navegador. Sua documentação está no ar — e já é responsiva.</p>\n\n            <h2 id=\"anatomia-do-arquivo\">Anatomia do Arquivo</h2>\n\n            <p>As peças que você acabou de usar:</p>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Parte</th>\n                            <th>Pra que serve</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>#&gt; StartFW</code></td>\n                            <td>Marca o início de um arquivo LDFW.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>include #&gt; Standard</code></td>\n                            <td>Importa os componentes base.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>Project { }</code></td>\n                            <td>Metadados: título, versão, github…</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>Docs { }</code></td>\n                            <td>Onde mora o conteúdo (seções e páginas).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>section &quot;Nome&quot; { }</code></td>\n                            <td>Um grupo no menu lateral.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>page Nome { }</code></td>\n                            <td>Uma página, com <code>route</code>, <code>nav</code> e blocos de conteúdo.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <h2 id=\"proximos-passos\">Próximos Passos</h2>\n\n            <ul class=\"list-default\">\n                <li>Adicione mais páginas e seções.</li>\n                <li>Explore os componentes: grid, cards, alerts, tabs, FAQ.</li>\n                <li>Ative o índice lateral com <code>using Extensions.PageContent</code> + <code>#&gt; PageContent</code>.</li>\n                <li>Customize as cores com <code>using Extensions.Coloring</code> (veja <strong>Extensions</strong>).</li>\n            </ul>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Lembrete</div>\n                    <p class=\"alert-text\">A indentação é <strong>obrigatória</strong> no LDFW. Conteúdo dentro de blocos deve estar indentado com pelo menos 4 espaços a mais que a abertura. O compilador rejeita arquivos mal indentados.</p>\n                </div>\n            </div>"
+    },
+    "setup-linux": {
+        category: "Começando",
+        title: "Setup no Linux",
+        breadcrumb: "Setup (Linux)",
+        faq: false,
+        search: "Setup no Linux Demonstração do Switch : esta é a variante Linux . Passe o mouse na seção \"Começando\" no menu lateral e clique no controle para alternar para Windows. 1. Instalar o Node.js (>= 18) Use o gerenciador de pacotes da sua distro: Bash Copiar # Debian / Ubuntu sudo apt update && sudo apt install -y nodejs npm # Fedora sudo dnf install -y nodejs # Arch / Manjaro sudo pacman -S nodejs npm Versão desatualizada? Alguns repositórios trazem um Node antigo. Para a LTS mais recente, use o nvm . Bash Copiar curl -o- https: # feche e reabra o terminal, depois: nvm install --lts Confirme as versões: Bash Copiar node -v # v18 ou maior npm -v 2. Instalar o Git Bash Copiar sudo apt install -y git # Debian/Ubuntu sudo dnf install -y git # Fedora sudo pacman -S git # Arch 3. Clonar o LDFW Bash Copiar git clone https: cd Lapo-DFW/ldfw 4. Instalar o comando ldfw Bash Copiar npm install npm link Erro de permissão (EACCES)? Não use sudo direto. Configure um prefixo de npm no seu usuário e tente de novo: Bash Copiar mkdir -p ~/.npm-global npm config set prefix ~/.npm-global echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc source ~/.bashrc npm link 5. Conferir Bash Copiar ldfw --help 6. Criar e Compilar Bash Copiar ldfw build meu-projeto.ldfw -o ./dist xdg-open dist/index.html # abre no navegador padrão 7. Live Reload (dev) Bash Copiar ldfw dev meu-projeto.ldfw -o ./dist -p 8080 Pronto! Sem npm link ? Rode direto com node ldfw/bin/ldfw.js build meu-projeto.ldfw -o ./dist . E para servir a saída estática: npx serve ./dist -l 8080 .",
+        content: "\n            <h1 class=\"page-title\" id=\"setup-no-linux\">Setup no Linux</h1>\n\n            <p>Demonstração do <strong>Switch</strong>: esta é a variante <strong>Linux</strong>. Passe o mouse na seção &quot;Começando&quot; no menu lateral e clique no controle para alternar para Windows.</p>\n\n            <h2 id=\"1-instalar-o-node-js-18\">1. Instalar o Node.js (&gt;= 18)</h2>\n\n            <p>Use o gerenciador de pacotes da sua distro:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code># Debian / Ubuntu\nsudo apt update &amp;&amp; sudo apt install -y nodejs npm\n\n# Fedora\nsudo dnf install -y nodejs\n\n# Arch / Manjaro\nsudo pacman -S nodejs npm</code></pre>\n            </div>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Versão desatualizada?</div>\n                    <p class=\"alert-text\">Alguns repositórios trazem um Node antigo. Para a LTS mais recente, use o <strong>nvm</strong>.</p>\n                </div>\n            </div>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>curl -o- https:\n# feche e reabra o terminal, depois:\nnvm install --lts</code></pre>\n            </div>\n\n            <p>Confirme as versões:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>node -v   # v18 ou maior\nnpm -v</code></pre>\n            </div>\n\n            <h2 id=\"2-instalar-o-git\">2. Instalar o Git</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>sudo apt install -y git    # Debian/Ubuntu\nsudo dnf install -y git    # Fedora\nsudo pacman -S git         # Arch</code></pre>\n            </div>\n\n            <h2 id=\"3-clonar-o-ldfw\">3. Clonar o LDFW</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>git clone https:\ncd Lapo-DFW/ldfw</code></pre>\n            </div>\n\n            <h2 id=\"4-instalar-o-comando-ldfw\">4. Instalar o comando ldfw</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>npm install\nnpm link</code></pre>\n            </div>\n\n            <div class=\"alert warning\">\n                <div class=\"alert-icon\"><i class=\"ri-alert-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Erro de permissão (EACCES)?</div>\n                    <p class=\"alert-text\">Não use <code>sudo</code> direto. Configure um prefixo de npm no seu usuário e tente de novo:</p>\n                </div>\n            </div>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>mkdir -p ~/.npm-global\nnpm config set prefix ~/.npm-global\necho 'export PATH=~/.npm-global/bin:$PATH' &gt;&gt; ~/.bashrc\nsource ~/.bashrc\nnpm link</code></pre>\n            </div>\n\n            <h2 id=\"5-conferir\">5. Conferir</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>ldfw --help</code></pre>\n            </div>\n\n            <h2 id=\"6-criar-e-compilar\">6. Criar e Compilar</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>ldfw build meu-projeto.ldfw -o ./dist\nxdg-open dist/index.html   # abre no navegador padrão</code></pre>\n            </div>\n\n            <h2 id=\"7-live-reload-dev\">7. Live Reload (dev)</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>ldfw dev meu-projeto.ldfw -o ./dist -p 8080</code></pre>\n            </div>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Pronto!</div>\n                    <p class=\"alert-text\">Sem <code>npm link</code>? Rode direto com <code>node ldfw/bin/ldfw.js build meu-projeto.ldfw -o ./dist</code>. E para servir a saída estática: <code>npx serve ./dist -l 8080</code>.</p>\n                </div>\n            </div>"
+    },
+    "setup-windows": {
+        category: "Começando",
+        title: "Setup no Windows",
+        breadcrumb: "Setup (Windows)",
+        faq: false,
+        search: "Setup no Windows Demonstração do Switch : esta é a variante Windows . No menu, use o controle de switch da seção \"Começando\" para voltar ao Linux. 1. Instalar o Node.js (>= 18) No PowerShell, com o winget (Windows 10/11): Powershell Copiar winget install OpenJS.NodeJS.LTS Ou baixe o instalador LTS em https://nodejs.org e avance até o fim. Depois feche e reabra o terminal e confirme: Powershell Copiar node -v # v18 ou maior npm -v 2. Instalar o Git Powershell Copiar winget install Git.Git Ou baixe em https://git-scm.com/download/win. 3. Clonar o LDFW Powershell Copiar git clone https: cd Lapo-DFW/ldfw 4. Instalar o comando ldfw Powershell Copiar npm install npm link Scripts bloqueados? Se o terminal recusar rodar scripts, abra o PowerShell como Administrador e libere para o seu usuário: Set-ExecutionPolicy -Scope CurrentUser RemoteSigned . 5. Conferir Powershell Copiar ldfw --help 6. Criar e Compilar Powershell Copiar ldfw build meu-projeto.ldfw -o ./dist start dist/index.html # abre no navegador padrão 7. Live Reload (dev) Powershell Copiar ldfw dev meu-projeto.ldfw -o ./dist -p 8080 Pronto! Sem npm link ? Rode direto com node ldfw/bin/ldfw.js build meu-projeto.ldfw -o ./dist . E para servir a saída estática: npx serve ./dist -l 8080 .",
+        content: "\n            <h1 class=\"page-title\" id=\"setup-no-windows\">Setup no Windows</h1>\n\n            <p>Demonstração do <strong>Switch</strong>: esta é a variante <strong>Windows</strong>. No menu, use o controle de switch da seção &quot;Começando&quot; para voltar ao Linux.</p>\n\n            <h2 id=\"1-instalar-o-node-js-18\">1. Instalar o Node.js (&gt;= 18)</h2>\n\n            <p>No PowerShell, com o winget (Windows 10/11):</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Powershell</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-powershell\"><code>winget install OpenJS.NodeJS.LTS</code></pre>\n            </div>\n\n            <p>Ou baixe o instalador <strong>LTS</strong> em https://nodejs.org e avance até o fim. Depois <strong>feche e reabra</strong> o terminal e confirme:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Powershell</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-powershell\"><code>node -v   # v18 ou maior\nnpm -v</code></pre>\n            </div>\n\n            <h2 id=\"2-instalar-o-git\">2. Instalar o Git</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Powershell</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-powershell\"><code>winget install Git.Git</code></pre>\n            </div>\n\n            <p>Ou baixe em https://git-scm.com/download/win.</p>\n\n            <h2 id=\"3-clonar-o-ldfw\">3. Clonar o LDFW</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Powershell</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-powershell\"><code>git clone https:\ncd Lapo-DFW/ldfw</code></pre>\n            </div>\n\n            <h2 id=\"4-instalar-o-comando-ldfw\">4. Instalar o comando ldfw</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Powershell</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-powershell\"><code>npm install\nnpm link</code></pre>\n            </div>\n\n            <div class=\"alert warning\">\n                <div class=\"alert-icon\"><i class=\"ri-alert-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Scripts bloqueados?</div>\n                    <p class=\"alert-text\">Se o terminal recusar rodar scripts, abra o PowerShell como Administrador e libere para o seu usuário: <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>.</p>\n                </div>\n            </div>\n\n            <h2 id=\"5-conferir\">5. Conferir</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Powershell</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-powershell\"><code>ldfw --help</code></pre>\n            </div>\n\n            <h2 id=\"6-criar-e-compilar\">6. Criar e Compilar</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Powershell</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-powershell\"><code>ldfw build meu-projeto.ldfw -o ./dist\nstart dist/index.html   # abre no navegador padrão</code></pre>\n            </div>\n\n            <h2 id=\"7-live-reload-dev\">7. Live Reload (dev)</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Powershell</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-powershell\"><code>ldfw dev meu-projeto.ldfw -o ./dist -p 8080</code></pre>\n            </div>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Pronto!</div>\n                    <p class=\"alert-text\">Sem <code>npm link</code>? Rode direto com <code>node ldfw/bin/ldfw.js build meu-projeto.ldfw -o ./dist</code>. E para servir a saída estática: <code>npx serve ./dist -l 8080</code>.</p>\n                </div>\n            </div>"
     },
     "estrutura": {
         category: "Linguagem",
         title: "Estrutura do Arquivo .ldfw",
         breadcrumb: "Estrutura",
         faq: false,
-        content: `
-            <h1 class="page-title">Estrutura do Arquivo .ldfw</h1>
-
-            <p>Todo arquivo .ldfw segue esta estrutura geral:</p>
-
-            <h2>1. Diretiva Inicial</h2>
-
-            <p>O arquivo deve começar com <code>#&gt; StartFW</code>. Esta diretiva indica que o arquivo segue a sintaxe do LDFW.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>#&gt; StartFW</code></pre>
-            </div>
-
-            <h2>2. Includes</h2>
-
-            <p>Em seguida, você pode incluir bibliotecas padrão com <code>include</code>:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>include #&gt; Standard;</code></pre>
-            </div>
-
-            <p>O include é opcional mas recomendado. A Standard define o layout padrão <code>stnd</code>.</p>
-
-            <h2>3. Bloco Project</h2>
-
-            <p>Define metadados do projeto. Todos os campos são opcionais:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>Project: {
-    title: "Nome do Projeto";
-    subtitle: "Subtítulo";
-    version: "v1.0.0";
-    status: "Estável";
-    github: "https://github.com/user/repo";
-    description: "Meta description para SEO.";
-    lang: "pt-BR";
-}</code></pre>
-            </div>
-
-            <h2>4. Bloco Docs</h2>
-
-            <p>Contém toda a documentação em si. É aqui que as seções e páginas são definidas:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>Docs: {
-    layout #&gt; stnd;
-
-    section "Nome da Seção" {
-        page NomeDaPagina {
-            route: "rota";
-            icon: "ri-icon-line";
-            nav: "Nome no Menu";
-            breadcrumb: "Nome no Breadcrumb";
-            title: "Título da Página";
-            
-        }
-    }
-}</code></pre>
-            </div>`
+        search: "Estrutura do Arquivo Todo arquivo .ldfw segue a mesma ordem. Esta página é o mapa geral — Sintaxe , Metadata e Indentação detalham cada parte. Esqueleto Completo Ldfw Copiar #> StartFW include #> Standard; Project: { title: \"Minha Lib\"; version: \"v1.0.0\"; } Docs: { layout #> stnd; section \"Introdução\" { page Home { route: \"home\"; nav: \"Início\"; h1 \"Bem-vindo\"; p \"Conteúdo da página aqui.\"; } } } As Quatro Partes Parte Obrigatória? O que faz #> StartFW Sim Primeira linha; marca um arquivo compilável. include #> Standard; Sim Importa os componentes padrão. Project { } Recomendada Metadados do site (título, versão…). Docs { } Sim Onde ficam as seções e páginas. Diretivas (#>) Diretivas começam com #> . As da linguagem padrão são: Diretiva Onde Função #> StartFW 1ª linha Início do arquivo. include #> Standard topo Importa a biblioteca base. layout #> stnd dentro de Docs Define o layout (hoje só stnd ). Mais recursos Cores, índice \"On This Page\" e Switch vêm via include #> Extensions . Veja a seção Extensions . Hierarquia Arquivo → Project + Docs . Docs → uma ou mais section . section → uma ou mais page . page → metadados + blocos de conteúdo ( h2 , p , hero , grid …).",
+        content: "\n            <h1 class=\"page-title\" id=\"estrutura-do-arquivo\">Estrutura do Arquivo</h1>\n\n            <p>Todo arquivo <code>.ldfw</code> segue a mesma ordem. Esta página é o mapa geral — <strong>Sintaxe</strong>, <strong>Metadata</strong> e <strong>Indentação</strong> detalham cada parte.</p>\n\n            <h2 id=\"esqueleto-completo\">Esqueleto Completo</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>#&gt; StartFW\ninclude #&gt; Standard;\n\nProject: {\n    title: \"Minha Lib\";\n    version: \"v1.0.0\";\n}\n\nDocs: {\n    layout #&gt; stnd;\n\n    section \"Introdução\" {\n        page Home {\n            route: \"home\";\n            nav: \"Início\";\n\n            h1 \"Bem-vindo\";\n            p \"Conteúdo da página aqui.\";\n        }\n    }\n}</code></pre>\n            </div>\n\n            <h2 id=\"as-quatro-partes\">As Quatro Partes</h2>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Parte</th>\n                            <th>Obrigatória?</th>\n                            <th>O que faz</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>#&gt; StartFW</code></td>\n                            <td>Sim</td>\n                            <td>Primeira linha; marca um arquivo compilável.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>include #&gt; Standard;</code></td>\n                            <td>Sim</td>\n                            <td>Importa os componentes padrão.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>Project { }</code></td>\n                            <td>Recomendada</td>\n                            <td>Metadados do site (título, versão…).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>Docs { }</code></td>\n                            <td>Sim</td>\n                            <td>Onde ficam as seções e páginas.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <h2 id=\"diretivas\">Diretivas (#&gt;)</h2>\n\n            <p>Diretivas começam com <code>#&gt;</code>. As da linguagem padrão são:</p>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Diretiva</th>\n                            <th>Onde</th>\n                            <th>Função</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>#&gt; StartFW</code></td>\n                            <td>1ª linha</td>\n                            <td>Início do arquivo.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>include #&gt; Standard</code></td>\n                            <td>topo</td>\n                            <td>Importa a biblioteca base.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>layout #&gt; stnd</code></td>\n                            <td>dentro de <code>Docs</code></td>\n                            <td>Define o layout (hoje só <code>stnd</code>).</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Mais recursos</div>\n                    <p class=\"alert-text\">Cores, índice &quot;On This Page&quot; e Switch vêm via <code>include #&gt; Extensions</code>. Veja a seção <strong>Extensions</strong>.</p>\n                </div>\n            </div>\n\n            <h2 id=\"hierarquia\">Hierarquia</h2>\n\n            <ul class=\"list-default\">\n                <li><strong>Arquivo</strong> → <code>Project</code> + <code>Docs</code>.</li>\n                <li><strong>Docs</strong> → uma ou mais <code>section</code>.</li>\n                <li><strong>section</strong> → uma ou mais <code>page</code>.</li>\n                <li><strong>page</strong> → metadados + blocos de conteúdo (<code>h2</code>, <code>p</code>, <code>hero</code>, <code>grid</code>…).</li>\n            </ul>"
     },
-    "secoes-paginas": {
+    "sintaxe": {
         category: "Linguagem",
-        title: "Seções e Páginas",
-        breadcrumb: "Seções e Páginas",
+        title: "Sintaxe da Linguagem",
+        breadcrumb: "Sintaxe",
         faq: false,
-        content: `
-            <h1 class="page-title">Seções e Páginas</h1>
-
-            <p>A documentação é organizada em <strong>seções</strong> que contêm <strong>páginas</strong>.</p>
-
-            <h2>Seções (Section)</h2>
-
-            <p>Seções agrupam páginas relacionadas. Elas aparecem como blocos no menu lateral:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>section "Começando" {
-    
-}
-
-section "Guias" {
-    
-}</code></pre>
-            </div>
-
-            <p>O nome da seção vira o título do grupo na sidebar.</p>
-
-            <h2>Páginas (Page)</h2>
-
-            <p>Cada página representa uma URL dentro da documentação:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>page NomeInterno {
-    route: "url-da-pagina";
-    icon: "ri-icon-line";
-    nav: "Texto no Menu";
-    breadcrumb: "Texto no Breadcrumb";
-    title: "Título da Página";
-    
-}</code></pre>
-            </div>
-
-            <h2>Propriedades de Meta</h2>
-
-            <p>Todas as propriedades de meta de uma página:</p>
-
-            <div class="grid-2">
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-link"></i> route</div>
-                    <p class="card-description">Define a URL da página (hash). Ex: <code>route: &quot;instalacao&quot;</code> cria <code>#instalacao</code>.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-palette-line"></i> icon</div>
-                    <p class="card-description">Ícone RemixIcon exibido no menu lateral. Ex: <code>icon: &quot;ri-home-4-line&quot;</code>.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-menu-line"></i> nav</div>
-                    <p class="card-description">Texto exibido no menu de navegação lateral.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-arrow-right-s-line"></i> breadcrumb</div>
-                    <p class="card-description">Texto exibido no breadcrumb do topo.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-font-size"></i> title</div>
-                    <p class="card-description">Título da página usado no &lt;title&gt; da aba do navegador.</p>
-                </div>
-            </div>
-
-            <div class="alert tip">
-                <div class="alert-icon"><i class="ri-lightbulb-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Rota Automática</div>
-                    <p class="alert-text">Se você não definir <code>route</code>, o LDFW gera automaticamente a partir do nome interno da página. Ex: <code>page MinhaPagina</code> vira <code>#minha-pagina</code>.</p>
-                </div>
-            </div>`
+        search: "Sintaxe Os blocos de construção da .ldfw . Vale para qualquer arquivo. Blocos { } Chaves agrupam conteúdo. O que está dentro precisa ser indentado (veja Indentação ). Ldfw Copiar section \"Nome\" { page Pagina { route: \"rota\"; } } Strings Texto entre aspas duplas. Para usar aspas dentro do texto, escape com barra invertida: Ldfw Copiar title: \"Ele disse \\\"olá\\\"\"; Ponto e Vírgula Encerra metadados e itens. Recomendado para clareza: Ldfw Copiar route: \"home\"; nav: \"Início\"; Comentários Começam com // e vão até o fim da linha. Dentro de uma string, // é texto normal: Ldfw Copiar description: \"Veja https://exemplo.com\"; Markdown Inline Dentro de textos (parágrafos, itens de lista, descrições, alertas): Ldfw Copiar p \"Use **negrito** para destacar e `código` para termos técnicos.\"; Renderiza assim: Use negrito para destacar e código para termos técnicos. Links e Alvos (->) Botões ( btn ) usam -> para definir o destino: Alvo Exemplo Vai para Rota interna -> home A página de route: \"home\" . Âncora -> \"#secao\" Uma âncora na página atual. Externo -> external \"https://...\" Abre o link em nova aba.",
+        content: "\n            <h1 class=\"page-title\" id=\"sintaxe\">Sintaxe</h1>\n\n            <p>Os blocos de construção da <code>.ldfw</code>. Vale para qualquer arquivo.</p>\n\n            <h2 id=\"blocos\">Blocos { }</h2>\n\n            <p>Chaves agrupam conteúdo. O que está dentro precisa ser indentado (veja <strong>Indentação</strong>).</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>section \"Nome\" {\n    page Pagina {\n        route: \"rota\";\n    }\n}</code></pre>\n            </div>\n\n            <h2 id=\"strings\">Strings</h2>\n\n            <p>Texto entre aspas duplas. Para usar aspas dentro do texto, escape com barra invertida:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>title: \"Ele disse \\\"olá\\\"\";</code></pre>\n            </div>\n\n            <h2 id=\"ponto-e-virgula\">Ponto e Vírgula</h2>\n\n            <p>Encerra metadados e itens. Recomendado para clareza:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>route: \"home\";\nnav: \"Início\";</code></pre>\n            </div>\n\n            <h2 id=\"comentarios\">Comentários</h2>\n\n            <p>Começam com <code>//</code> e vão até o fim da linha. Dentro de uma string, <code>//</code> é texto normal:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>description: \"Veja https://exemplo.com\";</code></pre>\n            </div>\n\n            <h2 id=\"markdown-inline\">Markdown Inline</h2>\n\n            <p>Dentro de textos (parágrafos, itens de lista, descrições, alertas):</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>p \"Use **negrito** para destacar e `código` para termos técnicos.\";</code></pre>\n            </div>\n\n            <p>Renderiza assim: Use <strong>negrito</strong> para destacar e <code>código</code> para termos técnicos.</p>\n\n            <h2 id=\"links-e-alvos\">Links e Alvos (-&gt;)</h2>\n\n            <p>Botões (<code>btn</code>) usam <code>-&gt;</code> para definir o destino:</p>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Alvo</th>\n                            <th>Exemplo</th>\n                            <th>Vai para</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td>Rota interna</td>\n                            <td><code>-&gt; home</code></td>\n                            <td>A página de <code>route: &quot;home&quot;</code>.</td>\n                        </tr>\n\n                        <tr>\n                            <td>Âncora</td>\n                            <td><code>-&gt; &quot;#secao&quot;</code></td>\n                            <td>Uma âncora na página atual.</td>\n                        </tr>\n\n                        <tr>\n                            <td>Externo</td>\n                            <td><code>-&gt; external &quot;https://...&quot;</code></td>\n                            <td>Abre o link em nova aba.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>"
+    },
+    "metadata": {
+        category: "Linguagem",
+        title: "Metadata (Project e Página)",
+        breadcrumb: "Metadata",
+        faq: false,
+        search: "Metadata Todos os campos de configuração — do projeto ( Project ) e de cada página ( page ). Project Página Ldfw Copiar Project: { title: \"Minha Lib\"; subtitle: \"Documentação\"; version: \"v1.0.0\"; status: \"Estável\"; github: \"https://github.com/user/repo\"; description: \"Descrição para SEO.\"; lang: \"pt-BR\"; logo: \"assets/logo.png\"; favicon: \"assets/favicon.ico\"; } Campo O que faz title Nome do projeto (logo da sidebar + aba do navegador). subtitle Subtítulo abaixo do título, no logo. version Versão exibida no rodapé da sidebar. status Selo de status (ex.: Estável, Beta). github URL do repositório; adiciona o botão GitHub no header. description Meta description (SEO e compartilhamento). lang Idioma do site (padrão pt-BR ). logo Imagem do logo (substitui o hexágono). Sempre quadrado. favicon Ícone da aba ( .ico , .png ou .svg ). Todos são opcionais, mas title é fortemente recomendado. Ldfw Copiar page MinhaPagina { route: \"minha-pagina\"; icon: \"ri-book-line\"; nav: \"Minha Página\"; breadcrumb: \"Minha Página\"; title: \"Título na Aba\"; h1 \"Conteúdo\"; } Campo Obrigatório? O que faz route Sim URL da página (hash). route: \"home\" vira #home . icon Não Ícone RemixIcon ao lado do nome no menu. nav Não Texto no menu lateral (padrão: nome da page ). breadcrumb Não Texto no topo (breadcrumb). title Não Título da aba do navegador. Rotas únicas Cada route precisa ser único no arquivo — o compilador rejeita rotas duplicadas. Variantes de página (Switch) Uma página pode ter variante: page Setup #> Linux { } . Isso faz parte das Extensions (Switch) — veja a seção Extensions.",
+        content: "\n            <h1 class=\"page-title\" id=\"metadata\">Metadata</h1>\n\n            <p>Todos os campos de configuração — do projeto (<code>Project</code>) e de cada página (<code>page</code>).</p>\n\n            <div class=\"tabs-container\">\n                <div class=\"tabs-header\">\n                    <button class=\"tab-btn active\" data-tab=\"0\"><i class=\"ri-settings-3-line\"></i> Project</button>\n<button class=\"tab-btn\" data-tab=\"1\"><i class=\"ri-file-list-3-line\"></i> Página</button>\n                </div>\n                <div class=\"tabs-body\">\n                    <div class=\"tab-content active\" data-tab=\"0\">\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>Project: {\n    title: \"Minha Lib\";\n    subtitle: \"Documentação\";\n    version: \"v1.0.0\";\n    status: \"Estável\";\n    github: \"https://github.com/user/repo\";\n    description: \"Descrição para SEO.\";\n    lang: \"pt-BR\";\n    logo: \"assets/logo.png\";\n    favicon: \"assets/favicon.ico\";\n}</code></pre>\n            </div>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Campo</th>\n                            <th>O que faz</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>title</code></td>\n                            <td>Nome do projeto (logo da sidebar + aba do navegador).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>subtitle</code></td>\n                            <td>Subtítulo abaixo do título, no logo.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>version</code></td>\n                            <td>Versão exibida no rodapé da sidebar.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>status</code></td>\n                            <td>Selo de status (ex.: Estável, Beta).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>github</code></td>\n                            <td>URL do repositório; adiciona o botão GitHub no header.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>description</code></td>\n                            <td>Meta description (SEO e compartilhamento).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>lang</code></td>\n                            <td>Idioma do site (padrão <code>pt-BR</code>).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>logo</code></td>\n                            <td>Imagem do logo (substitui o hexágono). Sempre quadrado.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>favicon</code></td>\n                            <td>Ícone da aba (<code>.ico</code>, <code>.png</code> ou <code>.svg</code>).</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <p>Todos são opcionais, mas <code>title</code> é fortemente recomendado.</p>\n            </div>\n<div class=\"tab-content\" data-tab=\"1\">\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>page MinhaPagina {\n    route: \"minha-pagina\";\n    icon: \"ri-book-line\";\n    nav: \"Minha Página\";\n    breadcrumb: \"Minha Página\";\n    title: \"Título na Aba\";\n\n    h1 \"Conteúdo\";\n}</code></pre>\n            </div>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Campo</th>\n                            <th>Obrigatório?</th>\n                            <th>O que faz</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>route</code></td>\n                            <td>Sim</td>\n                            <td>URL da página (hash). <code>route: &quot;home&quot;</code> vira <code>#home</code>.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>icon</code></td>\n                            <td>Não</td>\n                            <td>Ícone RemixIcon ao lado do nome no menu.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>nav</code></td>\n                            <td>Não</td>\n                            <td>Texto no menu lateral (padrão: nome da <code>page</code>).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>breadcrumb</code></td>\n                            <td>Não</td>\n                            <td>Texto no topo (breadcrumb).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>title</code></td>\n                            <td>Não</td>\n                            <td>Título da aba do navegador.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Rotas únicas</div>\n                    <p class=\"alert-text\">Cada <code>route</code> precisa ser único no arquivo — o compilador rejeita rotas duplicadas.</p>\n                </div>\n            </div>\n            </div>\n                </div>\n            </div>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Variantes de página (Switch)</div>\n                    <p class=\"alert-text\">Uma página pode ter variante: <code>page Setup #&gt; Linux { }</code>. Isso faz parte das <strong>Extensions</strong> (Switch) — veja a seção Extensions.</p>\n                </div>\n            </div>"
     },
     "indentacao": {
         category: "Linguagem",
         title: "Regras de Indentação",
         breadcrumb: "Indentação",
         faq: false,
-        content: `
-            <h1 class="page-title">Regras de Indentação</h1>
-
-            <p>Diferente de outras linguagens de template, o LDFW <strong>exige</strong> indentação correta. Isso garante que o código fonte fique organizado e legível.</p>
-
-            <h2>Regra 1: 4 Espaços por Nível</h2>
-
-            <p>Cada nível de aninhamento adiciona <strong>4 espaços</strong>. Use sempre espaços, não tabs.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>Project: {
-    title: "OK";    
-}
-
-Docs: {
-    layout #&gt; stnd; 
-
-    section "X" {   
-        page Y {    
-            route: "y"; 
-            hero {      
-                title: "OK"; 
-            }
-        }
-    }
-}</code></pre>
-            </div>
-
-            <h2>Regra 2: Chaves na Mesma Coluna</h2>
-
-            <p>O <code>}</code> de fechamento deve estar na <strong>mesma coluna</strong> que a linha que abriu o bloco:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>section "Correto" {     
-    page OK {           
-    }                   
-}</code></pre>
-            </div>
-
-            <h2>Regra 3: Conteúdo Indentado</h2>
-
-            <p>Todo conteúdo dentro de um bloco deve ter <strong>pelo menos 4 espaços a mais</strong> que a abertura:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>hero {              
-    badge: "OK";    
-    btn primary "Ver" -&gt; pagina; 
-}</code></pre>
-            </div>
-
-            <h2>Regra 4: Blocos Vazios</h2>
-
-            <p>Blocos sem conteúdo são permitidos (<code>{ }</code>), mas mantenha a consistência.</p>
-
-            <div class="alert warning">
-                <div class="alert-icon"><i class="ri-alert-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Importante</div>
-                    <p class="alert-text">O compilador <strong>rejeita</strong> arquivos com indentação incorreta com uma mensagem de erro clara indicando a linha e o esperado. Isso é proposital: força o código a ficar limpo.</p>
-                </div>
-            </div>
-
-            <h2>Exemplo de Erro</h2>
-
-            <p>Isso NÃO compila:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>hero {
-badge: "Erro"; 
-}</code></pre>
-            </div>
-
-            <p>O compilador mostra: <code>Indentação insuficiente na linha X: 0 espaços, mínimo 4 dentro do bloco</code>.</p>`
+        search: "Indentação O LDFW valida a indentação na compilação — assim seus arquivos ficam sempre organizados. A Regra Use 4 espaços por nível de aninhamento. O conteúdo dentro de { fica com +4 espaços (no mínimo) em relação à linha que abriu. O } de fechamento alinha com a coluna da linha de abertura . Use espaços — não tabs. Correto Ldfw Copiar section \"Guia\" { page Home { route: \"home\"; } } Errado (rejeitado) Ldfw Copiar section \"Guia\" { page Home { route: \"home\"; } } O compilador aponta a linha: *Indentação insuficiente na linha N*. Em Uma Linha Só Blocos curtos podem ficar numa linha — a validação não exige quebra: Ldfw Copiar Project: { title: \"X\"; version: \"v1.0.0\"; } page P { route: \"p\"; }",
+        content: "\n            <h1 class=\"page-title\" id=\"indentacao\">Indentação</h1>\n\n            <p>O LDFW <strong>valida a indentação</strong> na compilação — assim seus arquivos ficam sempre organizados.</p>\n\n            <h2 id=\"a-regra\">A Regra</h2>\n\n            <ul class=\"list-default\">\n                <li>Use <strong>4 espaços</strong> por nível de aninhamento.</li>\n                <li>O conteúdo dentro de <code>{</code> fica com <strong>+4 espaços</strong> (no mínimo) em relação à linha que abriu.</li>\n                <li>O <code>}</code> de fechamento alinha com a <strong>coluna da linha de abertura</strong>.</li>\n                <li>Use espaços — <strong>não</strong> tabs.</li>\n            </ul>\n\n            <h2 id=\"correto\">Correto</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>section \"Guia\" {\n    page Home {\n        route: \"home\";\n    }\n}</code></pre>\n            </div>\n\n            <h2 id=\"errado-rejeitado\">Errado (rejeitado)</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>section \"Guia\" {\n  page Home {\n        route: \"home\";\n  }\n}</code></pre>\n            </div>\n\n            <p>O compilador aponta a linha: *Indentação insuficiente na linha N*.</p>\n\n            <h2 id=\"em-uma-linha-so\">Em Uma Linha Só</h2>\n\n            <p>Blocos curtos podem ficar numa linha — a validação não exige quebra:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>Project: { title: \"X\"; version: \"v1.0.0\"; }\npage P { route: \"p\"; }</code></pre>\n            </div>"
     },
-    "blocos-texto": {
-        category: "Linguagem",
-        title: "Títulos, Parágrafos e Formatação",
-        breadcrumb: "Blocos de Texto",
+    "componente-titulos": {
+        category: "Componentes",
+        title: "Títulos e Texto",
+        breadcrumb: "Títulos e Texto",
         faq: false,
-        content: `
-            <h1 class="page-title">Títulos, Parágrafos e Formatação</h1>
-
-            <p>O LDFW oferece headings e parágrafos com suporte a formatação inline.</p>
-
-            <h2>Headings</h2>
-
-            <p>Use <code>h1</code>, <code>h2</code> e <code>h3</code> para títulos:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>h1 "Título Principal";
-h2 "Subtítulo";
-h3 "Seção Menor";</code></pre>
-            </div>
-
-            <p>Eles são renderizados como <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code> e <code>&lt;h3&gt;</code> com estilos próprios.</p>
-
-            <h2>Parágrafo</h2>
-
-            <p>Use <code>p</code> para parágrafos:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>p "Texto do parágrafo aqui.";</code></pre>
-            </div>
-
-            <p>Textos longos podem usar múltiplas strings dentro de chaves:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>p {
-    "Primeira linha do parágrafo.";
-    "Segunda linha do parágrafo.";
-}</code></pre>
-            </div>
-
-            <h2>Formatação em Linha</h2>
-
-            <p>Dentro de strings, use <code><strong>texto</strong></code> para <strong>negrito</strong>:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>p "Este é um texto com **negrito** e **mais negrito**.";</code></pre>
-            </div>
-
-            <h2>Dica: Strings Longas</h2>
-
-            <p>Para textos longos, prefira usar múltiplas strings em linhas separadas. Fica mais legível e a indentação é validada automaticamente:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>alert tip "Nota" {
-    "Este é um texto longo que pode ocupar várias linhas.";
-    "Cada linha é uma string separada por ponto e vírgula.";
-    "No HTML final, elas são unidas com quebra de linha.";
-}</code></pre>
-            </div>`
+        search: "Títulos e Texto Os blocos mais básicos: títulos ( h1 , h2 , h3 ) e parágrafos ( p ). Sintaxe Ldfw Copiar h1 \"Título principal\"; h2 \"Seção\"; h3 \"Subseção\"; p \"Um parágrafo de texto.\"; Quando Usar Cada Título Bloco Uso h1 Título principal da página (grande). h2 Seções da página (entram no \"On This Page\"). h3 Subseções dentro de um h2. Parágrafo O p aceita negrito e código inline: Ldfw Copiar p \"Rode `ldfw build` para gerar o **site estático**.\"; Resultado: Rode ldfw build para gerar o site estático . Texto em Várias Linhas Títulos e parágrafos também aceitam um bloco com várias linhas: Ldfw Copiar p { \"Primeira linha do parágrafo.\"; \"Segunda linha.\"; }",
+        content: "\n            <h1 class=\"page-title\" id=\"titulos-e-texto\">Títulos e Texto</h1>\n\n            <p>Os blocos mais básicos: títulos (<code>h1</code>, <code>h2</code>, <code>h3</code>) e parágrafos (<code>p</code>).</p>\n\n            <h2 id=\"sintaxe\">Sintaxe</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>h1 \"Título principal\";\nh2 \"Seção\";\nh3 \"Subseção\";\np \"Um parágrafo de texto.\";</code></pre>\n            </div>\n\n            <h2 id=\"quando-usar-cada-titulo\">Quando Usar Cada Título</h2>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Bloco</th>\n                            <th>Uso</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>h1</code></td>\n                            <td>Título principal da página (grande).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>h2</code></td>\n                            <td>Seções da página (entram no &quot;On This Page&quot;).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>h3</code></td>\n                            <td>Subseções dentro de um h2.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <h2 id=\"paragrafo\">Parágrafo</h2>\n\n            <p>O <code>p</code> aceita <strong>negrito</strong> e <code>código</code> inline:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>p \"Rode `ldfw build` para gerar o **site estático**.\";</code></pre>\n            </div>\n\n            <p>Resultado: Rode <code>ldfw build</code> para gerar o <strong>site estático</strong>.</p>\n\n            <h2 id=\"texto-em-varias-linhas\">Texto em Várias Linhas</h2>\n\n            <p>Títulos e parágrafos também aceitam um bloco com várias linhas:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>p {\n    \"Primeira linha do parágrafo.\";\n    \"Segunda linha.\";\n}</code></pre>\n            </div>"
     },
     "componente-hero": {
         category: "Componentes",
-        title: "Componente Hero",
+        title: "Hero",
         breadcrumb: "Hero",
         faq: false,
-        content: `
-            <h1 class="page-title">Hero</h1>
-
-            <p>O Hero é o banner principal da página inicial. Combina badge, título, descrição e botões.</p>
-
-            <h2>Sintaxe</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>hero {
-    badge: "Novo";
-    title: "Título Principal";
-    desc: "Descrição curta e impactante.";
-    btn primary "Começar" -&gt; pagina-inicial;
-    btn outline "GitHub" -&gt; external "https://github.com/...";
-}</code></pre>
-            </div>
-
-            <h2>Propriedades</h2>
-
-            <div class="grid-2">
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-price-tag-3-line"></i> badge</div>
-                    <p class="card-description">Pequeno rótulo colorido acima do título. Opcional.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-font-size-2"></i> title</div>
-                    <p class="card-description">Título principal do hero. Opcional.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-file-text-line"></i> desc</div>
-                    <p class="card-description">Descrição abaixo do título. Opcional.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-rocket-line"></i> btn</div>
-                    <p class="card-description">Botão de ação. Pode ter múltiplos botões. Cada um em uma linha <code>btn ...</code>.</p>
-                </div>
-            </div>
-
-            <h2>Botões</h2>
-
-            <p>A sintaxe do botão é:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>btn primary|outline "Rótulo" -&gt; destino;</code></pre>
-            </div>
-
-            <p>O destino pode ser:</p>
-
-            <ul class="list-default">
-                <li><strong>Outra página:</strong> <code>btn primary &quot;Ver Docs&quot; -&gt; instalacao;</code> (usa a route da página)</li>
-                <li><strong>Link externo:</strong> <code>btn outline &quot;GitHub&quot; -&gt; external &quot;https://...&quot;;</code></li>
-            </ul>
-
-            <h2>Exemplo Completo</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>hero {
-    badge: "Framework v1.0";
-    title: "Lapo's Documentation Framework";
-    desc: "Crie sites de documentação premium compilando .ldfw.";
-    btn primary "Documentação" -&gt; estrutura;
-    btn outline "Repositório" -&gt; external "https://github.com/...";
-}</code></pre>
-            </div>`
+        search: "Hero O banner de destaque no topo de uma página: badge, título, descrição e botões. Sintaxe Ldfw Copiar hero { badge: \"v2.0\"; title: \"Meu Projeto\"; desc: \"Uma descrição curta e direta.\"; btn primary \"Começar\" -> home; btn outline \"GitHub\" -> external \"https://github.com/user/repo\"; } Campos Campo O que é badge Selo pequeno acima do título. title Título grande do hero. desc Texto descritivo abaixo do título. btn Botão (pode ter vários). Veja Botões . Exemplo Renderizado Exemplo Título do Hero É assim que um hero aparece na página. Ação Badge colorido Um badge com cor própria ( badge: (\"v2\", \"#cor\", \"bg\") ) precisa do using Extensions.Coloring . Veja Extensions .",
+        content: "\n            <h1 class=\"page-title\" id=\"hero\">Hero</h1>\n\n            <p>O banner de destaque no topo de uma página: badge, título, descrição e botões.</p>\n\n            <h2 id=\"sintaxe\">Sintaxe</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>hero {\n    badge: \"v2.0\";\n    title: \"Meu Projeto\";\n    desc: \"Uma descrição curta e direta.\";\n    btn primary \"Começar\" -&gt; home;\n    btn outline \"GitHub\" -&gt; external \"https://github.com/user/repo\";\n}</code></pre>\n            </div>\n\n            <h2 id=\"campos\">Campos</h2>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Campo</th>\n                            <th>O que é</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>badge</code></td>\n                            <td>Selo pequeno acima do título.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>title</code></td>\n                            <td>Título grande do hero.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>desc</code></td>\n                            <td>Texto descritivo abaixo do título.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>btn</code></td>\n                            <td>Botão (pode ter vários). Veja <strong>Botões</strong>.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <h2 id=\"exemplo-renderizado\">Exemplo Renderizado</h2>\n\n            <div class=\"hero-section\">\n                <span class=\"badge badge-primary\">Exemplo</span>\n                <h1 class=\"page-title\" id=\"titulo-do-hero\" style=\"margin-top: 10px;\">Título do Hero</h1>\n                <p class=\"page-description\">É assim que um hero aparece na página.</p>\n                <div class=\"action-group\"><a href=\"#componente-hero\" class=\"btn btn-primary\"><i class=\"ri-rocket-line\"></i> Ação</a></div>\n            </div>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Badge colorido</div>\n                    <p class=\"alert-text\">Um badge com cor própria (<code>badge: (&quot;v2&quot;, &quot;#cor&quot;, &quot;bg&quot;)</code>) precisa do <code>using Extensions.Coloring</code>. Veja <strong>Extensions</strong>.</p>\n                </div>\n            </div>"
     },
     "componente-grid": {
         category: "Componentes",
         title: "Grid e Cards",
         breadcrumb: "Grid e Cards",
         faq: false,
-        content: `
-            <h1 class="page-title">Grid e Cards</h1>
-
-            <p>Use grids para exibir cards lado a lado.</p>
-
-            <h2>Grid</h2>
-
-            <p>O grid define quantas colunas terá. Suporta 2 ou 3 colunas:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>grid 2 {
-    card "Título 1" icon "ri-icon-1" {
-        "Descrição do card 1.";
-    }
-    card "Título 2" icon "ri-icon-2" {
-        "Descrição do card 2.";
-    }
-}</code></pre>
-            </div>
-
-            <h2>Card</h2>
-
-            <p>Cada card dentro de um grid tem:</p>
-
-            <ul class="list-default">
-                <li><strong>Título</strong> (obrigatório) — texto em negrito no topo do card.</li>
-                <li><strong>Icon</strong> (opcional) — classe RemixIcon exibida antes do título.</li>
-                <li><strong>Conteúdo</strong> (obrigatório) — texto dentro de chaves, com suporte a <strong>negrito</strong>.</li>
-            </ul>
-
-            <h2>Card Avulso</h2>
-
-            <p>Cards também podem ser usados fora de grids (ocupam a largura inteira):</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>card "Aviso Importante" icon "ri-alert-line" {
-    "Use cards avulsos para destacar informações importantes.";
-}</code></pre>
-            </div>
-
-            <h2>Exemplo com 3 Colunas</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>grid 3 {
-    card "Rápido" icon "ri-flashlight-line" {
-        "Compila em milissegundos.";
-    }
-    card "Premium" icon "ri-vip-crown-line" {
-        "Visual moderno e responsivo.";
-    }
-    card "Simples" icon "ri-code-line" {
-        "Sintaxe limpa e indentação validada.";
-    }
-}</code></pre>
-            </div>`
+        search: "Grid e Cards Cards em grade ( grid ) ou um card avulso ocupando a largura toda. Grid de Cards Ldfw Copiar grid 2 { card \"Rápido\" icon \"ri-flashlight-line\" { \"Texto do card, com **negrito** se quiser.\"; } card \"Seguro\" icon \"ri-shield-check-line\" { \"Outro card.\"; } } grid aceita 2 ou 3 colunas. Cada card tem título, ícone (RemixIcon) e texto. Exemplo Renderizado Card 1 Primeiro card do grid. Card 2 Segundo card do grid. Card Avulso Fora de um grid, o card ocupa a largura inteira: Ldfw Copiar card \"Destaque\" icon \"ri-star-line\" { \"Um card sozinho, em largura total.\"; } Card Avulso Exemplo de card avulso renderizado.",
+        content: "\n            <h1 class=\"page-title\" id=\"grid-e-cards\">Grid e Cards</h1>\n\n            <p>Cards em grade (<code>grid</code>) ou um card avulso ocupando a largura toda.</p>\n\n            <h2 id=\"grid-de-cards\">Grid de Cards</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>grid 2 {\n    card \"Rápido\" icon \"ri-flashlight-line\" {\n        \"Texto do card, com **negrito** se quiser.\";\n    }\n    card \"Seguro\" icon \"ri-shield-check-line\" {\n        \"Outro card.\";\n    }\n}</code></pre>\n            </div>\n\n            <p><code>grid</code> aceita <strong>2</strong> ou <strong>3</strong> colunas. Cada <code>card</code> tem título, ícone (RemixIcon) e texto.</p>\n\n            <h2 id=\"exemplo-renderizado\">Exemplo Renderizado</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-checkbox-circle-line\"></i> Card 1</div>\n                    <p class=\"card-description\">Primeiro card do grid.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-star-line\"></i> Card 2</div>\n                    <p class=\"card-description\">Segundo card do grid.</p>\n                </div>\n            </div>\n\n            <h2 id=\"card-avulso\">Card Avulso</h2>\n\n            <p>Fora de um grid, o <code>card</code> ocupa a largura inteira:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>card \"Destaque\" icon \"ri-star-line\" {\n    \"Um card sozinho, em largura total.\";\n}</code></pre>\n            </div>\n\n            <div class=\"card\">\n                <div class=\"card-title\"><i class=\"ri-medal-line\"></i> Card Avulso</div>\n                <p class=\"card-description\">Exemplo de card avulso renderizado.</p>\n            </div>"
     },
-    "componente-tabs": {
+    "componente-botoes": {
         category: "Componentes",
-        title: "Componente Tabs",
-        breadcrumb: "Tabs",
+        title: "Botões (btn)",
+        breadcrumb: "Botões",
         faq: false,
-        content: `
-            <h1 class="page-title">Tabs</h1>
-
-            <p>O componente Tabs organiza conteúdo em abas. Cada <code>tab { }</code> dentro de <code>tabs { }</code> é um painel independente com qualquer componente dentro: texto, código, grid, alertas, etc.</p>
-
-            <h2>Sintaxe</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>tabs {
-    tab "Lua" icon "ri-code-line" {
-        code lua {
-print("Hello World")
-        }
-    }
-    tab "Python" icon "ri-code-line" {
-        code python {
-print("Hello World")
-        }
-    }
-    tab "JavaScript" icon "ri-code-line" {
-        code javascript {
-console.log("Hello World")
-        }
-    }
-}</code></pre>
-            </div>
-
-            <h2>Exemplo ao Vivo</h2>
-
-            <p>Abaixo, um exemplo funcional com código em diferentes linguagens:</p>
-
-            <div class="tabs-container">
-                <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="0"><i class="ri-code-line"></i> Lua</button>
-<button class="tab-btn" data-tab="1"><i class="ri-code-line"></i> Python</button>
-<button class="tab-btn" data-tab="2"><i class="ri-code-line"></i> JavaScript</button>
-                </div>
-                <div class="tabs-body">
-                    <div class="tab-content active" data-tab="0">
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Lua</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-lua"><code>-- Exemplo em Lua
-local function greet(name)
-    return "Hello, " .. name .. "!"
-end
-print(greet("LDFW"))</code></pre>
-            </div>
-            </div>
-<div class="tab-content" data-tab="1">
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Python</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-python"><code># Exemplo em Python
-def greet(name):
-    return f"Hello, {name}!"
-
-print(greet("LDFW"))</code></pre>
-            </div>
-            </div>
-<div class="tab-content" data-tab="2">
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Javascript</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-javascript"><code>function greet(name) {
-    return \`Hello, \${name}!\`;
-}
-console.log(greet("LDFW"));</code></pre>
-            </div>
-            </div>
-                </div>
-            </div>
-
-            <h2>Aninhamento</h2>
-
-            <p>Tabs podem conter qualquer componente, incluindo alertas, listas, grids e até outras tabs (nested tabs):</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>tabs {
-    tab "Instalação" icon "ri-download-line" {
-        alert tip "Dica" {
-            "Use o comando \`make build\` para compilar."
-        }
-    }
-    tab "Configuração" icon "ri-settings-line" {
-        ul {
-            "Defina o layout em Docs.";
-            "Adicione seções e páginas.";
-        }
-    }
-}</code></pre>
-            </div>
-
-            <h2>Uso com Extensions</h2>
-
-            <p>Tabs funcionam com Extensions normalmente. Basta incluir <code>using Extensions.alert</code> ou <code>using Extensions.badge</code> no início do arquivo:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>tabs {
-    tab "Alertas" icon "ri-notification-line" {
-        alert ("Título", "#10b981", "rgba(16,185,129,0.08)", "ri-check-line") {
-            "Este alerta usa a sintaxe abreviada do Extensions.";
-        }
-    }
-    tab "Tabela" icon "ri-table-line" {
-        table config {
-            row "parametro" ("string", "#3b82f6", "rgba(59,130,246,0.1)")  "valor"  "Descrição";
-        }
-    }
-}</code></pre>
-            </div>`
+        search: "Botões Botões aparecem dentro do hero . Cada um tem um estilo e um destino ( -> ). Sintaxe Ldfw Copiar btn primary \"Começar\" -> home; btn outline \"Repositório\" -> external \"https://github.com/user/repo\"; Estilos Estilo Aparência primary Botão cheio, na cor de destaque. outline Botão com contorno (secundário). Destinos (->) Alvo Exemplo Rota interna -> home Âncora -> \"#secao\" Externo -> external \"https://...\" Links externos abrem em uma nova aba automaticamente.",
+        content: "\n            <h1 class=\"page-title\" id=\"botoes\">Botões</h1>\n\n            <p>Botões aparecem dentro do <code>hero</code>. Cada um tem um estilo e um destino (<code>-&gt;</code>).</p>\n\n            <h2 id=\"sintaxe\">Sintaxe</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>btn primary \"Começar\" -&gt; home;\nbtn outline \"Repositório\" -&gt; external \"https://github.com/user/repo\";</code></pre>\n            </div>\n\n            <h2 id=\"estilos\">Estilos</h2>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Estilo</th>\n                            <th>Aparência</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>primary</code></td>\n                            <td>Botão cheio, na cor de destaque.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>outline</code></td>\n                            <td>Botão com contorno (secundário).</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <h2 id=\"destinos\">Destinos (-&gt;)</h2>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Alvo</th>\n                            <th>Exemplo</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td>Rota interna</td>\n                            <td><code>-&gt; home</code></td>\n                        </tr>\n\n                        <tr>\n                            <td>Âncora</td>\n                            <td><code>-&gt; &quot;#secao&quot;</code></td>\n                        </tr>\n\n                        <tr>\n                            <td>Externo</td>\n                            <td><code>-&gt; external &quot;https://...&quot;</code></td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <p>Links externos abrem em uma nova aba automaticamente.</p>"
     },
     "componente-code": {
         category: "Componentes",
         title: "Bloco de Código",
-        breadcrumb: "Bloco de Código",
+        breadcrumb: "Código",
         faq: false,
-        content: `
-            <h1 class="page-title">Bloco de Código</h1>
-
-            <p>Exiba código com syntax highlighting usando o componente <code>code</code>.</p>
-
-            <h2>Sintaxe</h2>
-
-            <p>Especifique a linguagem após <code>code</code> e o conteúdo dentro de chaves:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>code lua {
-print("Hello LDFW!")
-local x = 1 + 2
-}</code></pre>
-            </div>
-
-            <h2>Linguagens Suportadas</h2>
-
-            <p>O highlighting usa Prism.js. Qualquer linguagem suportada pelo Prism funciona. Basta especificar o nome: <code>lua</code>, <code>javascript</code>, <code>python</code>, <code>bash</code>, <code>html</code>, <code>css</code>, etc.</p>
-
-            <h2>Funcionalidades</h2>
-
-            <ul class="list-default">
-                <li><strong>Syntax highlighting</strong> automático via Prism.js.</li>
-                <li><strong>Botão Copiar</strong> — um clique copia o código para a área de transferência.</li>
-                <li><strong>Indentação livre</strong> — o conteúdo dentro de code NÃO segue as regras de indentação do LDFW (é código literal).</li>
-            </ul>
-
-            <h2>Exemplo com JavaScript</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Javascript</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-javascript"><code>function greet(name) {
-    console.log(\`Hello, \${name}!\`);
-}
-
-greet("LDFW");</code></pre>
-            </div>
-
-            <div class="alert tip">
-                <div class="alert-icon"><i class="ri-lightbulb-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Dica</div>
-                    <p class="alert-text">O conteúdo do code block é preservado exatamente como escrito. A indentação dentro dele é livre — as regras do LDFW não se aplicam aí.</p>
-                </div>
-            </div>`
+        search: "Bloco de Código Exibe código com botão de copiar e destaque de sintaxe (quando a linguagem é suportada). Sintaxe Ldfw Copiar code lua { print(\"Olá, LDFW!\") } Troque lua pela linguagem do trecho ( bash , javascript , python , etc.). Exemplo Renderizado Bash Copiar ldfw build docs.ldfw -o ./dist npx serve ./dist -l 8080 Destaque de sintaxe O highlight usa o Prism via CDN. Por padrão só Lua vem carregado; outras linguagens aparecem em fonte mono sem cor. Veja a nota de CDN no README.",
+        content: "\n            <h1 class=\"page-title\" id=\"bloco-de-codigo\">Bloco de Código</h1>\n\n            <p>Exibe código com botão de copiar e destaque de sintaxe (quando a linguagem é suportada).</p>\n\n            <h2 id=\"sintaxe\">Sintaxe</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>code lua {\nprint(\"Olá, LDFW!\")\n}</code></pre>\n            </div>\n\n            <p>Troque <code>lua</code> pela linguagem do trecho (<code>bash</code>, <code>javascript</code>, <code>python</code>, etc.).</p>\n\n            <h2 id=\"exemplo-renderizado\">Exemplo Renderizado</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>ldfw build docs.ldfw -o ./dist\nnpx serve ./dist -l 8080</code></pre>\n            </div>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Destaque de sintaxe</div>\n                    <p class=\"alert-text\">O highlight usa o Prism via CDN. Por padrão só Lua vem carregado; outras linguagens aparecem em fonte mono sem cor. Veja a nota de CDN no README.</p>\n                </div>\n            </div>"
     },
     "componente-alert": {
         category: "Componentes",
         title: "Alertas",
         breadcrumb: "Alertas",
         faq: false,
-        content: `
-            <h1 class="page-title">Alertas</h1>
-
-            <p>Alertas são caixas coloridas para destacar informações importantes.</p>
-
-            <h2>Variantes</h2>
-
-            <div class="grid-2">
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-lightbulb-line"></i> tip</div>
-                    <p class="card-description">Tom roxo/índigo. Para dicas e sugestões.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-information-line"></i> info</div>
-                    <p class="card-description">Tom azul. Para informações gerais.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-alert-line"></i> warning</div>
-                    <p class="card-description">Tom amarelo. Para avisos e cuidados.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-error-warning-line"></i> danger</div>
-                    <p class="card-description">Tom vermelho. Para erros e perigos.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-information-line"></i> important</div>
-                    <p class="card-description">Tom roxo com ícone de info. Para notas técnicas importantes de API.</p>
-                </div>
-            </div>
-
-            <h2>Sintaxe</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>alert tip "Título do Alerta" {
-    "Texto do alerta com suporte a **negrito**.";
-}</code></pre>
-            </div>
-
-            <h2>Exemplos</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>alert tip "Dica" {
-    "Use \`alert tip\` para dicas úteis.";
-}
-
-alert info "Informação" {
-    "Use \`alert info\` para informações contextuais.";
-}
-
-alert warning "Atenção" {
-    "Use \`alert warning\` para alertar sobre algo importante.";
-}
-
-alert danger "Cuidado" {
-    "Use \`alert danger\` para erros ou ações irreversíveis.";
-}
-
-alert important "Importante sobre \`:Set\`" {
-    "Trocar opções com \`handle:Set({ ... })\` **não** dispara o callback. Atualize a variável manualmente para \`options[1]\`.";
-}
-
-alert tip "Múltiplas Linhas" {
-    "Alertas também suportam textos longos.";
-    "Basta usar múltiplas strings dentro das chaves.";
-}</code></pre>
-            </div>
-
-            <p>Renderização real dos alertas:</p>
-
-            <div class="alert tip">
-                <div class="alert-icon"><i class="ri-lightbulb-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Tip</div>
-                    <p class="alert-text">Isso é um alerta do tipo <strong>tip</strong>. Use para dicas.</p>
-                </div>
-            </div>
-
-            <div class="alert info">
-                <div class="alert-icon"><i class="ri-information-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Info</div>
-                    <p class="alert-text">Isso é um alerta do tipo <strong>info</strong>. Use para informações.</p>
-                </div>
-            </div>
-
-            <div class="alert warning">
-                <div class="alert-icon"><i class="ri-alert-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Warning</div>
-                    <p class="alert-text">Isso é um alerta do tipo <strong>warning</strong>. Use para avisos.</p>
-                </div>
-            </div>
-
-            <div class="alert danger">
-                <div class="alert-icon"><i class="ri-error-warning-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Danger</div>
-                    <p class="alert-text">Isso é um alerta do tipo <strong>danger</strong>. Use para perigos.</p>
-                </div>
-            </div>
-
-            <div class="alert important">
-                <div class="alert-icon"><i class="ri-information-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Important</div>
-                    <p class="alert-text">Isso é um alerta do tipo <strong>important</strong>. Use para notas técnicas de API com suporte a <code>código</code> inline.</p>
-                </div>
-            </div>`
+        search: "Alertas Caixas de destaque para dicas, avisos e erros. Cinco variantes prontas — sem precisar de nada extra. Sintaxe Ldfw Copiar alert tip \"Dica\" { \"Texto do alerta, com **negrito** e `código` se quiser.\"; } Variantes Prontas Variante Uso tip Dicas e boas práticas. info Informação neutra. warning Atenção / cuidado. danger Erro / risco. important Destaque importante. Exemplos Renderizados Dica Variante tip. Info Variante info. Aviso Variante warning. Erro Variante danger. Cores personalizadas Para alertas com cores próprias ( alert (\"Título\", \"#cor\", \"bg\", \"ícone\") ) ou presets nomeados, use as Extensions ( using Extensions.Coloring ).",
+        content: "\n            <h1 class=\"page-title\" id=\"alertas\">Alertas</h1>\n\n            <p>Caixas de destaque para dicas, avisos e erros. Cinco variantes prontas — sem precisar de nada extra.</p>\n\n            <h2 id=\"sintaxe\">Sintaxe</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>alert tip \"Dica\" {\n    \"Texto do alerta, com **negrito** e `código` se quiser.\";\n}</code></pre>\n            </div>\n\n            <h2 id=\"variantes-prontas\">Variantes Prontas</h2>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Variante</th>\n                            <th>Uso</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>tip</code></td>\n                            <td>Dicas e boas práticas.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>info</code></td>\n                            <td>Informação neutra.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>warning</code></td>\n                            <td>Atenção / cuidado.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>danger</code></td>\n                            <td>Erro / risco.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>important</code></td>\n                            <td>Destaque importante.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <h2 id=\"exemplos-renderizados\">Exemplos Renderizados</h2>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Dica</div>\n                    <p class=\"alert-text\">Variante tip.</p>\n                </div>\n            </div>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Info</div>\n                    <p class=\"alert-text\">Variante info.</p>\n                </div>\n            </div>\n\n            <div class=\"alert warning\">\n                <div class=\"alert-icon\"><i class=\"ri-alert-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Aviso</div>\n                    <p class=\"alert-text\">Variante warning.</p>\n                </div>\n            </div>\n\n            <div class=\"alert danger\">\n                <div class=\"alert-icon\"><i class=\"ri-error-warning-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Erro</div>\n                    <p class=\"alert-text\">Variante danger.</p>\n                </div>\n            </div>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Cores personalizadas</div>\n                    <p class=\"alert-text\">Para alertas com cores próprias (<code>alert (&quot;Título&quot;, &quot;#cor&quot;, &quot;bg&quot;, &quot;ícone&quot;)</code>) ou presets nomeados, use as <strong>Extensions</strong> (<code>using Extensions.Coloring</code>).</p>\n                </div>\n            </div>"
     },
     "componente-tabelas": {
         category: "Componentes",
-        title: "Tabelas de API",
+        title: "Tabelas",
         breadcrumb: "Tabelas",
         faq: false,
-        content: `
-            <h1 class="page-title">Tabelas</h1>
-
-            <p>Use tabelas para documentar parâmetros de configuração, métodos e cheat sheets de API.</p>
-
-            <h2>Tabela de Configuração</h2>
-
-            <p>O preset <code>table config</code> gera automaticamente as colunas <strong>Parâmetro | Tipo | Padrão | Descrição</strong>.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>table config {
-    row "title"    string  "\"Lapo Hub X\""  "O título do balão de notificação.";
-    row "content"  string  "\"\""            "O conteúdo descritivo da mensagem.";
-    row "duration" number  "4"               "Tempo de exibição em segundos.";
-}</code></pre>
-            </div>
-
-            <h2>Argumentos da Configuração</h2>
-
-            <div class="table-wrapper">
-                <table class="api-table">
-                    <thead>
-                        <tr>
-                            <th>Parâmetro</th>
-                            <th>Tipo</th>
-                            <th>Padrão</th>
-                            <th>Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>title</code></td>
-                            <td><span class="type-badge string">string</span></td>
-                            <td><code>&quot;Lapo Hub X&quot;</code></td>
-                            <td>O título do balão de notificação.</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>content</code></td>
-                            <td><span class="type-badge string">string</span></td>
-                            <td><code>&quot;&quot;</code></td>
-                            <td>O conteúdo descritivo da mensagem.</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>duration</code></td>
-                            <td><span class="type-badge number">number</span></td>
-                            <td><code>4</code></td>
-                            <td>Tempo de exibição em segundos.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Tabela Genérica</h2>
-
-            <p>Defina os headers manualmente. Use <code>badge:tipo</code> seguido do rótulo para badges de tipo.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>table {
-    header "Função" "Retorno" "O que faz";
-    row "\`LapoHub:Notify(config)\`" badge:table self "Balão flutuante. \`config = { title, content, duration }\`.";
-}</code></pre>
-            </div>
-
-            <h2>Exemplo Genérico</h2>
-
-            <div class="table-wrapper">
-                <table class="api-table">
-                    <thead>
-                        <tr>
-                            <th>Função</th>
-                            <th>Retorno</th>
-                            <th>O que faz</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>LapoHub:Notify(config)</code></td>
-                            <td><span class="type-badge table">self</span></td>
-                            <td>Balão flutuante. <code>config = { title, content, duration }</code>.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Tipos de Badge</h2>
-
-            <p>Tipos reconhecidos: <code>string</code>, <code>number</code>, <code>boolean</code>, <code>function</code>, <code>table</code>, <code>void</code>.</p>
-
-            <div class="alert important">
-                <div class="alert-icon"><i class="ri-information-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Inline Markdown</div>
-                    <p class="alert-text">Tabelas e alertas suportam <strong>negrito</strong> e <code>código inline</code> nas células de texto e descrições.</p>
-                </div>
-            </div>`
+        search: "Tabelas Dois tipos: a genérica (colunas livres) e a config (parâmetros, com badge de tipo). Tabela Genérica Ldfw Copiar table { header \"Método\" \"Descrição\"; row \"init()\" \"Inicializa a biblioteca.\"; row \"destroy()\" \"Encerra e limpa.\"; } Método Descrição init() Inicializa a biblioteca. destroy() Encerra e limpa. Tabela de Configuração Colunas fixas: Parâmetro, Tipo, Padrão, Descrição. O tipo vira um badge: Ldfw Copiar table config { row \"title\" string \"\\\"App\\\"\" \"Título da janela.\"; row \"debug\" boolean \"false\" \"Ativa logs.\"; } Parâmetro Tipo Padrão Descrição title string \"App\" Título da janela. debug boolean false Ativa logs. Tipos com badge pronto: string , number , boolean , function , table , void . Badge colorido Para um badge de tipo com cor própria ( (\"string\", \"#cor\", \"bg\") ), use as Extensions ( using Extensions.Coloring ).",
+        content: "\n            <h1 class=\"page-title\" id=\"tabelas\">Tabelas</h1>\n\n            <p>Dois tipos: a <strong>genérica</strong> (colunas livres) e a <strong>config</strong> (parâmetros, com badge de tipo).</p>\n\n            <h2 id=\"tabela-generica\">Tabela Genérica</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>table {\n    header \"Método\" \"Descrição\";\n    row \"init()\" \"Inicializa a biblioteca.\";\n    row \"destroy()\" \"Encerra e limpa.\";\n}</code></pre>\n            </div>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Método</th>\n                            <th>Descrição</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>init()</code></td>\n                            <td>Inicializa a biblioteca.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>destroy()</code></td>\n                            <td>Encerra e limpa.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <h2 id=\"tabela-de-configuracao\">Tabela de Configuração</h2>\n\n            <p>Colunas fixas: Parâmetro, Tipo, Padrão, Descrição. O tipo vira um badge:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>table config {\n    row \"title\" string \"\\\"App\\\"\" \"Título da janela.\";\n    row \"debug\" boolean \"false\" \"Ativa logs.\";\n}</code></pre>\n            </div>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Parâmetro</th>\n                            <th>Tipo</th>\n                            <th>Padrão</th>\n                            <th>Descrição</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>title</code></td>\n                            <td><span class=\"type-badge string\">string</span></td>\n                            <td><code>&quot;App&quot;</code></td>\n                            <td>Título da janela.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>debug</code></td>\n                            <td><span class=\"type-badge boolean\">boolean</span></td>\n                            <td><code>false</code></td>\n                            <td>Ativa logs.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <p>Tipos com badge pronto: <code>string</code>, <code>number</code>, <code>boolean</code>, <code>function</code>, <code>table</code>, <code>void</code>.</p>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Badge colorido</div>\n                    <p class=\"alert-text\">Para um badge de tipo com cor própria (<code>(&quot;string&quot;, &quot;#cor&quot;, &quot;bg&quot;)</code>), use as <strong>Extensions</strong> (<code>using Extensions.Coloring</code>).</p>\n                </div>\n            </div>"
     },
     "componente-listas": {
         category: "Componentes",
-        title: "Listas Ordenadas e Não Ordenadas",
+        title: "Listas",
         breadcrumb: "Listas",
         faq: false,
-        content: `
-            <h1 class="page-title">Listas</h1>
-
-            <p>O LDFW suporta listas ordenadas (<code>ol</code>) e não ordenadas (<code>ul</code>).</p>
-
-            <h2>Lista Não Ordenada (ul)</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>ul {
-    "Item 1 com **negrito** suportado.";
-    "Item 2 com texto normal.";
-    "Item 3 com **destaque**.";
-}</code></pre>
-            </div>
-
-            <p>Renderiza como:</p>
-
-            <ul class="list-default">
-                <li>Item 1 com <strong>negrito</strong> suportado.</li>
-                <li>Item 2 com texto normal.</li>
-                <li>Item 3 com <strong>destaque</strong>.</li>
-            </ul>
-
-            <h2>Lista Ordenada (ol)</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>ol {
-    "Primeiro passo.";
-    "Segundo passo.";
-    "Terceiro passo.";
-}</code></pre>
-            </div>
-
-            <p>Renderiza como:</p>
-
-            <ol class="list-default">
-                <li>Primeiro passo.</li>
-                <li>Segundo passo.</li>
-                <li>Terceiro passo.</li>
-            </ol>
-
-            <h2>Observações</h2>
-
-            <ul class="list-default">
-                <li>Cada item é uma string delimitada por ponto e vírgula.</li>
-                <li>Suporta <strong>negrito</strong> inline.</li>
-                <li>Listas não podem conter sub-listas (por enquanto).</li>
-            </ul>`
+        search: "Listas Listas não ordenadas ( ul ) e ordenadas ( ol ). Cada item aceita markdown inline. Sintaxe Ldfw Copiar ul { \"Item não ordenado.\"; \"Outro item com **negrito**.\"; } ol { \"Primeiro passo.\"; \"Segundo passo.\"; } Exemplo Renderizado Item A. Item B com código . Passo 1. Passo 2.",
+        content: "\n            <h1 class=\"page-title\" id=\"listas\">Listas</h1>\n\n            <p>Listas não ordenadas (<code>ul</code>) e ordenadas (<code>ol</code>). Cada item aceita markdown inline.</p>\n\n            <h2 id=\"sintaxe\">Sintaxe</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>ul {\n    \"Item não ordenado.\";\n    \"Outro item com **negrito**.\";\n}\n\nol {\n    \"Primeiro passo.\";\n    \"Segundo passo.\";\n}</code></pre>\n            </div>\n\n            <h2 id=\"exemplo-renderizado\">Exemplo Renderizado</h2>\n\n            <ul class=\"list-default\">\n                <li>Item A.</li>\n                <li>Item B com <code>código</code>.</li>\n            </ul>\n\n            <ol class=\"list-default\">\n                <li>Passo 1.</li>\n                <li>Passo 2.</li>\n            </ol>"
+    },
+    "componente-tabs": {
+        category: "Componentes",
+        title: "Tabs",
+        breadcrumb: "Tabs",
+        faq: false,
+        search: "Tabs Organiza conteúdo em abas. Ótimo para alternativas (Linux/Windows, Lua/JS, etc.). Sintaxe Ldfw Copiar tabs { tab \"Lua\" icon \"ri-code-line\" { code lua { print(\"Olá\") } } tab \"Python\" icon \"ri-code-line\" { code python { print(\"Olá\") } } } Cada tab tem um nome, um ícone (opcional) e qualquer conteúdo dentro (até code , p , alert …). Exemplo Renderizado Aba 1 Aba 2 Conteúdo da primeira aba. Conteúdo da segunda aba.",
+        content: "\n            <h1 class=\"page-title\" id=\"tabs\">Tabs</h1>\n\n            <p>Organiza conteúdo em abas. Ótimo para alternativas (Linux/Windows, Lua/JS, etc.).</p>\n\n            <h2 id=\"sintaxe\">Sintaxe</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>tabs {\n    tab \"Lua\" icon \"ri-code-line\" {\n        code lua {\nprint(\"Olá\")\n        }\n    }\n    tab \"Python\" icon \"ri-code-line\" {\n        code python {\nprint(\"Olá\")\n        }\n    }\n}</code></pre>\n            </div>\n\n            <p>Cada <code>tab</code> tem um nome, um ícone (opcional) e qualquer conteúdo dentro (até <code>code</code>, <code>p</code>, <code>alert</code>…).</p>\n\n            <h2 id=\"exemplo-renderizado\">Exemplo Renderizado</h2>\n\n            <div class=\"tabs-container\">\n                <div class=\"tabs-header\">\n                    <button class=\"tab-btn active\" data-tab=\"0\"><i class=\"ri-terminal-line\"></i> Aba 1</button>\n<button class=\"tab-btn\" data-tab=\"1\"><i class=\"ri-code-line\"></i> Aba 2</button>\n                </div>\n                <div class=\"tabs-body\">\n                    <div class=\"tab-content active\" data-tab=\"0\">\n\n            <p>Conteúdo da primeira aba.</p>\n            </div>\n<div class=\"tab-content\" data-tab=\"1\">\n\n            <p>Conteúdo da segunda aba.</p>\n            </div>\n                </div>\n            </div>"
     },
     "componente-faq": {
         category: "Componentes",
-        title: "FAQ (Perguntas Frequentes)",
+        title: "FAQ",
         breadcrumb: "FAQ",
         faq: true,
-        content: `
-            <h1 class="page-title">FAQ (Accordion)</h1>
-
-            <p>O componente <code>faq</code> cria um acordeão de perguntas e respostas.</p>
-
-            <h2>Sintaxe</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>faq {
-    q "Qual a pergunta?" {
-        "Resposta aqui. Com **negrito** se quiser.";
-    }
-    q "Outra pergunta?" {
-        "Outra resposta. Suporta múltiplas linhas.";
-        "Segunda linha da resposta.";
-    }
-}</code></pre>
-            </div>
-
-            <h2>Comportamento</h2>
-
-            <ul class="list-default">
-                <li>Apenas uma resposta fica aberta por vez (accordion).</li>
-                <li>Clique na pergunta para abrir/fechar.</li>
-                <li>Animação suave de abertura.</li>
-                <li>Ícone de <code>+</code> gira quando ativo.</li>
-            </ul>
-
-            <h2>Exemplo Real</h2>
-
-            <div class="faq-list">
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>O LDFW funciona sem Node.js?</span>
-                        <i class="ri-add-line"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Não. O compilador é escrito em Node.js e requer a runtime instalada.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Posso customizar o tema?</span>
-                        <i class="ri-add-line"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Sim, editando <code>templates/style.css</code> antes de compilar, ou sobrescrevendo cores via CSS customizado após a compilação.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Tem suporte a hot reload?</span>
-                        <i class="ri-add-line"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Ainda não, mas está nos planos (comando <code>ldfw dev</code>).</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>O .ldfw é uma linguagem completa?</span>
-                        <i class="ri-add-line"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>É uma DSL focada em documentação. Não é Turing-completa — não tem variáveis, loops ou condicionais. É propositalmente simples.</p>
-                    </div>
-                </div>
-            </div>`
+        search: "FAQ Lista de perguntas e respostas em accordion (clique para expandir). Sintaxe Ldfw Copiar faq { q \"Posso usar offline?\" { \"Sim, o site é estático. Só ícones/fontes/highlight vêm de CDN.\"; } q \"Preciso saber HTML?\" { \"Não — você escreve só .ldfw.\"; } } Exemplo Renderizado Isto é um accordion? Sim — clique no título para abrir e fechar. A resposta aceita markdown? Aceita negrito e código .",
+        content: "\n            <h1 class=\"page-title\" id=\"faq\">FAQ</h1>\n\n            <p>Lista de perguntas e respostas em accordion (clique para expandir).</p>\n\n            <h2 id=\"sintaxe\">Sintaxe</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>faq {\n    q \"Posso usar offline?\" {\n        \"Sim, o site é estático. Só ícones/fontes/highlight vêm de CDN.\";\n    }\n    q \"Preciso saber HTML?\" {\n        \"Não — você escreve só .ldfw.\";\n    }\n}</code></pre>\n            </div>\n\n            <h2 id=\"exemplo-renderizado\">Exemplo Renderizado</h2>\n\n            <div class=\"faq-list\">\n\n                <div class=\"faq-item\">\n                    <button class=\"faq-question\">\n                        <span>Isto é um accordion?</span>\n                        <i class=\"ri-add-line\"></i>\n                    </button>\n                    <div class=\"faq-answer\">\n                        <p>Sim — clique no título para abrir e fechar.</p>\n                    </div>\n                </div>\n\n                <div class=\"faq-item\">\n                    <button class=\"faq-question\">\n                        <span>A resposta aceita markdown?</span>\n                        <i class=\"ri-add-line\"></i>\n                    </button>\n                    <div class=\"faq-answer\">\n                        <p>Aceita <strong>negrito</strong> e <code>código</code>.</p>\n                    </div>\n                </div>\n            </div>"
     },
     "extensions": {
         category: "Extensions",
         title: "Extensions",
         breadcrumb: "Extensions",
         faq: false,
-        content: `
-            <h1 class="page-title">Extensions</h1>
-
-            <p>A biblioteca <strong>Extensions</strong> permite customizar cores, ícones e emojis de alertas e badges inline com <code>custom::()</code>. É 100% opcional.</p>
-
-            <h2>Ativando</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>#&gt; StartFW
-include #&gt; Standard;
-include #&gt; Extensions;</code></pre>
-            </div>
-
-            <h2>custom::() — Parâmetros Inline</h2>
-
-            <p>O <code>custom::()</code> é a função principal do Extensions. Ela recebe parâmetros posicionais pra configurar cor, fundo, ícone e emoji:</p>
-
-            <div class="table-wrapper">
-                <table class="api-table">
-                    <thead>
-                        <tr>
-                            <th>Contexto</th>
-                            <th>Parâmetros</th>
-                            <th>Exemplo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>alert</code></td>
-                            <td><span class="type-badge" style="color: #a855f7">(título, cor, bg, icon, emoji)</span></td>
-                            <td>alert custom::(&quot;Título&quot;, &quot;#ff6b6b&quot;, &quot;rgba(...)&quot;, &quot;ri-star-line&quot;) { }</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>badge</code> (tabela)</td>
-                            <td><span class="type-badge" style="color: #3b82f6">(label, cor, bg)</span></td>
-                            <td>custom::(&quot;string&quot;, &quot;#3b82f6&quot;, &quot;rgba(...)&quot;)</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>badge</code> (hero)</td>
-                            <td><span class="type-badge" style="color: #f59e0b">(texto, cor, bg)</span></td>
-                            <td>badge: custom::(&quot;Guia&quot;, &quot;#f59e0b&quot;, &quot;rgba(...)&quot;);</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Alert com custom::()</h2>
-
-            <p>Use <code>custom::()</code> no lugar do preset pra definir cores inline:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>alert custom::("Custom Alert", "#ff6b6b", "rgba(255, 107, 107, 0.08)", "ri-star-line") {
-    "Alerta inline com cor, background e ícone personalizados.";
-}
-
-alert custom::("Com Emoji", "#a855f7", "rgba(168, 85, 247, 0.08)", "", "📝") {
-    "Alerta inline usando emoji no lugar do ícone.";
-}</code></pre>
-            </div>
-
-            <p>Parâmetros do <code>alert custom::()</code>:</p>
-
-            <ul class="list-default">
-                <li><strong>1º — título:</strong> texto do título do alerta.</li>
-                <li><strong>2º — cor:</strong> cor do título e da borda (hex).</li>
-                <li><strong>3º — background:</strong> cor de fundo (rgb/rgba/hex).</li>
-                <li><strong>4º — ícone:</strong> classe RemixIcon (opcional).</li>
-                <li><strong>5º — emoji:</strong> emoji no lugar do ícone (opcional).</li>
-            </ul>
-
-            <h2>using Extensions.alert / using Extensions.badge</h2>
-
-            <p>A diretiva <code>using</code> importa o shorthand pra não precisar escrever <code>custom::</code> toda vez:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>using Extensions.alert;
-using Extensions.badge;
-
-alert ("Shorthand", "#10b981", "rgba(16, 185, 129, 0.08)", "ri-check-line") {
-    "Com \`using Extensions.alert\`, o \`custom::\` fica implícito.";
-}</code></pre>
-            </div>
-
-            <p>Com <code>using</code>, você usa <code>(...)</code> no lugar de <code>custom::(...)</code>.</p>
-
-            <h2>Badge custom::() em Tabelas</h2>
-
-            <p>O campo de tipo em tabelas aceita <code>custom::()</code> pra customizar a cor do badge:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>table config {
-    row "title"    custom::("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"Meu Projeto\""  "Título exibido no site.";
-    row "enabled"  custom::("boolean", "#10b981", "rgba(16, 185, 129, 0.1)") "true"             "Se está ativo.";
-}
-
-
-table config {
-    row "count"  ("number", "#f59e0b", "rgba(245, 158, 11, 0.1)") "0"  "Quantidade.";
-}</code></pre>
-            </div>
-
-            <h2>Hero Badge com custom::()</h2>
-
-            <p>O <code>badge</code> do hero aceita <code>custom::()</code> pra personalizar as cores:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>hero {
-    badge: custom::("LDFW", "#7850ff", "rgba(120, 80, 255, 0.15)");
-    title: "Meu Projeto";
-    desc: "Descrição aqui.";
-    btn primary "Começar" -&gt; home;
-}</code></pre>
-            </div>
-
-            <h2>Presets (Extensions: { })</h2>
-
-            <p>O bloco <code>Extensions:</code> cria presets reutilizáveis:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>Extensions: {
-    alert recycle {
-        icon: "ri-recycle-line";
-        color: "#6366f1";
-        background: "rgba(99, 102, 241, 0.08)";
-        border: "#6366f1";
-    }
-
-    badge lua {
-        color: "#e8a838";
-        background: "rgba(232, 168, 56, 0.1)";
-    }
-}</code></pre>
-            </div>
-
-            <p>Presets são usados pelo nome:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>alert recycle "Título" {
-    "Texto do alerta usando preset.";
-}</code></pre>
-            </div>
-
-            <h2>Presets Inclusos</h2>
-
-            <p>Ao incluir <code>#&gt; Extensions</code>, estes presets já vêm prontos:</p>
-
-            <div class="table-wrapper">
-                <table class="api-table">
-                    <thead>
-                        <tr>
-                            <th>Parâmetro</th>
-                            <th>Tipo</th>
-                            <th>Padrão</th>
-                            <th>Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>recycle</code></td>
-                            <td><span class="type-badge string">string</span></td>
-                            <td><code>\`ri-recycle-line\`</code></td>
-                            <td>Anti-duplicação / recarregar scripts.</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>shield</code></td>
-                            <td><span class="type-badge string">string</span></td>
-                            <td><code>\`ri-shield-check-line\`</code></td>
-                            <td>Segurança e foco liberado.</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>pulse</code></td>
-                            <td><span class="type-badge string">string</span></td>
-                            <td><code>\`ri-pulse-line\`</code></td>
-                            <td>Avisos de performance / loops.</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>retro</code></td>
-                            <td><span class="type-badge string">string</span></td>
-                            <td><code>\`ri-checkbox-circle-line\`</code></td>
-                            <td>Compatibilidade / changelog.</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>devnote</code></td>
-                            <td><span class="type-badge string">string</span></td>
-                            <td><code>📝 emoji</code></td>
-                            <td>Notas com emoji 📝.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Renderização</h2>
-
-            <div class="alert alert-ext-recycle">
-                <div class="alert-icon"><i class="ri-recycle-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Recycle</div>
-                    <p class="alert-text">Preset <code>recycle</code> — ícone <code>ri-recycle-line</code>, tom roxo.</p>
-                </div>
-            </div>
-
-            <div class="alert alert-ext-shield">
-                <div class="alert-icon"><i class="ri-shield-check-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Shield</div>
-                    <p class="alert-text">Preset <code>shield</code> — ícone <code>ri-shield-check-line</code>.</p>
-                </div>
-            </div>
-
-            <div class="alert alert-ext-devnote">
-                <div class="alert-icon"><span class="alert-emoji">📝</span></div>
-                <div class="alert-content">
-                    <div class="alert-title">Devnote</div>
-                    <p class="alert-text">Preset <code>devnote</code> — emoji 📝 e tom violeta.</p>
-                </div>
-            </div>
-
-            <h2>Badges Customizados (Presets + Inline)</h2>
-
-            <div class="table-wrapper">
-                <table class="api-table">
-                    <thead>
-                        <tr>
-                            <th>Parâmetro</th>
-                            <th>Tipo</th>
-                            <th>Padrão</th>
-                            <th>Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>callback</code></td>
-                            <td><span class="type-badge function">function</span></td>
-                            <td><code>function()end</code></td>
-                            <td>Badge built-in (amarelo).</td>
-                        </tr>
-
-                        <tr>
-                            <td><code>lang</code></td>
-                            <td><span class="type-badge type-badge-ext-lua">lua</span></td>
-                            <td><code>lua</code></td>
-                            <td>Badge via preset <code>lua</code> do Extensions.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <p>Inline custom::() — independe de preset:</p>
-
-            <div class="table-wrapper">
-                <table class="api-table">
-                    <thead>
-                        <tr>
-                            <th>Parâmetro</th>
-                            <th>Tipo</th>
-                            <th>Padrão</th>
-                            <th>Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>timeout</code></td>
-                            <td><span class="type-badge" style="color: #f59e0b; background-color: rgba(245, 158, 11, 0.1)">number</span></td>
-                            <td><code>4</code></td>
-                            <td>Badge inline, cor laranja.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>`
+        search: "Extensions A Extensions é uma biblioteca opcional ( include #> Extensions; ) que adiciona dois tipos de recurso: customização visual (cores) e recursos funcionais (índice lateral, variantes de página). A Regra Visual (cores) → tudo num único using Extensions.Coloring; . Sem ele, a Extensions não pinta nada. Funcional → cada recurso tem o seu próprio using ( PageContent , Switch ). Sem custom:: O antigo custom:: não existe mais. Cores inline agora são só (...) , liberadas pelo using Extensions.Coloring . Ativando Inclua a lib e ligue só os using que for usar: Ldfw Copiar include #> Extensions; using Extensions.Coloring; using Extensions.PageContent; using Extensions.Switch; Recursos Coloring Cores inline (...) , presets e cores por elemento. Veja a página Coloring . DocColors Troca as cores do tema light/dark globalmente. Veja DocColors . On This Page Índice lateral automático a partir dos títulos. Veja On This Page . Switch Variantes de página por seção (ex.: Linux/Windows). Veja Switch .",
+        content: "\n            <h1 class=\"page-title\" id=\"extensions\">Extensions</h1>\n\n            <p>A <strong>Extensions</strong> é uma biblioteca opcional (<code>include #&gt; Extensions;</code>) que adiciona dois tipos de recurso: <strong>customização visual</strong> (cores) e <strong>recursos funcionais</strong> (índice lateral, variantes de página).</p>\n\n            <h2 id=\"a-regra\">A Regra</h2>\n\n            <ul class=\"list-default\">\n                <li><strong>Visual (cores)</strong> → tudo num único <code>using Extensions.Coloring;</code>. Sem ele, a Extensions não pinta nada.</li>\n                <li><strong>Funcional</strong> → cada recurso tem o seu próprio <code>using</code> (<code>PageContent</code>, <code>Switch</code>).</li>\n            </ul>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Sem custom::</div>\n                    <p class=\"alert-text\">O antigo <code>custom::</code> não existe mais. Cores inline agora são só <code>(...)</code>, liberadas pelo <code>using Extensions.Coloring</code>.</p>\n                </div>\n            </div>\n\n            <h2 id=\"ativando\">Ativando</h2>\n\n            <p>Inclua a lib e ligue só os <code>using</code> que for usar:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>include #&gt; Extensions;\nusing Extensions.Coloring;\nusing Extensions.PageContent;\nusing Extensions.Switch;</code></pre>\n            </div>\n\n            <h2 id=\"recursos\">Recursos</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-palette-line\"></i> Coloring</div>\n                    <p class=\"card-description\">Cores inline <code>(...)</code>, presets e cores por elemento. Veja a página <strong>Coloring</strong>.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-contrast-2-line\"></i> DocColors</div>\n                    <p class=\"card-description\">Troca as cores do tema light/dark globalmente. Veja <strong>DocColors</strong>.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-list-check\"></i> On This Page</div>\n                    <p class=\"card-description\">Índice lateral automático a partir dos títulos. Veja <strong>On This Page</strong>.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-arrow-left-right-line\"></i> Switch</div>\n                    <p class=\"card-description\">Variantes de página por seção (ex.: Linux/Windows). Veja <strong>Switch</strong>.</p>\n                </div>\n            </div>"
+    },
+    "extension-doccolors": {
+        category: "Extensions",
+        title: "Extensions — DocColors",
+        breadcrumb: "DocColors",
+        faq: false,
+        search: "DocColors O DocColors troca as cores dos temas Light e Dark globalmente (via variáveis de tema). É opcional , mas requer using Extensions.Coloring; — sem ele, não tem efeito. Ativando Defina um bloco DocColors dentro do seu Extensions: { } , com sub-blocos light e dark (e ligue o Coloring ): Ldfw Copiar #> StartFW include #> Standard; using Extensions.Coloring; Extensions: { DocColors { light { primary: \"#2563eb\"; background: \"#ffffff\"; text: \"#0f172a\"; } dark { primary: \"#60a5fa\"; background: \"#0b1120\"; text: \"#f1f5f9\"; } } } Defina só as chaves que quiser mudar — as demais mantêm o valor padrão. Chaves Disponíveis Cada chave mapeia para uma cor do tema. Chaves desconhecidas são ignoradas. Chave O que muda primary Cor principal — links, destaques e botões. primaryHover Cor principal em hover. primaryLight Versão suave da principal (fundos sutis). accent Cor de acento secundária. accentHover Acento em hover. accentLight Acento suave. background Fundo principal da página. sidebar Fundo da barra lateral. header Fundo do header fixo (aceita rgba p/ transparência). card Fundo de cards e blocos. code Fundo dos blocos de código. hover Fundo de itens sob o cursor. text Cor principal do texto. textSub Texto secundário. textMuted Texto esmaecido / labels. border Cor das bordas. Exemplo Completo Ldfw Copiar Extensions: { DocColors { light { primary: \"#e11d48\"; accent: \"#7c3aed\"; background: \"#fffdf7\"; card: \"#ffffff\"; text: \"#1f2937\"; border: \"#e5e7eb\"; } dark { primary: \"#fb7185\"; accent: \"#a78bfa\"; background: \"#0b0b14\"; card: \"#15151f\"; text: \"#f3f4f6\"; border: \"#26263a\"; } } } Opcional e seguro Se uma lib incluída trouxer DocColors e você definir o seu, o seu tem prioridade. Os valores passam por sanitização — apenas hex, rgb/rgba, hsl/hsla e nomes de cor são aceitos.",
+        content: "\n            <h1 class=\"page-title\" id=\"doccolors\">DocColors</h1>\n\n            <p>O <strong>DocColors</strong> troca as cores dos temas <strong>Light</strong> e <strong>Dark</strong> globalmente (via variáveis de tema). É <strong>opcional</strong>, mas requer <code>using Extensions.Coloring;</code> — sem ele, não tem efeito.</p>\n\n            <h2 id=\"ativando\">Ativando</h2>\n\n            <p>Defina um bloco <code>DocColors</code> dentro do seu <code>Extensions: { }</code>, com sub-blocos <code>light</code> e <code>dark</code> (e ligue o <code>Coloring</code>):</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>#&gt; StartFW\ninclude #&gt; Standard;\nusing Extensions.Coloring;\n\nExtensions: {\n    DocColors {\n        light {\n            primary: \"#2563eb\";\n            background: \"#ffffff\";\n            text: \"#0f172a\";\n        }\n        dark {\n            primary: \"#60a5fa\";\n            background: \"#0b1120\";\n            text: \"#f1f5f9\";\n        }\n    }\n}</code></pre>\n            </div>\n\n            <p>Defina só as chaves que quiser mudar — as demais mantêm o valor padrão.</p>\n\n            <h2 id=\"chaves-disponiveis\">Chaves Disponíveis</h2>\n\n            <p>Cada chave mapeia para uma cor do tema. Chaves desconhecidas são ignoradas.</p>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Chave</th>\n                            <th>O que muda</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>primary</code></td>\n                            <td>Cor principal — links, destaques e botões.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>primaryHover</code></td>\n                            <td>Cor principal em hover.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>primaryLight</code></td>\n                            <td>Versão suave da principal (fundos sutis).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>accent</code></td>\n                            <td>Cor de acento secundária.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>accentHover</code></td>\n                            <td>Acento em hover.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>accentLight</code></td>\n                            <td>Acento suave.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>background</code></td>\n                            <td>Fundo principal da página.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>sidebar</code></td>\n                            <td>Fundo da barra lateral.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>header</code></td>\n                            <td>Fundo do header fixo (aceita rgba p/ transparência).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>card</code></td>\n                            <td>Fundo de cards e blocos.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>code</code></td>\n                            <td>Fundo dos blocos de código.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>hover</code></td>\n                            <td>Fundo de itens sob o cursor.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>text</code></td>\n                            <td>Cor principal do texto.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>textSub</code></td>\n                            <td>Texto secundário.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>textMuted</code></td>\n                            <td>Texto esmaecido / labels.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>border</code></td>\n                            <td>Cor das bordas.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <h2 id=\"exemplo-completo\">Exemplo Completo</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>Extensions: {\n    DocColors {\n        light {\n            primary: \"#e11d48\";\n            accent: \"#7c3aed\";\n            background: \"#fffdf7\";\n            card: \"#ffffff\";\n            text: \"#1f2937\";\n            border: \"#e5e7eb\";\n        }\n        dark {\n            primary: \"#fb7185\";\n            accent: \"#a78bfa\";\n            background: \"#0b0b14\";\n            card: \"#15151f\";\n            text: \"#f3f4f6\";\n            border: \"#26263a\";\n        }\n    }\n}</code></pre>\n            </div>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Opcional e seguro</div>\n                    <p class=\"alert-text\">Se uma lib incluída trouxer DocColors <strong>e</strong> você definir o seu, o <strong>seu</strong> tem prioridade. Os valores passam por sanitização — apenas hex, rgb/rgba, hsl/hsla e nomes de cor são aceitos.</p>\n                </div>\n            </div>"
+    },
+    "extension-coloring": {
+        category: "Extensions",
+        title: "Extensions — Coloring",
+        breadcrumb: "Coloring",
+        faq: false,
+        search: "Coloring O Coloring é todo o sistema de cores da Extensions: cores inline (...) , presets reutilizáveis e cores por elemento. Tudo requer using Extensions.Coloring; — sem ele, nada pinta. Cores Inline com (...) Passe as cores direto entre parênteses — em alertas, badges de tabela e badge do hero: Ldfw Copiar alert (\"Erro\", \"#ef4444\", \"rgba(239,68,68,0.08)\", \"ri-fire-line\") { \"Alerta com cor, fundo e ícone inline.\" } table config { row \"title\" (\"string\", \"#3b82f6\", \"rgba(59,130,246,0.1)\") \"\\\"App\\\"\" \"Título.\"; } hero { badge: (\"LDFW\", \"#7850ff\", \"rgba(120,80,255,0.15)\"); title: \"Meu Projeto\"; } Parâmetros do alert (...) : 1º título · 2º cor (título + borda) · 3º fundo · 4º ícone (opcional) · 5º emoji (opcional). Built-in não precisam de cor Os alertas built-in ( tip , info , warning , danger , important ) funcionam sem using . O (...) é só quando você quer cores próprias. Presets Crie alertas/badges reutilizáveis pelo nome, no bloco Extensions: { } : Ldfw Copiar Extensions: { alert recycle { icon: \"ri-recycle-line\"; color: \"#6366f1\"; background: \"rgba(99,102,241,0.08)\"; border: \"#6366f1\"; } badge lua { color: \"#e8a838\"; background: \"rgba(232,168,56,0.1)\"; } } Ldfw Copiar alert recycle \"Título\" { \"Usa o preset recycle.\" } A lib #> Extensions já traz presets prontos: recycle , shield , pulse , retro , devnote (alerts) e lua , self (badges). Exemplos de presets Recycle Preset recycle — tom roxo. 📝 Devnote Preset devnote — emoji 📝. Cores por Elemento — Coloring { } Recolore tipos de elemento por tema ( light / dark ), como uma folha de estilo segura: Ldfw Copiar Extensions: { Coloring { light { card { background: \"#ffffff\"; border: \"#e5e7eb\"; } tabs { active: \"#2563eb\"; } p { color: \"#334155\"; } } dark { card { background: \"#15151f\"; border: \"#26263a\"; } badge { background: \"rgba(120,80,255,.12)\"; color: \"#a78bfa\"; } } } } Elementos e Propriedades Elemento Propriedades p , h1 , h2 , h3 , link color hero title, desc, badge, badgeBg card background, border, title, text tabs active, border, hover, background alert background, border, title, text badge background, color code background, header table header, headerText, border inlineCode background, color faq question, border Elementos ou propriedades desconhecidos são ignorados (não quebram a compilação). Precedência Da maior para a menor prioridade: Inline (...) no elemento (vence sempre). Coloring (cores por elemento). DocColors (variáveis de tema). Padrão do template. Sem !important O CSS gerado não usa !important — então o inline (...) num elemento específico sempre sobrescreve o Coloring global. DocColors x Coloring Use DocColors para o tema amplo (uma cor vaza pra tudo via variáveis). Use Coloring quando quiser um elemento específico diferente do tema.",
+        content: "\n            <h1 class=\"page-title\" id=\"coloring\">Coloring</h1>\n\n            <p>O <strong>Coloring</strong> é todo o sistema de <strong>cores</strong> da Extensions: cores inline <code>(...)</code>, presets reutilizáveis e cores por elemento. Tudo requer <code>using Extensions.Coloring;</code> — sem ele, nada pinta.</p>\n\n            <h2 id=\"cores-inline-com\">Cores Inline com (...)</h2>\n\n            <p>Passe as cores direto entre parênteses — em alertas, badges de tabela e badge do hero:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>alert (\"Erro\", \"#ef4444\", \"rgba(239,68,68,0.08)\", \"ri-fire-line\") {\n    \"Alerta com cor, fundo e ícone inline.\"\n}\n\ntable config {\n    row \"title\" (\"string\", \"#3b82f6\", \"rgba(59,130,246,0.1)\") \"\\\"App\\\"\" \"Título.\";\n}\n\nhero {\n    badge: (\"LDFW\", \"#7850ff\", \"rgba(120,80,255,0.15)\");\n    title: \"Meu Projeto\";\n}</code></pre>\n            </div>\n\n            <p>Parâmetros do <code>alert (...)</code>: <strong>1º</strong> título · <strong>2º</strong> cor (título + borda) · <strong>3º</strong> fundo · <strong>4º</strong> ícone (opcional) · <strong>5º</strong> emoji (opcional).</p>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Built-in não precisam de cor</div>\n                    <p class=\"alert-text\">Os alertas built-in (<code>tip</code>, <code>info</code>, <code>warning</code>, <code>danger</code>, <code>important</code>) funcionam <strong>sem</strong> <code>using</code>. O <code>(...)</code> é só quando você quer cores próprias.</p>\n                </div>\n            </div>\n\n            <h2 id=\"presets\">Presets</h2>\n\n            <p>Crie alertas/badges reutilizáveis pelo nome, no bloco <code>Extensions: { }</code>:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>Extensions: {\n    alert recycle {\n        icon: \"ri-recycle-line\";\n        color: \"#6366f1\";\n        background: \"rgba(99,102,241,0.08)\";\n        border: \"#6366f1\";\n    }\n    badge lua { color: \"#e8a838\"; background: \"rgba(232,168,56,0.1)\"; }\n}</code></pre>\n            </div>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>alert recycle \"Título\" { \"Usa o preset recycle.\" }</code></pre>\n            </div>\n\n            <p>A lib <code>#&gt; Extensions</code> já traz presets prontos: <code>recycle</code>, <code>shield</code>, <code>pulse</code>, <code>retro</code>, <code>devnote</code> (alerts) e <code>lua</code>, <code>self</code> (badges).</p>\n\n            <h3 id=\"exemplos-de-presets\">Exemplos de presets</h3>\n\n            <div class=\"alert alert-ext-recycle\">\n                <div class=\"alert-icon\"><i class=\"ri-recycle-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Recycle</div>\n                    <p class=\"alert-text\">Preset recycle — tom roxo.</p>\n                </div>\n            </div>\n\n            <div class=\"alert alert-ext-devnote\">\n                <div class=\"alert-icon\"><span class=\"alert-emoji\">📝</span></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Devnote</div>\n                    <p class=\"alert-text\">Preset devnote — emoji 📝.</p>\n                </div>\n            </div>\n\n            <h2 id=\"cores-por-elemento-coloring\">Cores por Elemento — Coloring { }</h2>\n\n            <p>Recolore tipos de elemento por tema (<code>light</code>/<code>dark</code>), como uma folha de estilo segura:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>Extensions: {\n    Coloring {\n        light {\n            card { background: \"#ffffff\"; border: \"#e5e7eb\"; }\n            tabs { active: \"#2563eb\"; }\n            p    { color: \"#334155\"; }\n        }\n        dark {\n            card  { background: \"#15151f\"; border: \"#26263a\"; }\n            badge { background: \"rgba(120,80,255,.12)\"; color: \"#a78bfa\"; }\n        }\n    }\n}</code></pre>\n            </div>\n\n            <h3 id=\"elementos-e-propriedades\">Elementos e Propriedades</h3>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Elemento</th>\n                            <th>Propriedades</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>p</code>, <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>link</code></td>\n                            <td>color</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>hero</code></td>\n                            <td>title, desc, badge, badgeBg</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>card</code></td>\n                            <td>background, border, title, text</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>tabs</code></td>\n                            <td>active, border, hover, background</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>alert</code></td>\n                            <td>background, border, title, text</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>badge</code></td>\n                            <td>background, color</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>code</code></td>\n                            <td>background, header</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>table</code></td>\n                            <td>header, headerText, border</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>inlineCode</code></td>\n                            <td>background, color</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>faq</code></td>\n                            <td>question, border</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <p>Elementos ou propriedades desconhecidos são <strong>ignorados</strong> (não quebram a compilação).</p>\n\n            <h2 id=\"precedencia\">Precedência</h2>\n\n            <p>Da maior para a menor prioridade:</p>\n\n            <ol class=\"list-default\">\n                <li><strong>Inline</strong> <code>(...)</code> no elemento (vence sempre).</li>\n                <li><strong>Coloring</strong> (cores por elemento).</li>\n                <li><strong>DocColors</strong> (variáveis de tema).</li>\n                <li><strong>Padrão</strong> do template.</li>\n            </ol>\n\n            <div class=\"alert info\">\n                <div class=\"alert-icon\"><i class=\"ri-information-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Sem !important</div>\n                    <p class=\"alert-text\">O CSS gerado <strong>não</strong> usa <code>!important</code> — então o inline <code>(...)</code> num elemento específico sempre sobrescreve o Coloring global.</p>\n                </div>\n            </div>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">DocColors x Coloring</div>\n                    <p class=\"alert-text\">Use <strong>DocColors</strong> para o tema amplo (uma cor vaza pra tudo via variáveis). Use <strong>Coloring</strong> quando quiser um elemento específico diferente do tema.</p>\n                </div>\n            </div>"
+    },
+    "extension-on-this-page": {
+        category: "Extensions",
+        title: "Extensions — On This Page",
+        breadcrumb: "On This Page",
+        faq: false,
+        search: "On This Page O PageContent adiciona um índice lateral ( On This Page ) gerado automaticamente a partir dos títulos h1 , h2 e h3 da página. Clicar em um item rola suavemente até a seção, e a seção visível fica destacada enquanto você rola. Ativando Habilite o atalho com using Extensions.PageContent; e ative no bloco Docs , logo após o layout : Ldfw Copiar #> StartFW include #> Standard; using Extensions.PageContent; Project: { title: \"Meu Projeto\"; } Docs: { layout #> stnd; #> PageContent; section \"Guia\" { page Home { route: \"home\"; h2 \"Instalação\"; h3 \"Requisitos\"; h2 \"Uso\"; } } } Como Ativar Declare using Extensions.PageContent; no topo e adicione #> PageContent; dentro do bloco Docs , logo após o layout . Sem o using , o #> PageContent; dá erro de compilação. Hierarquia O índice respeita a hierarquia dos títulos: h1 é o nível mestre (raiz). h2 aparece aninhado dentro do h1. h3 aparece aninhado dentro do h2. Comportamento Aparece em telas largas (a partir de ~1280px) e some no mobile. Rola suavemente até o título exato, descontando o header fixo. Destaque automático (scrollspy) da seção visível. Dica Esta própria documentação usa o On This Page — veja o índice à direita (em telas largas).",
+        content: "\n            <h1 class=\"page-title\" id=\"on-this-page\">On This Page</h1>\n\n            <p>O <strong>PageContent</strong> adiciona um índice lateral (<strong>On This Page</strong>) gerado automaticamente a partir dos títulos <code>h1</code>, <code>h2</code> e <code>h3</code> da página. Clicar em um item rola suavemente até a seção, e a seção visível fica destacada enquanto você rola.</p>\n\n            <h2 id=\"ativando\">Ativando</h2>\n\n            <p>Habilite o atalho com <code>using Extensions.PageContent;</code> e ative no bloco <code>Docs</code>, logo após o <code>layout</code>:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>#&gt; StartFW\ninclude #&gt; Standard;\nusing Extensions.PageContent;\n\nProject: { title: \"Meu Projeto\"; }\n\nDocs: {\n    layout #&gt; stnd;\n    #&gt; PageContent;\n\n    section \"Guia\" {\n        page Home {\n            route: \"home\";\n            h2 \"Instalação\";\n            h3 \"Requisitos\";\n            h2 \"Uso\";\n        }\n    }\n}</code></pre>\n            </div>\n\n            <h2 id=\"como-ativar\">Como Ativar</h2>\n\n            <p>Declare <code>using Extensions.PageContent;</code> no topo e adicione <code>#&gt; PageContent;</code> dentro do bloco <code>Docs</code>, logo após o <code>layout</code>. Sem o <code>using</code>, o <code>#&gt; PageContent;</code> dá erro de compilação.</p>\n\n            <h2 id=\"hierarquia\">Hierarquia</h2>\n\n            <p>O índice respeita a hierarquia dos títulos:</p>\n\n            <ul class=\"list-default\">\n                <li><strong>h1</strong> é o nível mestre (raiz).</li>\n                <li><strong>h2</strong> aparece aninhado dentro do h1.</li>\n                <li><strong>h3</strong> aparece aninhado dentro do h2.</li>\n            </ul>\n\n            <h2 id=\"comportamento\">Comportamento</h2>\n\n            <ul class=\"list-default\">\n                <li>Aparece em telas largas (a partir de ~1280px) e some no mobile.</li>\n                <li>Rola suavemente até o título exato, descontando o header fixo.</li>\n                <li>Destaque automático (scrollspy) da seção visível.</li>\n            </ul>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Dica</div>\n                    <p class=\"alert-text\">Esta própria documentação usa o On This Page — veja o índice à direita (em telas largas).</p>\n                </div>\n            </div>"
+    },
+    "extension-switch": {
+        category: "Extensions",
+        title: "Extensions — Switch",
+        breadcrumb: "Switch",
+        faq: false,
+        search: "Switch O Switch permite que uma section tenha variantes (ex.: Linux / Windows). Ao passar o mouse na seção (no menu lateral) aparece um controle que troca a variante ativa — filtrando quais páginas aparecem ali. Ativando Habilite com using Extensions.Switch; e marque cada página com sua variante usando #> Variante logo após o nome: Ldfw Copiar #> StartFW include #> Standard; using Extensions.Switch; Project: { title: \"Minha Lib\"; } Docs: { layout #> stnd; section \"Ferramentas\" { page Setup #> Linux { route: \"setup-linux\"; nav: \"Setup\"; h1 \"Setup no Linux\"; } page Setup #> Windows { route: \"setup-windows\"; nav: \"Setup\"; h1 \"Setup no Windows\"; } } } Como Funciona A seção vira switchável quando tem páginas com variante. O controle aparece ao passar o mouse no título da seção; clicar cicla entre as variantes. A primeira variante encontrada é a padrão (no exemplo, Linux). Páginas sem variante aparecem sempre, em qualquer modo. Sintaxe da Variante A variante vai logo após o nome da página, com #> : Ldfw Copiar page Setup #> Linux { ... } page Setup #> Windows { ... } É exclusivo da biblioteca Extensions — sem using Extensions.Switch; , marcar a variante de uma página gera erro de compilação. Experimente Esta documentação usa Switch na seção Começando : passe o mouse nela no menu e troque entre Linux e Windows.",
+        content: "\n            <h1 class=\"page-title\" id=\"switch\">Switch</h1>\n\n            <p>O <strong>Switch</strong> permite que uma <code>section</code> tenha <strong>variantes</strong> (ex.: Linux / Windows). Ao passar o mouse na seção (no menu lateral) aparece um controle que troca a variante ativa — filtrando quais páginas aparecem ali.</p>\n\n            <h2 id=\"ativando\">Ativando</h2>\n\n            <p>Habilite com <code>using Extensions.Switch;</code> e marque cada página com sua variante usando <code>#&gt; Variante</code> logo após o nome:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>#&gt; StartFW\ninclude #&gt; Standard;\nusing Extensions.Switch;\n\nProject: { title: \"Minha Lib\"; }\n\nDocs: {\n    layout #&gt; stnd;\n\n    section \"Ferramentas\" {\n        page Setup #&gt; Linux {\n            route: \"setup-linux\";\n            nav: \"Setup\";\n            h1 \"Setup no Linux\";\n        }\n        page Setup #&gt; Windows {\n            route: \"setup-windows\";\n            nav: \"Setup\";\n            h1 \"Setup no Windows\";\n        }\n    }\n}</code></pre>\n            </div>\n\n            <h2 id=\"como-funciona\">Como Funciona</h2>\n\n            <ul class=\"list-default\">\n                <li>A seção vira <strong>switchável</strong> quando tem páginas com variante.</li>\n                <li>O controle aparece ao passar o mouse no título da seção; clicar <strong>cicla</strong> entre as variantes.</li>\n                <li>A <strong>primeira</strong> variante encontrada é a padrão (no exemplo, Linux).</li>\n                <li>Páginas <strong>sem</strong> variante aparecem sempre, em qualquer modo.</li>\n            </ul>\n\n            <h2 id=\"sintaxe-da-variante\">Sintaxe da Variante</h2>\n\n            <p>A variante vai logo após o nome da página, com <code>#&gt;</code>:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>page Setup #&gt; Linux { ... }\npage Setup #&gt; Windows { ... }</code></pre>\n            </div>\n\n            <p>É <strong>exclusivo da biblioteca Extensions</strong> — sem <code>using Extensions.Switch;</code>, marcar a variante de uma página gera erro de compilação.</p>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Experimente</div>\n                    <p class=\"alert-text\">Esta documentação usa Switch na seção <strong>Começando</strong>: passe o mouse nela no menu e troque entre Linux e Windows.</p>\n                </div>\n            </div>"
     },
     "cli": {
         category: "Ferramentas",
         title: "Linha de Comando",
         breadcrumb: "CLI",
         faq: false,
-        content: `
-            <h1 class="page-title">CLI — Linha de Comando</h1>
-
-            <p>O LDFW vem com um CLI para compilar arquivos .ldfw.</p>
-
-            <h2>Comandos</h2>
-
-            <div class="grid-2">
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-hammer-line"></i> build</div>
-                    <p class="card-description">Compila um arquivo .ldfw em HTML + CSS + JS. Principal e único comando por enquanto.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-question-line"></i> --help</div>
-                    <p class="card-description">Exibe a ajuda do CLI com exemplos de uso.</p>
-                </div>
-            </div>
-
-            <h2>Uso</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code>ldfw build entrada.ldfw -o ./saida</code></pre>
-            </div>
-
-            <h2>Flags</h2>
-
-            <ul class="list-default">
-                <li><code>-o</code> — Diretório de saída (padrão: <code>dist</code>).</li>
-                <li><code>-h</code>, <code>--help</code> — Exibe a ajuda.</li>
-            </ul>
-
-            <h2>Exemplos</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code># Compilar com saída padrão (./dist)
-ldfw build docs.ldfw
-
-# Compilar com saída customizada
-ldfw build docs.ldfw -o ./site
-
-# Ver ajuda
-ldfw --help</code></pre>
-            </div>
-
-            <h2>Sem Instalação Global</h2>
-
-            <p>Você pode executar diretamente sem npm link:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code>node ldfw/bin/ldfw.js build entrada.ldfw -o saida</code></pre>
-            </div>`
+        search: "CLI — Linha de Comando O LDFW vem com um CLI para compilar e servir arquivos .ldfw . Comandos build Compila um arquivo .ldfw em HTML + CSS + JS estático. dev Compila e sobe um servidor com live reload — recompila e recarrega a cada alteração no arquivo. Uso Bash Copiar ldfw build <entrada.ldfw> [-o ./dist] [--verbose] ldfw dev <entrada.ldfw> [-o ./dist] [-p 8080] Flags -o <dir> — Diretório de saída (padrão: dist ). -p <porta> — Porta do servidor no modo dev (padrão: 8080 ). --verbose — Exibe logs detalhados (caminhos de entrada/saída resolvidos). -h , --help — Exibe a ajuda do CLI. As flags podem vir em qualquer ordem : ldfw build -o dist app.ldfw e ldfw build app.ldfw -o dist funcionam igual. Exemplos Bash Copiar # Compilar com saída padrão (./dist) ldfw build docs.ldfw # Compilar com saída customizada ldfw build docs.ldfw -o ./site # Modo dev com live reload na porta 3000 ldfw dev docs.ldfw -o ./site -p 3000 # Ver ajuda ldfw --help Sem Instalação Global Você pode executar diretamente sem npm link : Bash Copiar node ldfw/bin/ldfw.js build entrada.ldfw -o saida",
+        content: "\n            <h1 class=\"page-title\" id=\"cli-linha-de-comando\">CLI — Linha de Comando</h1>\n\n            <p>O LDFW vem com um CLI para compilar e servir arquivos <code>.ldfw</code>.</p>\n\n            <h2 id=\"comandos\">Comandos</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-hammer-line\"></i> build</div>\n                    <p class=\"card-description\">Compila um arquivo <code>.ldfw</code> em HTML + CSS + JS estático.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-refresh-line\"></i> dev</div>\n                    <p class=\"card-description\">Compila e sobe um servidor com <strong>live reload</strong> — recompila e recarrega a cada alteração no arquivo.</p>\n                </div>\n            </div>\n\n            <h2 id=\"uso\">Uso</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>ldfw build &lt;entrada.ldfw&gt; [-o ./dist] [--verbose]\nldfw dev   &lt;entrada.ldfw&gt; [-o ./dist] [-p 8080]</code></pre>\n            </div>\n\n            <h2 id=\"flags\">Flags</h2>\n\n            <ul class=\"list-default\">\n                <li><code>-o &lt;dir&gt;</code> — Diretório de saída (padrão: <code>dist</code>).</li>\n                <li><code>-p &lt;porta&gt;</code> — Porta do servidor no modo <code>dev</code> (padrão: <code>8080</code>).</li>\n                <li><code>--verbose</code> — Exibe logs detalhados (caminhos de entrada/saída resolvidos).</li>\n                <li><code>-h</code>, <code>--help</code> — Exibe a ajuda do CLI.</li>\n            </ul>\n\n            <p>As flags podem vir em <strong>qualquer ordem</strong>: <code>ldfw build -o dist app.ldfw</code> e <code>ldfw build app.ldfw -o dist</code> funcionam igual.</p>\n\n            <h2 id=\"exemplos\">Exemplos</h2>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code># Compilar com saída padrão (./dist)\nldfw build docs.ldfw\n\n# Compilar com saída customizada\nldfw build docs.ldfw -o ./site\n\n# Modo dev com live reload na porta 3000\nldfw dev docs.ldfw -o ./site -p 3000\n\n# Ver ajuda\nldfw --help</code></pre>\n            </div>\n\n            <h2 id=\"sem-instalacao-global\">Sem Instalação Global</h2>\n\n            <p>Você pode executar diretamente sem <code>npm link</code>:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code>node ldfw/bin/ldfw.js build entrada.ldfw -o saida</code></pre>\n            </div>"
     },
     "makefile": {
         category: "Ferramentas",
         title: "Comandos Makefile",
         breadcrumb: "Makefile",
         faq: false,
-        content: `
-            <h1 class="page-title">Makefile</h1>
-
-            <p>O LDFW inclui um Makefile com comandos úteis para desenvolvimento.</p>
-
-            <h2>Comandos Disponíveis</h2>
-
-            <div class="grid-2">
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-hammer-line"></i> make build</div>
-                    <p class="card-description">Compila um .ldfw. Use <code>INPUT=arq.ldfw OUTPUT=dir</code>.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-file-code-line"></i> make build-example</div>
-                    <p class="card-description">Compila o exemplo <code>lapo-hub</code> para <code>dist/</code>.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-book-open-line"></i> make build-docs</div>
-                    <p class="card-description">Compila a documentação oficial para <code>../docs</code>.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-server-line"></i> make serve</div>
-                    <p class="card-description">Compila docs + sobe servidor em localhost:8080.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-check-line"></i> make test</div>
-                    <p class="card-description">Valida compilação correta e rejeição de má indentação.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-delete-bin-line"></i> make clean</div>
-                    <p class="card-description">Remove <code>dist/</code> e arquivos temporários.</p>
-                </div>
-            </div>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code># Exemplos
-make build-example
-make test
-make serve</code></pre>
-            </div>`
+        search: "Makefile Dentro de ldfw/ , o Makefile reúne atalhos para compilar, servir, testar e instalar. Rode make (ou make help ) para ver a lista completa. Compilação make build Compila um .ldfw . Use INPUT=arq.ldfw OUTPUT=dir . make build-example Compila o projeto de exemplo (variável EXAMPLE , padrão document.ldfw ). make build-docs Compila a documentação oficial para dist-docs/ . Desenvolvimento (live reload) make dev Recompila + serve com auto-reload. Use INPUT= e OUTPUT= . make dev-example Live reload do projeto de exemplo. make dev-docs Live reload da documentação oficial. make serve Compila a documentação + sobe servidor estático em localhost:8080. Testes make test Suíte completa: unitários + compilação + rejeição de má indentação. make test-unit Apenas os testes unitários (parser + extensions). make test-build Apenas o smoke-test de compilação do exemplo. CLI e Limpeza make install npm link — registra o comando ldfw globalmente. make uninstall npm unlink — remove o comando global. make reinstall uninstall + install. make clean Remove dist/ e /tmp/ldfw-* . Variáveis Variável Padrão Descrição INPUT — Arquivo .ldfw de entrada (build / dev). OUTPUT dist Diretório de saída. EXAMPLE document.ldfw Projeto usado em build-example / dev-example / test-build. Bash Copiar # Exemplos make # mostra a ajuda make build INPUT=app.ldfw OUTPUT=site make dev-docs make test make install",
+        content: "\n            <h1 class=\"page-title\" id=\"makefile\">Makefile</h1>\n\n            <p>Dentro de <code>ldfw/</code>, o Makefile reúne atalhos para compilar, servir, testar e instalar. Rode <code>make</code> (ou <code>make help</code>) para ver a lista completa.</p>\n\n            <h2 id=\"compilacao\">Compilação</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-hammer-line\"></i> make build</div>\n                    <p class=\"card-description\">Compila um <code>.ldfw</code>. Use <code>INPUT=arq.ldfw OUTPUT=dir</code>.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-file-code-line\"></i> make build-example</div>\n                    <p class=\"card-description\">Compila o projeto de exemplo (variável <code>EXAMPLE</code>, padrão <code>document.ldfw</code>).</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-book-open-line\"></i> make build-docs</div>\n                    <p class=\"card-description\">Compila a documentação oficial para <code>dist-docs/</code>.</p>\n                </div>\n            </div>\n\n            <h2 id=\"desenvolvimento-live-reload\">Desenvolvimento (live reload)</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-refresh-line\"></i> make dev</div>\n                    <p class=\"card-description\">Recompila + serve com auto-reload. Use <code>INPUT=</code> e <code>OUTPUT=</code>.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-refresh-line\"></i> make dev-example</div>\n                    <p class=\"card-description\">Live reload do projeto de exemplo.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-refresh-line\"></i> make dev-docs</div>\n                    <p class=\"card-description\">Live reload da documentação oficial.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-server-line\"></i> make serve</div>\n                    <p class=\"card-description\">Compila a documentação + sobe servidor estático em localhost:8080.</p>\n                </div>\n            </div>\n\n            <h2 id=\"testes\">Testes</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-check-double-line\"></i> make test</div>\n                    <p class=\"card-description\">Suíte completa: unitários + compilação + rejeição de má indentação.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-flask-line\"></i> make test-unit</div>\n                    <p class=\"card-description\">Apenas os testes unitários (parser + extensions).</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-test-tube-line\"></i> make test-build</div>\n                    <p class=\"card-description\">Apenas o smoke-test de compilação do exemplo.</p>\n                </div>\n            </div>\n\n            <h2 id=\"cli-e-limpeza\">CLI e Limpeza</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-download-line\"></i> make install</div>\n                    <p class=\"card-description\"><code>npm link</code> — registra o comando <code>ldfw</code> globalmente.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-delete-bin-line\"></i> make uninstall</div>\n                    <p class=\"card-description\"><code>npm unlink</code> — remove o comando global.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-loop-left-line\"></i> make reinstall</div>\n                    <p class=\"card-description\">uninstall + install.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-eraser-line\"></i> make clean</div>\n                    <p class=\"card-description\">Remove <code>dist/</code> e <code>/tmp/ldfw-*</code>.</p>\n                </div>\n            </div>\n\n            <h2 id=\"variaveis\">Variáveis</h2>\n\n            <div class=\"table-wrapper\">\n                <table class=\"api-table\">\n                    <thead>\n                        <tr>\n                            <th>Variável</th>\n                            <th>Padrão</th>\n                            <th>Descrição</th>\n                        </tr>\n                    </thead>\n                    <tbody>\n                        <tr>\n                            <td><code>INPUT</code></td>\n                            <td>—</td>\n                            <td>Arquivo <code>.ldfw</code> de entrada (build / dev).</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>OUTPUT</code></td>\n                            <td><code>dist</code></td>\n                            <td>Diretório de saída.</td>\n                        </tr>\n\n                        <tr>\n                            <td><code>EXAMPLE</code></td>\n                            <td><code>document.ldfw</code></td>\n                            <td>Projeto usado em build-example / dev-example / test-build.</td>\n                        </tr>\n                    </tbody>\n                </table>\n            </div>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code># Exemplos\nmake                                  # mostra a ajuda\nmake build INPUT=app.ldfw OUTPUT=site\nmake dev-docs\nmake test\nmake install</code></pre>\n            </div>"
     },
     "vscode": {
         category: "Ferramentas",
         title: "Extensão VS Code",
         breadcrumb: "VS Code",
         faq: false,
-        content: `
-            <h1 class="page-title">Extensão VS Code para .ldfw</h1>
-
-            <p>O LDFW inclui uma extensão para VS Code (e Cursor) com três funcionalidades principais.</p>
-
-            <h2>Funcionalidades</h2>
-
-            <div class="grid-2">
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-palette-line"></i> Syntax Highlighting</div>
-                    <p class="card-description">Destaque de sintaxe para arquivos .ldfw: diretivas, strings, keywords, blocos, comentários, etc.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-error-warning-line"></i> Diagnostics</div>
-                    <p class="card-description">Erros do parser aparecem no Problems panel em tempo real. Indentação errada? Mostra na hora.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-lightbulb-line"></i> Autocomplete</div>
-                    <p class="card-description">Sugere includes, componentes, propriedades e snippets completos enquanto você digita.</p>
-                </div>
-            </div>
-
-            <h2>Instalação</h2>
-
-            <p>A extensão fica em <code>ldfw/vscode/</code>. Para ativar:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Bash</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-bash"><code># No Cursor
-ln -s "/caminho/para/ldfw/vscode" ~/.cursor/extensions/ldfw-language-support
-
-# No VS Code
-ln -s "/caminho/para/ldfw/vscode" ~/.vscode/extensions/ldfw-language-support</code></pre>
-            </div>
-
-            <p>Depois reinicie o editor. Qualquer arquivo <code>.ldfw</code> já reconhece automaticamente.</p>
-
-            <h2>O Que Cada Funcionalidade Faz</h2>
-
-            <h3>Syntax Highlighting</h3>
-
-            <p>Define cores diferentes para: diretivas (<code>#&gt; StartFW</code>), strings (<code>&quot;texto&quot;</code>), keywords (<code>include</code>, <code>Project</code>, <code>hero</code>, <code>grid</code>), headings (<code>h1</code>, <code>h2</code>), blocos (<code>{}</code>), setas (<code>-&gt;</code>), comentários (<code>//</code>), e números.</p>
-
-            <h3>Diagnostics</h3>
-
-            <p>Toda vez que você salva ou edita, o parser roda em segundo plano. Se tiver algum erro (indentação, sintaxe, etc.), aparece um sublinhado vermelho na linha e a mensagem no Problems. Erros detectados:</p>
-
-            <ul class="list-default">
-                <li>Indentação insuficiente dentro de blocos.</li>
-                <li><code>}</code> na coluna errada.</li>
-                <li>Strings não fechadas.</li>
-                <li>Tokens inválidos.</li>
-                <li>Blocos desconhecidos.</li>
-            </ul>
-
-            <h3>Autocomplete</h3>
-
-            <p>Ao digitar, o editor sugere:</p>
-
-            <ul class="list-default">
-                <li><strong>Palavras-chave</strong>: <code>include</code>, <code>Project</code>, <code>Docs</code>, <code>section</code>, <code>page</code>, etc.</li>
-                <li><strong>Componentes</strong>: <code>hero</code>, <code>grid</code>, <code>card</code>, <code>alert</code>, <code>code</code>, <code>faq</code>, <code>ul</code>, <code>ol</code>.</li>
-                <li><strong>Propriedades</strong>: <code>route</code>, <code>icon</code>, <code>nav</code>, <code>breadcrumb</code>, <code>badge</code>, <code>title</code>, <code>desc</code>, <code>btn</code>.</li>
-                <li><strong>Snippets</strong>: <code>include #&gt; Standard;</code>, <code>Project: { }</code>, <code>Docs: { }</code>, <code>hero { }</code>, etc. com placeholders para preencher.</li>
-            </ul>`
+        search: "Extensão VS Code para .ldfw O LDFW tem uma extensão para VS Code (e Cursor) com três funcionalidades principais. Ela é um projeto separado em ldfw-sdk/ (fora de ldfw/ ) e será a base de uma SDK completa no futuro. Funcionalidades Syntax Highlighting Destaque de sintaxe para arquivos .ldfw: diretivas, strings, keywords, blocos, comentários, etc. Diagnostics Erros do parser aparecem no Problems panel em tempo real. Indentação errada? Mostra na hora. Autocomplete Sugere includes, componentes, propriedades e snippets completos enquanto você digita. Instalação A extensão fica em ldfw-sdk/ (na raiz, fora de ldfw/ ). Para ativar: Bash Copiar # No Cursor ln -s \"/caminho/para/ldfw-sdk\" ~/.cursor/extensions/ldfw-sdk # No VS Code ln -s \"/caminho/para/ldfw-sdk\" ~/.vscode/extensions/ldfw-sdk Depois reinicie o editor. Qualquer arquivo .ldfw já é reconhecido automaticamente. O Que Cada Funcionalidade Faz Syntax Highlighting Define cores diferentes para: diretivas ( #> StartFW ), strings ( \"texto\" ), keywords ( include , Project , hero , grid ), headings ( h1 , h2 ), blocos ( {} ), setas ( -> ), comentários ( // ), e números. Diagnostics Toda vez que você salva ou edita, o parser roda em segundo plano. Se tiver algum erro (indentação, sintaxe, etc.), aparece um sublinhado vermelho na linha e a mensagem no Problems. Erros detectados: Indentação insuficiente dentro de blocos. } na coluna errada. Strings não fechadas. Tokens inválidos. Blocos desconhecidos. Autocomplete Ao digitar, o editor sugere: Palavras-chave : include , Project , Docs , section , page , etc. Componentes : hero , grid , card , alert , code , tabs , table , faq , ul , ol . Propriedades : route , icon , nav , breadcrumb , badge , title , desc , btn . Snippets : include #> Standard; , Project: { } , Docs: { } , hero { } , etc. com placeholders para preencher.",
+        content: "\n            <h1 class=\"page-title\" id=\"extensao-vs-code-para-ldfw\">Extensão VS Code para .ldfw</h1>\n\n            <p>O LDFW tem uma extensão para VS Code (e Cursor) com três funcionalidades principais. Ela é um projeto <strong>separado</strong> em <code>ldfw-sdk/</code> (fora de <code>ldfw/</code>) e será a base de uma <strong>SDK completa</strong> no futuro.</p>\n\n            <h2 id=\"funcionalidades\">Funcionalidades</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-palette-line\"></i> Syntax Highlighting</div>\n                    <p class=\"card-description\">Destaque de sintaxe para arquivos .ldfw: diretivas, strings, keywords, blocos, comentários, etc.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-error-warning-line\"></i> Diagnostics</div>\n                    <p class=\"card-description\">Erros do parser aparecem no Problems panel em tempo real. Indentação errada? Mostra na hora.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-lightbulb-line\"></i> Autocomplete</div>\n                    <p class=\"card-description\">Sugere includes, componentes, propriedades e snippets completos enquanto você digita.</p>\n                </div>\n            </div>\n\n            <h2 id=\"instalacao\">Instalação</h2>\n\n            <p>A extensão fica em <code>ldfw-sdk/</code> (na raiz, fora de <code>ldfw/</code>). Para ativar:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Bash</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-bash\"><code># No Cursor\nln -s \"/caminho/para/ldfw-sdk\" ~/.cursor/extensions/ldfw-sdk\n\n# No VS Code\nln -s \"/caminho/para/ldfw-sdk\" ~/.vscode/extensions/ldfw-sdk</code></pre>\n            </div>\n\n            <p>Depois reinicie o editor. Qualquer arquivo <code>.ldfw</code> já é reconhecido automaticamente.</p>\n\n            <h2 id=\"o-que-cada-funcionalidade-faz\">O Que Cada Funcionalidade Faz</h2>\n\n            <h3 id=\"syntax-highlighting\">Syntax Highlighting</h3>\n\n            <p>Define cores diferentes para: diretivas (<code>#&gt; StartFW</code>), strings (<code>&quot;texto&quot;</code>), keywords (<code>include</code>, <code>Project</code>, <code>hero</code>, <code>grid</code>), headings (<code>h1</code>, <code>h2</code>), blocos (<code>{}</code>), setas (<code>-&gt;</code>), comentários (<code>//</code>), e números.</p>\n\n            <h3 id=\"diagnostics\">Diagnostics</h3>\n\n            <p>Toda vez que você salva ou edita, o parser roda em segundo plano. Se tiver algum erro (indentação, sintaxe, etc.), aparece um sublinhado vermelho na linha e a mensagem no Problems. Erros detectados:</p>\n\n            <ul class=\"list-default\">\n                <li>Indentação insuficiente dentro de blocos.</li>\n                <li><code>}</code> na coluna errada.</li>\n                <li>Strings não fechadas.</li>\n                <li>Tokens inválidos.</li>\n                <li>Blocos desconhecidos.</li>\n            </ul>\n\n            <h3 id=\"autocomplete\">Autocomplete</h3>\n\n            <p>Ao digitar, o editor sugere:</p>\n\n            <ul class=\"list-default\">\n                <li><strong>Palavras-chave</strong>: <code>include</code>, <code>Project</code>, <code>Docs</code>, <code>section</code>, <code>page</code>, etc.</li>\n                <li><strong>Componentes</strong>: <code>hero</code>, <code>grid</code>, <code>card</code>, <code>alert</code>, <code>code</code>, <code>tabs</code>, <code>table</code>, <code>faq</code>, <code>ul</code>, <code>ol</code>.</li>\n                <li><strong>Propriedades</strong>: <code>route</code>, <code>icon</code>, <code>nav</code>, <code>breadcrumb</code>, <code>badge</code>, <code>title</code>, <code>desc</code>, <code>btn</code>.</li>\n                <li><strong>Snippets</strong>: <code>include #&gt; Standard;</code>, <code>Project: { }</code>, <code>Docs: { }</code>, <code>hero { }</code>, etc. com placeholders para preencher.</li>\n            </ul>"
     },
     "exemplos": {
         category: "Ferramentas",
         title: "Exemplos Completos",
         breadcrumb: "Exemplos",
         faq: false,
-        content: `
-            <h1 class="page-title">Exemplos Completos</h1>
-
-            <h2>Estrutura Mínima</h2>
-
-            <p>O menor arquivo .ldfw possível:</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>#&gt; StartFW
-include #&gt; Standard;
-
-Project: {
-    title: "Mínimo";
-}
-
-Docs: {
-    layout #&gt; stnd;
-
-    section "Única" {
-        page Home {
-            route: "home";
-            icon: "ri-home-4-line";
-            nav: "Home";
-            breadcrumb: "Home";
-
-            h1 "Olá";
-            p "Esta é a documentação mínima do LDFW.";
-        }
-    }
-}</code></pre>
-            </div>
-
-            <h2>Página com Todos os Componentes</h2>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>page Completa {
-    route: "completa";
-    icon: "ri-star-line";
-    nav: "Página Completa";
-    breadcrumb: "Completa";
-    title: "Todos os Componentes";
-
-    hero {
-        badge: "Demonstração";
-        title: "Página Completa";
-        desc: "Todos os componentes do LDFW em uma página.";
-        btn primary "Ver" -&gt; home;
-    }
-
-    h2 "Grid de Cards";
-    grid 2 {
-        card "Card 1" icon "ri-numbers-line" {
-            "Primeiro card do grid.";
-        }
-        card "Card 2" icon "ri-numbers-line" {
-            "Segundo card do grid.";
-        }
-    }
-
-    h2 "Alerta";
-    alert info "Informação" {
-        "Isso é um alerta de informação.";
-    }
-
-    h2 "Código";
-    code javascript {
-console.log("Hello LDFW!");
-    }
-
-    h2 "Lista";
-    ul {
-        "Item A";
-        "Item B";
-        "Item C";
-    }
-
-    h2 "FAQ";
-    faq {
-        q "Pergunta 1?" {
-            "Resposta 1.";
-        }
-        q "Pergunta 2?" {
-            "Resposta 2.";
-        }
-    }
-}</code></pre>
-            </div>`
+        search: "Exemplos Completos Estrutura Mínima O menor arquivo .ldfw possível: Ldfw Copiar #> StartFW include #> Standard; Project: { title: \"Mínimo\"; } Docs: { layout #> stnd; section \"Única\" { page Home { route: \"home\"; icon: \"ri-home-4-line\"; nav: \"Home\"; breadcrumb: \"Home\"; h1 \"Olá\"; p \"Esta é a documentação mínima do LDFW.\"; } } } Página com Todos os Componentes Uma única página exercitando todos os componentes do LDFW: Ldfw Copiar page Completa { route: \"completa\"; icon: \"ri-star-line\"; nav: \"Página Completa\"; breadcrumb: \"Completa\"; title: \"Todos os Componentes\"; hero { badge: (\"v2.0\", \"#7850ff\", \"rgba(120, 80, 255, 0.15)\"); title: \"Página Completa\"; desc: \"Todos os componentes do LDFW em uma página.\"; btn primary \"Começar\" -> home; btn outline \"GitHub\" -> external \"https://github.com/exemplo/repo\"; } h2 \"Títulos e Texto\"; p \"Parágrafo com **negrito** e `código inline`.\"; h3 \"Subtítulo (h3)\"; p \"Texto sob um h3.\"; h2 \"Grid de Cards\"; grid 3 { card \"Rápido\" icon \"ri-flashlight-line\" { \"Primeiro card.\"; } card \"Seguro\" icon \"ri-shield-check-line\" { \"Segundo card.\"; } card \"Leve\" icon \"ri-feather-line\" { \"Terceiro card.\"; } } h2 \"Card Avulso\"; card \"Destaque\" icon \"ri-star-line\" { \"Card fora do grid — ocupa a largura toda.\"; } h2 \"Tabs\"; tabs { tab \"Lua\" icon \"ri-code-line\" { code lua { print(\"Olá do Lua\") } } tab \"JavaScript\" icon \"ri-code-line\" { code javascript { console.log(\"Olá do JS\"); } } } h2 \"Bloco de Código\"; code bash { ldfw build meu-projeto.ldfw -o ./dist } h2 \"Alertas\"; alert tip \"Dica\" { \"Alerta de preset (tip / info / warning / danger / important).\"; } alert (\"Custom\", \"#ff6b6b\", \"rgba(255, 107, 107, 0.08)\", \"ri-fire-line\", \"🔥\") { \"Alerta com cores inline via ().\"; } h2 \"Tabela de Configuração\"; table config { row \"title\" (\"string\", \"#3b82f6\", \"rgba(59, 130, 246, 0.1)\") \"\\\"App\\\"\" \"Título da janela.\"; row \"debug\" boolean \"false\" \"Ativa logs no console.\"; } h2 \"Tabela Genérica\"; table { header \"Método\" \"Descrição\"; row \"init()\" \"Inicializa a biblioteca.\"; row \"destroy()\" \"Encerra e limpa recursos.\"; } h2 \"Listas\"; ul { \"Item não ordenado A\"; \"Item não ordenado B\"; } ol { \"Primeiro passo\"; \"Segundo passo\"; } h2 \"FAQ\"; faq { q \"Pergunta 1?\" { \"Resposta 1.\"; } q \"Pergunta 2?\" { \"Resposta 2.\"; } } } Arquivo Completo com Extensions Um arquivo usando as features novas — On This Page (PageContent) e DocColors (cores do tema): Ldfw Copiar #> StartFW include #> Standard; include #> Extensions; using Extensions.PageContent; using Extensions.Coloring; Extensions: { DocColors { dark { background: \"#1a1d23\"; card: \"#252931\"; border: \"#31363f\"; } } } Project: { title: \"Minha Lib\"; version: \"v2.0.0\"; } Docs: { layout #> stnd; #> PageContent; section \"Guia\" { page Home { route: \"home\"; h1 \"Minha Lib\"; h2 \"Instalação\"; h2 \"Uso\"; } } }",
+        content: "\n            <h1 class=\"page-title\" id=\"exemplos-completos\">Exemplos Completos</h1>\n\n            <h2 id=\"estrutura-minima\">Estrutura Mínima</h2>\n\n            <p>O menor arquivo .ldfw possível:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>#&gt; StartFW\ninclude #&gt; Standard;\n\nProject: {\n    title: \"Mínimo\";\n}\n\nDocs: {\n    layout #&gt; stnd;\n\n    section \"Única\" {\n        page Home {\n            route: \"home\";\n            icon: \"ri-home-4-line\";\n            nav: \"Home\";\n            breadcrumb: \"Home\";\n\n            h1 \"Olá\";\n            p \"Esta é a documentação mínima do LDFW.\";\n        }\n    }\n}</code></pre>\n            </div>\n\n            <h2 id=\"pagina-com-todos-os-componentes\">Página com Todos os Componentes</h2>\n\n            <p>Uma única página exercitando <strong>todos</strong> os componentes do LDFW:</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>page Completa {\n    route: \"completa\";\n    icon: \"ri-star-line\";\n    nav: \"Página Completa\";\n    breadcrumb: \"Completa\";\n    title: \"Todos os Componentes\";\n\n    hero {\n        badge: (\"v2.0\", \"#7850ff\", \"rgba(120, 80, 255, 0.15)\");\n        title: \"Página Completa\";\n        desc: \"Todos os componentes do LDFW em uma página.\";\n        btn primary \"Começar\" -&gt; home;\n        btn outline \"GitHub\" -&gt; external \"https://github.com/exemplo/repo\";\n    }\n\n    h2 \"Títulos e Texto\";\n    p \"Parágrafo com **negrito** e `código inline`.\";\n    h3 \"Subtítulo (h3)\";\n    p \"Texto sob um h3.\";\n\n    h2 \"Grid de Cards\";\n    grid 3 {\n        card \"Rápido\" icon \"ri-flashlight-line\" { \"Primeiro card.\"; }\n        card \"Seguro\" icon \"ri-shield-check-line\" { \"Segundo card.\"; }\n        card \"Leve\" icon \"ri-feather-line\" { \"Terceiro card.\"; }\n    }\n\n    h2 \"Card Avulso\";\n    card \"Destaque\" icon \"ri-star-line\" {\n        \"Card fora do grid — ocupa a largura toda.\";\n    }\n\n    h2 \"Tabs\";\n    tabs {\n        tab \"Lua\" icon \"ri-code-line\" {\n            code lua {\nprint(\"Olá do Lua\")\n            }\n        }\n        tab \"JavaScript\" icon \"ri-code-line\" {\n            code javascript {\nconsole.log(\"Olá do JS\");\n            }\n        }\n    }\n\n    h2 \"Bloco de Código\";\n    code bash {\nldfw build meu-projeto.ldfw -o ./dist\n    }\n\n    h2 \"Alertas\";\n    alert tip \"Dica\" { \"Alerta de preset (tip / info / warning / danger / important).\"; }\n    alert (\"Custom\", \"#ff6b6b\", \"rgba(255, 107, 107, 0.08)\", \"ri-fire-line\", \"🔥\") {\n        \"Alerta com cores inline via ().\";\n    }\n\n    h2 \"Tabela de Configuração\";\n    table config {\n        row \"title\" (\"string\", \"#3b82f6\", \"rgba(59, 130, 246, 0.1)\") \"\\\"App\\\"\" \"Título da janela.\";\n        row \"debug\" boolean \"false\" \"Ativa logs no console.\";\n    }\n\n    h2 \"Tabela Genérica\";\n    table {\n        header \"Método\" \"Descrição\";\n        row \"init()\" \"Inicializa a biblioteca.\";\n        row \"destroy()\" \"Encerra e limpa recursos.\";\n    }\n\n    h2 \"Listas\";\n    ul { \"Item não ordenado A\"; \"Item não ordenado B\"; }\n    ol { \"Primeiro passo\"; \"Segundo passo\"; }\n\n    h2 \"FAQ\";\n    faq {\n        q \"Pergunta 1?\" { \"Resposta 1.\"; }\n        q \"Pergunta 2?\" { \"Resposta 2.\"; }\n    }\n}</code></pre>\n            </div>\n\n            <h2 id=\"arquivo-completo-com-extensions\">Arquivo Completo com Extensions</h2>\n\n            <p>Um arquivo usando as features novas — <strong>On This Page</strong> (PageContent) e <strong>DocColors</strong> (cores do tema):</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>#&gt; StartFW\ninclude #&gt; Standard;\ninclude #&gt; Extensions;\nusing Extensions.PageContent;\nusing Extensions.Coloring;\n\n\nExtensions: {\n    DocColors {\n        dark {\n            background: \"#1a1d23\";\n            card: \"#252931\";\n            border: \"#31363f\";\n        }\n    }\n}\n\nProject: {\n    title: \"Minha Lib\";\n    version: \"v2.0.0\";\n}\n\nDocs: {\n    layout #&gt; stnd;\n    #&gt; PageContent;\n\n    section \"Guia\" {\n        page Home {\n            route: \"home\";\n            h1 \"Minha Lib\";\n            h2 \"Instalação\";\n            h2 \"Uso\";\n        }\n    }\n}</code></pre>\n            </div>"
     },
     "ref-componentes": {
         category: "Referência",
         title: "Referência Rápida de Componentes",
         breadcrumb: "Tabela de Componentes",
         faq: false,
-        content: `
-            <h1 class="page-title">Referência Rápida</h1>
-
-            <p>Tabela completa de todos os componentes, sua sintaxe e descrição.</p>
-
-            <h2>Componentes de Conteúdo</h2>
-
-            <p><code>hero</code> — Banner principal com badge, título, descrição e botões.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>hero { badge: "badge"; title: "titulo"; desc: "desc"; btn primary "texto" -&gt; alvo; }</code></pre>
-            </div>
-
-            <p><code>grid</code> + <code>card</code> — Grid de cards (2 ou 3 colunas).</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>grid 2 { card "Título" icon "ri-icon" { "texto"; } }</code></pre>
-            </div>
-
-            <p><code>card</code> — Card avulso (fora de grid, ocupa largura total).</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>card "Título" icon "ri-icon" { "texto"; }</code></pre>
-            </div>
-
-            <p><code>code</code> — Bloco de código com syntax highlighting.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>code linguagem { conteudo }</code></pre>
-            </div>
-
-            <p><code>alert</code> — Alerta colorido (tip, info, warning, danger, important).</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>alert variante "Título" { "texto"; }</code></pre>
-            </div>
-
-            <p><code>table config</code> — Tabela de parâmetros de configuração (Parâmetro, Tipo, Padrão, Descrição).</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>table config { row "param" string "default" "descrição"; }</code></pre>
-            </div>
-
-            <p><code>table</code> — Tabela genérica com headers customizados.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>table { header "Col1" "Col2"; row "valor" badge:table self "texto"; }</code></pre>
-            </div>
-
-            <p><code>Extensions</code> + <code>using</code> — Alertas/badges customizados (opcional).</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>include #&gt; Extensions;
-using -c = recycle;
-Extensions: { alert custom { icon: "ri-star-line"; color: "#6366f1"; background: "rgba(99,102,241,0.08)"; border: "#6366f1"; } }
-alert -c "Título" { "texto"; }</code></pre>
-            </div>
-
-            <p><code>ul</code> / <code>ol</code> — Lista não ordenada / ordenada.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>ul { "item"; "item"; }
-ol { "item"; "item"; }</code></pre>
-            </div>
-
-            <p><code>faq</code> — Acordeão de perguntas e respostas.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>faq { q "pergunta" { "resposta"; } }</code></pre>
-            </div>
-
-            <p><code>h1</code>, <code>h2</code>, <code>h3</code> — Títulos.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>h1 "Título"; h2 "Subtítulo"; h3 "Seção";</code></pre>
-            </div>
-
-            <p><code>p</code> — Parágrafo.</p>
-
-            <div class="code-block-container">
-                <div class="code-block-header">
-                    <span class="code-language-tag">Ldfw</span>
-                    <button class="copy-code-btn"><i class="ri-file-copy-line"></i> Copiar</button>
-                </div>
-                <pre class="language-ldfw"><code>p "Texto do parágrafo.";</code></pre>
-            </div>
-
-            <h2>Propriedades de Meta (Page)</h2>
-
-            <div class="grid-2">
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-link"></i> route</div>
-                    <p class="card-description">URL da página (<code>route: &quot;home&quot;</code>).</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-palette-line"></i> icon</div>
-                    <p class="card-description">Ícone RemixIcon (<code>icon: &quot;ri-home-line&quot;</code>).</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-menu-line"></i> nav</div>
-                    <p class="card-description">Texto no menu lateral.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-arrow-right-s-line"></i> breadcrumb</div>
-                    <p class="card-description">Texto no breadcrumb.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-font-size"></i> title</div>
-                    <p class="card-description">Título da aba do navegador.</p>
-                </div>
-            </div>
-
-            <h2>Propriedades de Projeto (Project)</h2>
-
-            <div class="grid-2">
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-font-size-2"></i> title</div>
-                    <p class="card-description">Nome do projeto. Usado no título do site.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-subscript"></i> subtitle</div>
-                    <p class="card-description">Subtítulo exibido no logo da sidebar.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-price-tag-3-line"></i> version</div>
-                    <p class="card-description">Versão atual do projeto.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-signal-wifi-line"></i> status</div>
-                    <p class="card-description">Status: Estável, Em Desenvolvimento, etc.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-github-fill"></i> github</div>
-                    <p class="card-description">URL do repositório GitHub. Adiciona link no header.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-file-text-line"></i> description</div>
-                    <p class="card-description">Meta description para SEO.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i class="ri-translate"></i> lang</div>
-                    <p class="card-description">Idioma do site (<code>pt-BR</code>, <code>en</code>, etc.).</p>
-                </div>
-            </div>`
+        search: "Referência Rápida Tabela completa de todos os componentes, sua sintaxe e descrição. Componentes de Conteúdo hero — Banner principal com badge, título, descrição e botões. Ldfw Copiar hero { badge: \"badge\"; title: \"titulo\"; desc: \"desc\"; btn primary \"texto\" -> alvo; } grid + card — Grid de cards (2 ou 3 colunas). Ldfw Copiar grid 2 { card \"Título\" icon \"ri-icon\" { \"texto\"; } } card — Card avulso (fora de grid, ocupa largura total). Ldfw Copiar card \"Título\" icon \"ri-icon\" { \"texto\"; } code — Bloco de código com syntax highlighting. Ldfw Copiar code linguagem { conteudo } alert — Alerta colorido (tip, info, warning, danger, important). Ldfw Copiar alert variante \"Título\" { \"texto\"; } tabs + tab — Conteúdo organizado em abas. Ldfw Copiar tabs { tab \"Nome\" icon \"ri-code-line\" { \"conteúdo\"; } } btn — Botão dentro do hero . Estilo primary / outline e destino com -> . Ldfw Copiar btn primary \"Texto\" -> rota; btn outline \"Externo\" -> external \"https://...\"; table config — Tabela de parâmetros de configuração (Parâmetro, Tipo, Padrão, Descrição). Ldfw Copiar table config { row \"param\" string \"default\" \"descrição\"; } table — Tabela genérica com headers customizados. Ldfw Copiar table { header \"Col1\" \"Col2\"; row \"valor 1\" \"valor 2\"; } Extensions + using Extensions.Coloring — customização visual: cores inline (...) , presets, DocColors e Coloring (opcional). Ldfw Copiar include #> Extensions; using Extensions.Coloring; alert (\"Título\", \"#6366f1\", \"rgba(99,102,241,0.08)\", \"ri-star-line\") { \"texto\"; } ul / ol — Lista não ordenada / ordenada. Ldfw Copiar ul { \"item\"; \"item\"; } ol { \"item\"; \"item\"; } faq — Acordeão de perguntas e respostas. Ldfw Copiar faq { q \"pergunta\" { \"resposta\"; } } h1 , h2 , h3 — Títulos. Ldfw Copiar h1 \"Título\"; h2 \"Subtítulo\"; h3 \"Seção\"; p — Parágrafo. Ldfw Copiar p \"Texto do parágrafo.\"; Propriedades de Meta (Page) route URL da página ( route: \"home\" ). icon Ícone RemixIcon ( icon: \"ri-home-line\" ). nav Texto no menu lateral. breadcrumb Texto no breadcrumb. title Título da aba do navegador. Propriedades de Projeto (Project) title Nome do projeto. Usado no título do site. subtitle Subtítulo exibido no logo da sidebar. version Versão atual do projeto. status Status: Estável, Em Desenvolvimento, etc. github URL do repositório GitHub. Adiciona link no header. description Meta description para SEO. lang Idioma do site ( pt-BR , en , etc.). logo Caminho de uma imagem para o logo da sidebar (substitui o hexágono). Sempre exibido em quadrado. favicon Caminho do favicon ( .ico , .png ou .svg ) exibido na aba do navegador. Features de Extensions Recursos opcionais da biblioteca Extensions (veja as páginas dedicadas): Coloring Cores inline (...) , presets e cores por elemento. Requer using Extensions.Coloring . DocColors Cores dos temas light/dark globalmente, via bloco DocColors . On This Page Índice lateral dos h1 / h2 / h3 . Ative com using Extensions.PageContent; + #> PageContent; . Switch Variantes de página por seção (ex.: Linux/Windows). Requer using Extensions.Switch .",
+        content: "\n            <h1 class=\"page-title\" id=\"referencia-rapida\">Referência Rápida</h1>\n\n            <p>Tabela completa de todos os componentes, sua sintaxe e descrição.</p>\n\n            <h2 id=\"componentes-de-conteudo\">Componentes de Conteúdo</h2>\n\n            <p><code>hero</code> — Banner principal com badge, título, descrição e botões.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>hero { badge: \"badge\"; title: \"titulo\"; desc: \"desc\"; btn primary \"texto\" -&gt; alvo; }</code></pre>\n            </div>\n\n            <p><code>grid</code> + <code>card</code> — Grid de cards (2 ou 3 colunas).</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>grid 2 { card \"Título\" icon \"ri-icon\" { \"texto\"; } }</code></pre>\n            </div>\n\n            <p><code>card</code> — Card avulso (fora de grid, ocupa largura total).</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>card \"Título\" icon \"ri-icon\" { \"texto\"; }</code></pre>\n            </div>\n\n            <p><code>code</code> — Bloco de código com syntax highlighting.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>code linguagem { conteudo }</code></pre>\n            </div>\n\n            <p><code>alert</code> — Alerta colorido (tip, info, warning, danger, important).</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>alert variante \"Título\" { \"texto\"; }</code></pre>\n            </div>\n\n            <p><code>tabs</code> + <code>tab</code> — Conteúdo organizado em abas.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>tabs { tab \"Nome\" icon \"ri-code-line\" { \"conteúdo\"; } }</code></pre>\n            </div>\n\n            <p><code>btn</code> — Botão dentro do <code>hero</code>. Estilo <code>primary</code>/<code>outline</code> e destino com <code>-&gt;</code>.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>btn primary \"Texto\" -&gt; rota;\nbtn outline \"Externo\" -&gt; external \"https://...\";</code></pre>\n            </div>\n\n            <p><code>table config</code> — Tabela de parâmetros de configuração (Parâmetro, Tipo, Padrão, Descrição).</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>table config { row \"param\" string \"default\" \"descrição\"; }</code></pre>\n            </div>\n\n            <p><code>table</code> — Tabela genérica com headers customizados.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>table { header \"Col1\" \"Col2\"; row \"valor 1\" \"valor 2\"; }</code></pre>\n            </div>\n\n            <p><code>Extensions</code> + <code>using Extensions.Coloring</code> — customização visual: cores inline <code>(...)</code>, presets, DocColors e Coloring (opcional).</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>include #&gt; Extensions;\nusing Extensions.Coloring;\nalert (\"Título\", \"#6366f1\", \"rgba(99,102,241,0.08)\", \"ri-star-line\") { \"texto\"; }</code></pre>\n            </div>\n\n            <p><code>ul</code> / <code>ol</code> — Lista não ordenada / ordenada.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>ul { \"item\"; \"item\"; }\nol { \"item\"; \"item\"; }</code></pre>\n            </div>\n\n            <p><code>faq</code> — Acordeão de perguntas e respostas.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>faq { q \"pergunta\" { \"resposta\"; } }</code></pre>\n            </div>\n\n            <p><code>h1</code>, <code>h2</code>, <code>h3</code> — Títulos.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>h1 \"Título\"; h2 \"Subtítulo\"; h3 \"Seção\";</code></pre>\n            </div>\n\n            <p><code>p</code> — Parágrafo.</p>\n\n            <div class=\"code-block-container\">\n                <div class=\"code-block-header\">\n                    <span class=\"code-language-tag\">Ldfw</span>\n                    <button class=\"copy-code-btn\"><i class=\"ri-file-copy-line\"></i> Copiar</button>\n                </div>\n                <pre class=\"language-ldfw\"><code>p \"Texto do parágrafo.\";</code></pre>\n            </div>\n\n            <h2 id=\"propriedades-de-meta-page\">Propriedades de Meta (Page)</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-link\"></i> route</div>\n                    <p class=\"card-description\">URL da página (<code>route: &quot;home&quot;</code>).</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-palette-line\"></i> icon</div>\n                    <p class=\"card-description\">Ícone RemixIcon (<code>icon: &quot;ri-home-line&quot;</code>).</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-menu-line\"></i> nav</div>\n                    <p class=\"card-description\">Texto no menu lateral.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-arrow-right-s-line\"></i> breadcrumb</div>\n                    <p class=\"card-description\">Texto no breadcrumb.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-font-size\"></i> title</div>\n                    <p class=\"card-description\">Título da aba do navegador.</p>\n                </div>\n            </div>\n\n            <h2 id=\"propriedades-de-projeto-project\">Propriedades de Projeto (Project)</h2>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-font-size-2\"></i> title</div>\n                    <p class=\"card-description\">Nome do projeto. Usado no título do site.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-subscript\"></i> subtitle</div>\n                    <p class=\"card-description\">Subtítulo exibido no logo da sidebar.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-price-tag-3-line\"></i> version</div>\n                    <p class=\"card-description\">Versão atual do projeto.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-signal-wifi-line\"></i> status</div>\n                    <p class=\"card-description\">Status: Estável, Em Desenvolvimento, etc.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-github-fill\"></i> github</div>\n                    <p class=\"card-description\">URL do repositório GitHub. Adiciona link no header.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-file-text-line\"></i> description</div>\n                    <p class=\"card-description\">Meta description para SEO.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-translate\"></i> lang</div>\n                    <p class=\"card-description\">Idioma do site (<code>pt-BR</code>, <code>en</code>, etc.).</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-image-2-line\"></i> logo</div>\n                    <p class=\"card-description\">Caminho de uma imagem para o logo da sidebar (substitui o hexágono). Sempre exibido em quadrado.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-bookmark-line\"></i> favicon</div>\n                    <p class=\"card-description\">Caminho do favicon (<code>.ico</code>, <code>.png</code> ou <code>.svg</code>) exibido na aba do navegador.</p>\n                </div>\n            </div>\n\n            <h2 id=\"features-de-extensions\">Features de Extensions</h2>\n\n            <p>Recursos opcionais da biblioteca <strong>Extensions</strong> (veja as páginas dedicadas):</p>\n\n            <div class=\"grid-2\">\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-palette-line\"></i> Coloring</div>\n                    <p class=\"card-description\">Cores inline <code>(...)</code>, presets e cores por elemento. Requer <code>using Extensions.Coloring</code>.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-contrast-2-line\"></i> DocColors</div>\n                    <p class=\"card-description\">Cores dos temas light/dark globalmente, via bloco <code>DocColors</code>.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-list-check\"></i> On This Page</div>\n                    <p class=\"card-description\">Índice lateral dos <code>h1</code>/<code>h2</code>/<code>h3</code>. Ative com <code>using Extensions.PageContent;</code> + <code>#&gt; PageContent;</code>.</p>\n                </div>\n\n                <div class=\"card\">\n                    <div class=\"card-title\"><i class=\"ri-arrow-left-right-line\"></i> Switch</div>\n                    <p class=\"card-description\">Variantes de página por seção (ex.: Linux/Windows). Requer <code>using Extensions.Switch</code>.</p>\n                </div>\n            </div>"
     },
     "dicas": {
         category: "Referência",
         title: "Dicas e Boas Práticas",
         breadcrumb: "Dicas",
         faq: false,
-        content: `
-            <h1 class="page-title">Dicas e Boas Práticas</h1>
-
-            <h2>Organização de Arquivos</h2>
-
-            <ul class="list-default">
-                <li>Mantenha um arquivo .ldfw por projeto.</li>
-                <li>Para projetos grandes, considere dividir em múltiplos arquivos (futuro: suporte a <code>include</code> de outros .ldfw).</li>
-                <li>Use nomes significativos para páginas e rotas.</li>
-            </ul>
-
-            <h2>Escrita de Conteúdo</h2>
-
-            <ul class="list-default">
-                <li>Use <code>h2</code> para seções principais dentro da página. Reserve <code>h1</code> para o título principal.</li>
-                <li>Prefira textos curtos em cards e alerts. Textos muito longos ficam melhores em parágrafos.</li>
-                <li>Use <code><strong>negrito</strong></code> com moderação — apenas para destacar termos importantes.</li>
-                <li>Agrupe cards relacionados no mesmo grid. Um grid por grupo de conceito.</li>
-            </ul>
-
-            <h2>Indentação</h2>
-
-            <ul class="list-default">
-                <li>Configure seu editor para usar 4 espaços (não tabs).</li>
-                <li>A extensão VS Code do LDFW mostra erros de indentação em tempo real — use isso a seu favor.</li>
-                <li>Mantenha a consistência: se um bloco abriu na coluna 8, feche na coluna 8.</li>
-            </ul>
-
-            <h2>Performance</h2>
-
-            <ul class="list-default">
-                <li>O site gerado é 100% estático — HTML + CSS + JS puro. Não depende de servidor.</li>
-                <li>Os arquivos são pequenos e carregam rápido.</li>
-                <li>O Prism.js para highlighting é carregado via CDN. Offline não terá highlighting.</li>
-            </ul>
-
-            <h2>Customização</h2>
-
-            <ul class="list-default">
-                <li>Edite <code>ldfw/templates/style.css</code> para alterar cores, fontes e estilos globais.</li>
-                <li>Edite <code>ldfw/templates/runtime.js</code> para modificar o comportamento da SPA.</li>
-                <li>Após compilar, você pode sobrescrever <code>style.css</code> no diretório de saída sem recompilar.</li>
-            </ul>
-
-            <div class="alert tip">
-                <div class="alert-icon"><i class="ri-lightbulb-line"></i></div>
-                <div class="alert-content">
-                    <div class="alert-title">Recomendação</div>
-                    <p class="alert-text">Se for customizar o template, faça um fork do LDFW ou mantenha suas alterações em um arquivo separado para não perder ao atualizar.</p>
-                </div>
-            </div>`
+        search: "Dicas e Boas Práticas Organização de Arquivos Mantenha um arquivo .ldfw por projeto. Para projetos grandes, considere dividir em múltiplos arquivos (futuro: suporte a include de outros .ldfw). Use nomes significativos para páginas e rotas. Escrita de Conteúdo Use h2 para seções principais dentro da página. Reserve h1 para o título principal. Prefira textos curtos em cards e alerts. Textos muito longos ficam melhores em parágrafos. Use negrito com moderação — apenas para destacar termos importantes. Agrupe cards relacionados no mesmo grid. Um grid por grupo de conceito. Indentação Configure seu editor para usar 4 espaços (não tabs). A extensão VS Code do LDFW mostra erros de indentação em tempo real — use isso a seu favor. Mantenha a consistência: se um bloco abriu na coluna 8, feche na coluna 8. Performance O site gerado é 100% estático — HTML + CSS + JS puro. Não depende de servidor. Os arquivos são pequenos e carregam rápido. O Prism.js para highlighting é carregado via CDN. Offline não terá highlighting. Customização Toda customização visual da Extensions (cores) é ligada por using Extensions.Coloring . Use DocColors para o tema (light/dark) e Coloring para recolorir elementos específicos — sem editar CSS. Ative #> PageContent; (com using Extensions.PageContent ) para o índice \"On This Page\". Edite ldfw/templates/style.css para alterar fontes e estilos globais. Edite ldfw/templates/runtime.js para modificar o comportamento da SPA. Após compilar, você pode sobrescrever style.css no diretório de saída sem recompilar. Recomendação Se for customizar o template, faça um fork do LDFW ou mantenha suas alterações em um arquivo separado para não perder ao atualizar.",
+        content: "\n            <h1 class=\"page-title\" id=\"dicas-e-boas-praticas\">Dicas e Boas Práticas</h1>\n\n            <h2 id=\"organizacao-de-arquivos\">Organização de Arquivos</h2>\n\n            <ul class=\"list-default\">\n                <li>Mantenha um arquivo .ldfw por projeto.</li>\n                <li>Para projetos grandes, considere dividir em múltiplos arquivos (futuro: suporte a <code>include</code> de outros .ldfw).</li>\n                <li>Use nomes significativos para páginas e rotas.</li>\n            </ul>\n\n            <h2 id=\"escrita-de-conteudo\">Escrita de Conteúdo</h2>\n\n            <ul class=\"list-default\">\n                <li>Use <code>h2</code> para seções principais dentro da página. Reserve <code>h1</code> para o título principal.</li>\n                <li>Prefira textos curtos em cards e alerts. Textos muito longos ficam melhores em parágrafos.</li>\n                <li>Use <code><strong>negrito</strong></code> com moderação — apenas para destacar termos importantes.</li>\n                <li>Agrupe cards relacionados no mesmo grid. Um grid por grupo de conceito.</li>\n            </ul>\n\n            <h2 id=\"indentacao\">Indentação</h2>\n\n            <ul class=\"list-default\">\n                <li>Configure seu editor para usar 4 espaços (não tabs).</li>\n                <li>A extensão VS Code do LDFW mostra erros de indentação em tempo real — use isso a seu favor.</li>\n                <li>Mantenha a consistência: se um bloco abriu na coluna 8, feche na coluna 8.</li>\n            </ul>\n\n            <h2 id=\"performance\">Performance</h2>\n\n            <ul class=\"list-default\">\n                <li>O site gerado é 100% estático — HTML + CSS + JS puro. Não depende de servidor.</li>\n                <li>Os arquivos são pequenos e carregam rápido.</li>\n                <li>O Prism.js para highlighting é carregado via CDN. Offline não terá highlighting.</li>\n            </ul>\n\n            <h2 id=\"customizacao\">Customização</h2>\n\n            <ul class=\"list-default\">\n                <li>Toda customização visual da <strong>Extensions</strong> (cores) é ligada por <code>using Extensions.Coloring</code>.</li>\n                <li>Use <code>DocColors</code> para o tema (light/dark) e <code>Coloring</code> para recolorir elementos específicos — sem editar CSS.</li>\n                <li>Ative <code>#&gt; PageContent;</code> (com <code>using Extensions.PageContent</code>) para o índice &quot;On This Page&quot;.</li>\n                <li>Edite <code>ldfw/templates/style.css</code> para alterar fontes e estilos globais.</li>\n                <li>Edite <code>ldfw/templates/runtime.js</code> para modificar o comportamento da SPA.</li>\n                <li>Após compilar, você pode sobrescrever <code>style.css</code> no diretório de saída sem recompilar.</li>\n            </ul>\n\n            <div class=\"alert tip\">\n                <div class=\"alert-icon\"><i class=\"ri-lightbulb-line\"></i></div>\n                <div class=\"alert-content\">\n                    <div class=\"alert-title\">Recomendação</div>\n                    <p class=\"alert-text\">Se for customizar o template, faça um fork do LDFW ou mantenha suas alterações em um arquivo separado para não perder ao atualizar.</p>\n                </div>\n            </div>"
     }
 };
 
@@ -2148,6 +251,8 @@ function initApp() {
     setupNavigation();
     setupGlobalSearch();
     setupKeyboardShortcuts();
+    setupOnThisPage();
+    setupSectionSwitch();
 }
 
 function setupTheme() {
@@ -2177,28 +282,50 @@ function setupRouting() {
 function handleRouting() {
     const rawHash = window.location.hash || `#${PROJECT.defaultRoute || "home"}`;
     const route = rawHash.replace("#", "");
-    const pageKey = PAGES[route] ? route : (PROJECT.defaultRoute || "home");
-    const page = PAGES[pageKey];
-    renderPage(pageKey, page);
+    const pageKey = PAGES[route] ? route : null;
+
+    if (pageKey) {
+        const page = PAGES[pageKey];
+        renderPage(pageKey, page);
+    } else if (route && route !== (PROJECT.defaultRoute || "home")) {
+        // Route doesn't exist — try default or show 404
+        const defaultRoute = PROJECT.defaultRoute || "home";
+        const defaultPage = PAGES[defaultRoute];
+        if (defaultPage) {
+            renderPage(defaultRoute, defaultPage);
+        } else {
+            renderPage(route, null);
+        }
+    } else {
+        const defaultRoute = PROJECT.defaultRoute || "home";
+        renderPage(defaultRoute, PAGES[defaultRoute] || null);
+    }
 }
 
 function renderPage(pageKey, page) {
     const viewport = document.getElementById("contentViewport");
+    if (!viewport) return;
 
-    document.documentElement.style.scrollBehavior = "auto";
+    if (!page) {
+        viewport.innerHTML = `<div class="hero-section"><h1 class="page-title">Página não encontrada</h1><p class="page-description">A página <strong>${escapeHtml(pageKey)}</strong> não existe.</p></div>`;
+        updateBreadcrumbs("Erro", "404");
+        return;
+    }
+
+    // Reset scroll position without animation
     window.scrollTo(0, 0);
-    document.documentElement.style.scrollBehavior = "";
 
     viewport.style.opacity = 0;
     viewport.style.transform = "translateY(8px)";
 
-    setTimeout(() => {
+    // Atualiza o conteúdo no próximo frame, sem o atraso fixo de 150ms.
+    requestAnimationFrame(() => {
         viewport.innerHTML = page.content;
         updateBreadcrumbs(page.category, page.breadcrumb);
         updateActiveNavLinks(pageKey);
 
         if (typeof Prism !== "undefined") {
-            Prism.highlightAll();
+            try { Prism.highlightAll(); } catch (_) {}
         }
 
         setupCodeCopyButtons();
@@ -2208,21 +335,24 @@ function renderPage(pageKey, page) {
             setupFaqAccordion();
         }
 
-        document.documentElement.style.scrollBehavior = "auto";
-        window.scrollTo(0, 0);
-        document.documentElement.style.scrollBehavior = "";
+        if (PROJECT.pageContent) {
+            buildOnThisPage();
+        }
 
-        viewport.style.opacity = 1;
-        viewport.style.transform = "translateY(0)";
-    }, 150);
+        // Fade-in no frame seguinte para a transição CSS animar a partir de opacity:0.
+        requestAnimationFrame(() => {
+            viewport.style.opacity = 1;
+            viewport.style.transform = "translateY(0)";
+        });
+    });
 }
 
 function updateBreadcrumbs(category, activeItem) {
     const breadcrumb = document.getElementById("breadcrumb");
     breadcrumb.innerHTML = `
-        <span class="breadcrumb-item">${category}</span>
+        <span class="breadcrumb-item">${escapeHtml(category)}</span>
         <span class="breadcrumb-separator">/</span>
-        <span class="breadcrumb-item active">${activeItem}</span>
+        <span class="breadcrumb-item active">${escapeHtml(activeItem)}</span>
     `;
     document.title = `${PROJECT.title} | ${activeItem}`;
 }
@@ -2270,21 +400,16 @@ function setupNavigation() {
 function setupGlobalSearch() {
     const searchInput = document.getElementById("searchInput");
     const searchResults = document.getElementById("searchResults");
-    const searchDatabase = [];
 
-    for (const [key, val] of Object.entries(PAGES)) {
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = val.content;
-        const text = tempDiv.textContent || tempDiv.innerText || "";
-
-        searchDatabase.push({
-            key,
-            title: val.title,
-            category: val.category,
-            content: text,
-            breadcrumb: val.breadcrumb
-        });
-    }
+    // O texto puro de cada página é pré-computado na compilação (campo `search`),
+    // então não rodamos regex de stripHtml no carregamento nem duplicamos o HTML.
+    const searchDatabase = Object.entries(PAGES).map(([key, val]) => ({
+        key,
+        title: val.title,
+        category: val.category,
+        breadcrumb: val.breadcrumb,
+        content: val.search || ""
+    }));
 
     searchInput.addEventListener("input", (e) => {
         const query = e.target.value.toLowerCase().trim();
@@ -2311,7 +436,10 @@ function setupGlobalSearch() {
     });
 
     document.addEventListener("keydown", (e) => {
-        if (e.key === "/" && document.activeElement !== searchInput) {
+        // Only activate search shortcut when not already typing in an input
+        const tag = document.activeElement?.tagName || "";
+        const isInput = tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || document.activeElement?.isContentEditable;
+        if (e.key === "/" && !isInput) {
             e.preventDefault();
             searchInput.focus();
         }
@@ -2323,7 +451,7 @@ function renderSearchResults(matches, query) {
     searchResults.innerHTML = "";
 
     if (matches.length === 0) {
-        searchResults.innerHTML = `<div class="search-result-empty">Nenhum resultado encontrado para "${query}"</div>`;
+        searchResults.innerHTML = `<div class="search-result-empty">Nenhum resultado encontrado para "${escapeHtml(query)}"</div>`;
         searchResults.classList.add("active");
         return;
     }
@@ -2343,8 +471,8 @@ function renderSearchResults(matches, query) {
         }
 
         itemElement.innerHTML = `
-            <span class="search-result-category">${item.category} / ${item.breadcrumb}</span>
-            <span class="search-result-title">${item.title}</span>
+            <span class="search-result-category">${escapeHtml(item.category)} / ${escapeHtml(item.breadcrumb)}</span>
+            <span class="search-result-title">${escapeHtml(item.title)}</span>
             <span class="search-result-snippet">${escapeHtml(snippet)}</span>
         `;
 
@@ -2427,6 +555,168 @@ function setupFaqAccordion() {
                 item.classList.add("active");
             }
         });
+    });
+}
+
+// ============================================================
+// On This Page (PageContent extension)
+// ============================================================
+
+let otpHeadingEls = [];
+let otpScrollScheduled = false;
+
+// Altura do header sticky + folga, para ancorar o heading no ponto exato.
+function otpHeaderOffset() {
+    const header = document.querySelector(".top-header");
+    return (header ? header.offsetHeight : 70) + 12;
+}
+
+function slugifyHeading(text) {
+    return String(text)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "section";
+}
+
+// Monta o índice "On This Page" a partir dos h1/h2/h3 da página atual.
+function buildOnThisPage() {
+    const panel = document.getElementById("onThisPage");
+    const list = document.getElementById("otpList");
+    if (!panel || !list) return;
+
+    const viewport = document.getElementById("contentViewport");
+    const headings = viewport ? Array.from(viewport.querySelectorAll("h1, h2, h3")) : [];
+
+    otpHeadingEls = [];
+
+    if (headings.length === 0) {
+        list.innerHTML = "";
+        panel.classList.remove("active");
+        return;
+    }
+
+    const used = new Set();
+    let currentH2 = ""; // grupo atual = id do h2 mais recente
+    const itemsHtml = headings.map((el) => {
+        const base = el.id || slugifyHeading(el.textContent);
+        let id = base;
+        let n = 2;
+        while (used.has(id)) { id = base + "-" + n; n += 1; }
+        used.add(id);
+        el.id = id;
+
+        const level = el.tagName.toLowerCase(); // h1 | h2 | h3
+        let group;
+        if (level === "h2") { currentH2 = id; group = id; }
+        else if (level === "h3") { group = currentH2; }
+        else { group = ""; currentH2 = ""; } // h1 reinicia o grupo
+
+        otpHeadingEls.push({ el, id, level, group });
+
+        return `<li class="otp-item otp-${level}" data-group="${group}"><a class="otp-link" href="#" data-target="${id}">${escapeHtml(el.textContent)}</a></li>`;
+    }).join("");
+
+    list.innerHTML = itemsHtml;
+    panel.classList.add("active");
+
+    // Scroll suave sem mexer no hash (que é usado pelo roteador da SPA).
+    list.querySelectorAll(".otp-link").forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const target = document.getElementById(link.getAttribute("data-target"));
+            if (!target) return;
+            // Posiciona o heading exatamente logo abaixo do header sticky.
+            const top = target.getBoundingClientRect().top + window.scrollY - otpHeaderOffset();
+            window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+        });
+    });
+
+    highlightActiveHeading();
+}
+
+// Destaca, no índice, a seção atualmente visível (scrollspy).
+function highlightActiveHeading() {
+    const list = document.getElementById("otpList");
+    if (!list || otpHeadingEls.length === 0) return;
+
+    const offset = otpHeaderOffset() + 8; // header sticky + pequena folga
+    let active = otpHeadingEls[0];
+    for (const item of otpHeadingEls) {
+        if (item.el.getBoundingClientRect().top <= offset) {
+            active = item;
+        } else {
+            break;
+        }
+    }
+
+    // Seção (h2) ativa: h2 -> ele mesmo; h3 -> seu grupo; h1 -> nenhuma.
+    const activeGroup = active.level === "h1" ? "" : active.group;
+
+    list.querySelectorAll(".otp-item").forEach((li) => {
+        const link = li.querySelector(".otp-link");
+        link.classList.toggle("active", link.getAttribute("data-target") === active.id);
+
+        // h3 só aparece quando estamos na seção (h2) a que ele pertence.
+        if (li.classList.contains("otp-h3")) {
+            const visible = activeGroup !== "" && li.getAttribute("data-group") === activeGroup;
+            li.classList.toggle("otp-collapsed", !visible);
+        }
+    });
+}
+
+// Registra (uma única vez) o listener de scroll com throttle via rAF.
+function setupOnThisPage() {
+    if (!PROJECT.pageContent) return;
+    window.addEventListener("scroll", () => {
+        if (otpScrollScheduled) return;
+        otpScrollScheduled = true;
+        requestAnimationFrame(() => {
+            otpScrollScheduled = false;
+            highlightActiveHeading();
+        });
+    }, { passive: true });
+}
+
+
+// ============================================================
+// Section Switch (Switch extension)
+// ============================================================
+
+// Cada seção com `data-switch-variants` ganha um controle que troca a variante
+// ativa, filtrando quais páginas (li[data-variant]) aparecem no nav. Páginas sem
+// variante (untagged) ficam sempre visíveis.
+function setupSectionSwitch() {
+    if (!PROJECT.switchEnabled) return;
+
+    document.querySelectorAll(".nav-section[data-switch-variants]").forEach((section) => {
+        const variants = (section.getAttribute("data-switch-variants") || "")
+            .split(",").map((v) => v.trim()).filter(Boolean);
+        if (variants.length === 0) return;
+
+        let current = section.getAttribute("data-switch-default") || variants[0];
+        const btn = section.querySelector(".section-switch");
+        const label = section.querySelector(".section-switch-label");
+
+        function apply() {
+            if (label) label.textContent = current;
+            section.querySelectorAll("li[data-variant]").forEach((li) => {
+                li.classList.toggle("switch-hidden", li.getAttribute("data-variant") !== current);
+            });
+        }
+
+        if (btn) {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const idx = variants.indexOf(current);
+                current = variants[(idx + 1) % variants.length];
+                apply();
+            });
+        }
+
+        apply();
     });
 }
 

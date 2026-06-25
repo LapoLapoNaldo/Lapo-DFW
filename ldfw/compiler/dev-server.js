@@ -5,19 +5,21 @@ const fs = require("fs");
 const path = require("path");
 
 const mimes = {
-    ".html": "text/html",
-    ".css": "text/css",
-    ".js": "application/javascript",
-    ".json": "application/json",
+    ".html": "text/html; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".js": "application/javascript; charset=utf-8",
+    ".json": "application/json; charset=utf-8",
     ".png": "image/png",
-    ".svg": "image/svg+xml",
+    ".svg": "image/svg+xml; charset=utf-8",
     ".ico": "image/x-icon",
+    ".woff2": "font/woff2",
+    ".woff": "font/woff",
 };
 
 function serveFile(res, filePath) {
     fs.readFile(filePath, (err, data) => {
         if (err) {
-            res.writeHead(404);
+            res.writeHead(404, { "Content-Type": "text/plain" });
             res.end("Not found");
             return;
         }
@@ -38,16 +40,16 @@ function injectReloadScript(html, port) {
 }
 
 function startDevServer(outputDir, port, onReload) {
-    const clients = [];
+    const clients = new Set();
 
     function notifyClients() {
-        clients.forEach(res => {
+        for (const res of clients) {
             try {
                 res.write("event: reload\ndata: {}\n\n");
                 res.end();
             } catch (_) {}
-        });
-        clients.length = 0;
+        }
+        clients.clear();
     }
 
     const server = http.createServer((req, res) => {
@@ -59,31 +61,64 @@ function startDevServer(outputDir, port, onReload) {
                 "Access-Control-Allow-Origin": "*",
             });
             res.write("data: connected\n\n");
-            clients.push(res);
+            clients.add(res);
             req.on("close", () => {
-                const idx = clients.indexOf(res);
-                if (idx !== -1) clients.splice(idx, 1);
+                clients.delete(res);
+            });
+            req.on("error", () => {
+                clients.delete(res);
             });
             return;
         }
 
-        let filePath = path.join(outputDir, req.url === "/" ? "index.html" : req.url);
+        // Decodifica a URL e remove a query string antes de resolver o caminho.
+        let urlPath;
+        try {
+            urlPath = decodeURIComponent(req.url.split("?")[0]);
+        } catch (_) {
+            res.writeHead(400, { "Content-Type": "text/plain" });
+            res.end("Bad Request");
+            return;
+        }
+
+        const requestedPath = urlPath === "/" ? "index.html" : urlPath;
+        const filePath = path.join(outputDir, requestedPath);
+
+        // Security: previne path traversal. O caminho relativo entre outputDir e
+        // o arquivo pedido não pode "subir" (`..`) nem ser absoluto — isso bloqueia
+        // tanto `../` quanto diretórios irmãos com prefixo comum (/tmp/out vs /tmp/out2).
+        const relative = path.relative(outputDir, filePath);
+        if (relative.startsWith("..") || path.isAbsolute(relative)) {
+            res.writeHead(403, { "Content-Type": "text/plain" });
+            res.end("Forbidden");
+            return;
+        }
 
         if (path.extname(filePath) === ".html") {
             fs.readFile(filePath, "utf8", (err, data) => {
                 if (err) {
-                    res.writeHead(404);
+                    res.writeHead(404, { "Content-Type": "text/plain" });
                     res.end("Not found");
                     return;
                 }
                 const injected = injectReloadScript(data, port);
-                res.writeHead(200, { "Content-Type": "text/html" });
+                res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
                 res.end(injected);
             });
             return;
         }
 
         serveFile(res, filePath);
+    });
+
+    // Handle port-in-use errors gracefully
+    server.on("error", (err) => {
+        if (err.code === "EADDRINUSE") {
+            console.error(`  ✖ Porta ${port} já está em uso. Use -p para escolher outra.`);
+        } else {
+            console.error(`  ✖ Erro ao iniciar servidor: ${err.message}`);
+        }
+        process.exit(1);
     });
 
     server.listen(port, () => {
@@ -127,23 +162,32 @@ function dev(inputPath, outputDir, options) {
 
     const srcFile = path.resolve(inputPath);
     let timeout = null;
-    let lastContent = fs.readFileSync(srcFile, "utf8");
+    let lastMtime = 0;
+
+    try {
+        lastMtime = fs.statSync(srcFile).mtimeMs;
+    } catch (_) {}
 
     fs.watch(srcFile, (eventType) => {
         if (eventType !== "change") return;
-        const currentContent = fs.readFileSync(srcFile, "utf8");
-        if (currentContent === lastContent) return;
-        lastContent = currentContent;
 
+        // Debounce: wait 300ms after last change to avoid duplicate triggers
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
+            let currentMtime;
+            try {
+                currentMtime = fs.statSync(srcFile).mtimeMs;
+            } catch (_) { return; }
+            if (currentMtime === lastMtime) return;
+            lastMtime = currentMtime;
+
             console.log("  ↻ Alteração detectada, recompilando...");
             const r = doBuild();
             if (r) {
                 console.log(`  ✔ Recompilado: ${r.pages} páginas`);
                 notify();
             }
-        }, 500);
+        }, 300);
     });
 
     console.log("");

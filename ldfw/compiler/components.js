@@ -22,8 +22,14 @@ function richInline(text) {
     return html;
 }
 
-function inlineMarkdown(text) {
-    return richInline(text);
+// Slug para ids de heading (ancoragem do "On This Page").
+function headingSlug(text) {
+    return String(text)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "section";
 }
 
 function renderParagraph(text) {
@@ -58,24 +64,24 @@ function renderTypeBadge(type, label, context = null) {
 }
 
 function renderTableCell(cell, context = null) {
+    if (!cell) return "<td></td>";
+    const val = cell.value;
     switch (cell.kind) {
         case "param":
-            return `<td><code>${escapeHtml(cell.value)}</code></td>`;
+            return `<td><code>${escapeHtml(val)}</code></td>`;
         case "code":
-            if (cell.value === "—" || cell.value === "-") {
+            if (val === "—" || val === "-" || !val) {
                 return `<td>—</td>`;
             }
-            return `<td><code>${escapeHtml(cell.value)}</code></td>`;
+            return `<td><code>${escapeHtml(val)}</code></td>`;
         case "badge":
-            const badgeValue = cell.value;
-            const badgeLabel = cell.label;
-            if (typeof badgeValue === "object") {
-                return `<td>${renderTypeBadge(badgeValue, null, context)}</td>`;
+            if (typeof val === "object") {
+                return `<td>${renderTypeBadge(val, null, context)}</td>`;
             }
-            return `<td>${renderTypeBadge(badgeValue, badgeLabel, context)}</td>`;
+            return `<td>${renderTypeBadge(val, cell.label, context)}</td>`;
         case "text":
         default:
-            return `<td>${richInline(cell.value)}</td>`;
+            return `<td>${richInline(val)}</td>`;
     }
 }
 
@@ -120,7 +126,7 @@ function renderHero(hero) {
     return `
             <div class="hero-section">
                 ${badgeHtml}
-                <h1 class="page-title" style="margin-top: 10px;">${escapeHtml(hero.title)}</h1>
+                <h1 class="page-title" id="${headingSlug(hero.title)}" style="margin-top: 10px;">${escapeHtml(hero.title)}</h1>
                 <p class="page-description">${escapeHtml(hero.desc)}</p>
                 ${buttons ? `<div class="action-group">${buttons}</div>` : ""}
             </div>`;
@@ -149,7 +155,7 @@ function renderCard(card) {
     return `
                 <div class="card">
                     <div class="card-title"><i class="${escapeHtml(card.icon)}"></i> ${escapeHtml(card.title)}</div>
-                    <p class="card-description">${inlineMarkdown(card.text)}</p>
+                    <p class="card-description">${richInline(card.text)}</p>
                 </div>`;
 }
 
@@ -238,7 +244,8 @@ function renderAlert(block, context = null) {
             </div>`;
     }
 
-    const variant = extInfo?.name || block.variant;
+    const variantName = (typeof block.variant === "string") ? block.variant : "info";
+    const variant = extInfo?.name || variantName;
 
     return `
             <div class="alert ${escapeHtml(variant)}">
@@ -252,7 +259,7 @@ function renderAlert(block, context = null) {
 
 function renderList(block) {
     const tag = block.type === "ol" ? "ol" : "ul";
-    const items = block.items.map((item) => `<li>${inlineMarkdown(item)}</li>`).join("\n                ");
+    const items = block.items.map((item) => `<li>${richInline(item)}</li>`).join("\n                ");
     return `
             <${tag} class="list-default">
                 ${items}
@@ -291,7 +298,7 @@ function renderFaq(block) {
                         <i class="ri-add-line"></i>
                     </button>
                     <div class="faq-answer">
-                        <p>${inlineMarkdown(item.answer)}</p>
+                        <p>${richInline(item.answer)}</p>
                     </div>
                 </div>`).join("\n");
 
@@ -311,7 +318,7 @@ function renderBlock(block, context = null) {
             return `
             <div class="card">
                 <div class="card-title"><i class="${escapeHtml(block.icon)}"></i> ${escapeHtml(block.title)}</div>
-                <p class="card-description">${inlineMarkdown(block.text)}</p>
+                <p class="card-description">${richInline(block.text)}</p>
             </div>`;
         case "code":
             return renderCode(block);
@@ -328,13 +335,13 @@ function renderBlock(block, context = null) {
             return renderTabs(block, context);
         case "h1":
             return `
-            <h1 class="page-title">${escapeHtml(block.text)}</h1>`;
+            <h1 class="page-title" id="${headingSlug(block.text)}">${escapeHtml(block.text)}</h1>`;
         case "h2":
             return `
-            <h2>${escapeHtml(block.text)}</h2>`;
+            <h2 id="${headingSlug(block.text)}">${escapeHtml(block.text)}</h2>`;
         case "h3":
             return `
-            <h3>${escapeHtml(block.text)}</h3>`;
+            <h3 id="${headingSlug(block.text)}">${escapeHtml(block.text)}</h3>`;
         case "p":
             return `
             ${renderParagraph(block.text)}`;
@@ -349,7 +356,6 @@ function renderPageContent(blocks, context = null) {
 
 module.exports = {
     escapeHtml,
-    inlineMarkdown,
     richInline,
     renderBlock,
     renderPageContent

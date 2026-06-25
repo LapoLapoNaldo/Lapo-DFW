@@ -2,15 +2,14 @@
 include #> Standard;
 include #> Extensions;
 
-using Extensions.badge;
-using Extensions.alert;
+using Extensions.Coloring;
 
 Project: {
     title: "Meu Projeto";
     subtitle: "Documentação";
     version: "v1.0.0";
     status: "Estável";
-    github: "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+    github: "https://github.com/LapoLapoNaldo/Lapo-DFW";
     description: "Documentação gerada com LDFW.";
     lang: "pt-BR";
 }
@@ -27,46 +26,46 @@ Docs: {
             title: "Bem-vindo";
 
             hero {
-                badge: custom::("LDFW", "#7850ff", "rgba(120, 80, 255, 0.15)");
+                badge: ("LDFW", "#7850ff", "rgba(120, 80, 255, 0.15)");
                 title: "Meu Projeto";
                 desc: "Documentação gerada com Lapo's Documentation Framework.";
                 btn primary "Começar" -> getting-started;
-                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapo-DFW";
             }
 
             h2 "Alertas com Extensions";
 
-            alert custom::("Custom Alert", "#ff6b6b", "rgba(255, 107, 107, 0.08)", "ri-star-line") {
+            alert ("Custom Alert", "#ff6b6b", "rgba(255, 107, 107, 0.08)", "ri-star-line") {
                 "Alerta inline com cor, background e ícone personalizados.";
             }
 
-            alert custom::("Com Emoji", "#a855f7", "rgba(168, 85, 247, 0.08)", "", "📝") {
+            alert ("Com Emoji", "#a855f7", "rgba(168, 85, 247, 0.08)", "", "📝") {
                 "Alerta inline usando emoji no lugar do ícone.";
             }
 
-            h2 "Alertas com using Extensions.alert";
+            h2 "Alertas com Coloring";
 
-            alert ("Usando Shorthand", "#10b981", "rgba(16, 185, 129, 0.08)", "ri-check-line") {
-                "Com `using Extensions.alert`, não precisa do `custom::`.";
+            alert ("Usando Cores Inline", "#10b981", "rgba(16, 185, 129, 0.08)", "ri-check-line") {
+                "Com `using Extensions.Coloring`, use `(...)` direto — sem `custom::`.";
             }
 
             h2 "Exemplo de Tabela com Badge Custom";
 
             table config {
-                row "title"    custom::("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"Meu Projeto\""  "Título exibido no site.";
-                row "version"  custom::("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"v1.0.0\""       "Versão atual do projeto.";
-                row "enabled"  custom::("boolean", "#10b981", "rgba(16, 185, 129, 0.1)") "true"             "Se o recurso está ativo.";
+                row "title"    ("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"Meu Projeto\""  "Título exibido no site.";
+                row "version"  ("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"v1.0.0\""       "Versão atual do projeto.";
+                row "enabled"  ("boolean", "#10b981", "rgba(16, 185, 129, 0.1)") "true"             "Se o recurso está ativo.";
             }
 
             h2 "Tabela Genérica com Badge Custom";
 
             table {
                 header "Função" "Retorno" "Descrição";
-                row "`minhaFuncao()`" custom::("table", "#a855f7", "rgba(168, 85, 247, 0.1)") "Faz algo incrível.";
-                row "`outraFuncao()`" custom::("void", "#64748b", "rgba(100, 116, 139, 0.1)") "Não retorna nada.";
+                row "`minhaFuncao()`" ("table", "#a855f7", "rgba(168, 85, 247, 0.1)") "Faz algo incrível.";
+                row "`outraFuncao()`" ("void", "#64748b", "rgba(100, 116, 139, 0.1)") "Não retorna nada.";
             }
 
-            h2 "Usando Shorthand (using Extensions.badge)";
+            h2 "Badges Inline com Coloring";
 
             table config {
                 row "name"     ("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"nome\""  "Nome do item.";
@@ -157,7 +156,7 @@ console.log(greet("LDFW"));
                 badge: "Contato";
                 title: "Entre em Contato";
                 desc: "Canais para entrar em contato conosco.";
-                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapo-DFW";
             }
 
             p "Para suporte, dúvidas ou contribuições, acesse nosso repositório no GitHub.";
@@ -173,7 +172,7 @@ console.log(greet("LDFW"));
             title: "Getting Started";
 
             hero {
-                badge: custom::("Guia", "#f59e0b", "rgba(245, 158, 11, 0.15)");
+                badge: ("Guia", "#f59e0b", "rgba(245, 158, 11, 0.15)");
                 title: "Primeiros Passos";
                 desc: "Aprenda a usar o LDFW para criar sua própria documentação.";
                 btn primary "Ver Exemplos" -> home;

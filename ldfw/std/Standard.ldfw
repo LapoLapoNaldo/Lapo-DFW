@@ -1,7 +1,8 @@
 #> Standard
 
-// Layout padrão LDFW
-layout #> stnd;
+// Layout padrão LDFW: stnd
+// (o layout efetivo é definido dentro do bloco Docs do seu projeto:
+//  Docs: { layout #> stnd; ... })
 
 // Componentes disponíveis:
 // hero, grid, card, code, alert (tip/info/warning/danger/important),

@@ -26,6 +26,10 @@ function mergeIncludedLibraries(ast) {
     for (const libName of ast.includes) {
         const libSource = loadStdLibrary(libName);
         if (!libSource) {
+            console.warn(
+                `⚠ LDFW: biblioteca incluída não encontrada: "${libName}". ` +
+                `Verifique se existe std/${libName}.ldfw. Include ignorado.`
+            );
             continue;
         }
 
@@ -38,11 +42,8 @@ function mergeIncludedLibraries(ast) {
 
 function build(inputPath, outputPath) {
     const source = fs.readFileSync(resolveInput(inputPath), "utf8");
+    // parse() já valida a diretiva (#> StartFW) e lança em caso de diretiva inválida.
     let ast = parse(source);
-
-    if (ast.directive && ast.directive !== "StartFW") {
-        throw new Error(`Diretiva inválida: #>${ast.directive}. Use #> StartFW`);
-    }
 
     ast = mergeIncludedLibraries(ast);
 

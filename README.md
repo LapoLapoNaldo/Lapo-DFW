@@ -28,7 +28,7 @@ Feito para documentar projetos Roblox, bibliotecas, APIs, frameworks — qualque
 - **Navegação lateral** com seções e páginas
 - **Responsivo** — desktop, tablet e mobile
 - **Componentes prontos:** Hero, Grid, Cards, Code, Alertas, Tabelas, FAQ, Tabs, Listas
-- **Extensions:** Badges e Alertas com cores inline via `custom::()`
+- **Extensions:** customização visual (cores de elementos, temas e badges/alertas) via `using Extensions.Coloring`
 - **Indentação validada** — erro de indentação é pego na compilação
 - **VSCode/Cursor extension** — syntax highlighting, autocomplete, diagnóstico
 
@@ -56,6 +56,8 @@ npx serve ./dist -l 8080
 ```ldfw
 #> StartFW
 include #> Standard;
+include #> Extensions;
+using Extensions.Coloring;
 
 Project: {
     title: "Minha Lib";
@@ -98,14 +100,14 @@ lib.init({ title: "App" });
             h2 "Parâmetros";
 
             table config {
-                row "title" custom::("string","#3b82f6","rgba(59,130,246,0.1)")
+                row "title" ("string","#3b82f6","rgba(59,130,246,0.1)")
                     "\"App\"" "Título da janela";
-                row "debug" custom::("boolean","#10b981","rgba(16,185,129,0.1)")
+                row "debug" ("boolean","#10b981","rgba(16,185,129,0.1)")
                     "false" "Ativar logs";
             }
 
             alert tip "Dica" {
-                "Use custom::() para badges e alertas com cores personalizadas."
+                "Use () para badges e alertas com cores personalizadas."
             }
         }
     }
@@ -123,12 +125,10 @@ lib.init({ title: "App" });
 | **Card avulso** | `card "Título" icon "ri-..." { "texto" }` |
 | **Code** | `code linguagem { ... }` |
 | **Alert (preset)** | `alert tip \| info \| warning \| danger "Título" { "texto" }` |
-| **Alert (custom)** | `alert custom::("Título","#cor","bg","ícone","emoji") { "texto" }` |
-| **Alert (shorthand)** | `alert ("Título","#cor","bg","ícone") { "texto" }` |
+| **Alert (cores)** | `alert ("Título","#cor","bg","ícone","emoji") { "texto" }` (com `using Extensions.Coloring`) |
 | **Table config** | `table config { row "param" tipo "default" "desc"; }` |
 | **Table genérica** | `table { header "A" "B"; row "a" "b"; }` |
-| **Badge custom** | `custom::("texto","#cor","bg")` |
-| **Badge shorthand** | `("texto","#cor","bg")` |
+| **Badge (cores)** | `("texto","#cor","bg")` (com `using Extensions.Coloring`) |
 | **Tabs** | `tabs { tab "Nome" { ... } }` |
 | **FAQ** | `faq { q "pergunta" { "resposta" } }` |
 | **Listas** | `ul { "item"; }` / `ol { "item"; }` |
@@ -139,38 +139,39 @@ lib.init({ title: "App" });
 
 ## 🎨 Extensions
 
-Customize alertas e badges com cores inline sem criar presets:
+Customização visual (cores) — ativada por `using Extensions.Coloring`:
 
 ```ldfw
 include #> Extensions;
-using Extensions.alert;
-using Extensions.badge;
+using Extensions.Coloring;
 
 alert ("Sucesso!", "#10b981", "rgba(16,185,129,0.08)", "ri-check-line") {
-    "Shorthand — não precisa de custom::()."
+    "Cores inline com (...) — o custom:: não existe mais."
 }
 
 table config {
     row "name" ("string", "#3b82f6", "rgba(59,130,246,0.1)")
-        "\"nome\"" "Badge shorthand.";
+        "\"nome\"" "Badge com cor inline.";
 }
 ```
 
+Também dá pra pintar globalmente com `DocColors` (tema light/dark) e `Coloring` (cores por elemento) — tudo sob o mesmo `using Extensions.Coloring`.
+
 ---
 
-## 🖥️ Extensão VSCode / Cursor
+## 🖥️ LDFW SDK (Extensão VSCode / Cursor)
 
-Syntax highlighting, autocomplete e diagnóstico em tempo real.
+A extensão fica em `ldfw-sdk/` (fora de `ldfw/`) — será a base de uma SDK completa no futuro. Oferece syntax highlighting, autocomplete e diagnóstico em tempo real.
 
 ```bash
 # Cursor
-ln -sf $(pwd)/ldfw/vscode ~/.cursor/extensions/ldfw-language-support
+ln -sf $(pwd)/ldfw-sdk ~/.cursor/extensions/ldfw-sdk
 
 # VSCode
-ln -sf $(pwd)/ldfw/vscode ~/.vscode/extensions/ldfw-language-support
+ln -sf $(pwd)/ldfw-sdk ~/.vscode/extensions/ldfw-sdk
 ```
 
-Ou abra `ldfw/vscode/` e pressione `F5`.
+Ou abra `ldfw-sdk/` e pressione `F5`.
 
 ---
 
@@ -182,9 +183,8 @@ Lapo-DFW/
 │   ├── bin/ldfw.js          # CLI
 │   ├── compiler/            # Parser, codegen, components, extensions
 │   ├── templates/           # runtime.js + style.css
-│   ├── std/                 # Standard.ldfw, Extensions.ldfw
-│   ├── vscode/              # Extensão VSCode/Cursor
-│   └── examples/            # Projetos exemplo
+│   └── std/                 # Standard.ldfw, Extensions.ldfw
+├── ldfw-sdk/                # Extensão VS Code / Cursor (futura SDK)
 ├── main.ldfw                # Demo principal
 └── README.md
 ```
@@ -205,6 +205,33 @@ make build INPUT=main.ldfw OUTPUT=dist
 make serve
 make test
 ```
+
+---
+
+## 🌐 Dependência de CDN (offline & SRI)
+
+O site gerado é **100% estático**, mas carrega três recursos de aparência via **CDN externa**:
+
+| Recurso | Origem | Usado para |
+|---|---|---|
+| **Google Fonts** (Inter, Outfit, Fira Code) | `fonts.googleapis.com` | Tipografia |
+| **Remixicon** | `cdn.jsdelivr.net` | Ícones (`ri-*`) |
+| **Prism.js** + tema | `cdnjs.cloudflare.com` | Syntax highlighting |
+
+Implicações:
+
+- **Offline:** sem internet no primeiro carregamento, o site funciona, mas **sem ícones, sem as fontes customizadas e sem highlighting** de código (cai para fontes do sistema).
+- **Sem SRI:** as tags `<link>`/`<script>` não usam *Subresource Integrity*, então não há verificação criptográfica do conteúdo entregue pela CDN.
+
+### Como rodar offline / self-hosted
+
+Para ambientes air-gapped ou com requisito de SRI, faça **self-host** dos assets:
+
+1. Baixe os arquivos (Remixicon, Prism core + `prism-lua`, tema, e as fontes) para dentro do seu diretório de saída (ex.: `dist/vendor/`).
+2. Edite `ldfw/compiler/codegen.js` (função `renderIndexHtml`) e troque as URLs de CDN pelos caminhos locais — opcionalmente adicione `integrity="sha384-..."` + `crossorigin="anonymous"` para SRI.
+3. Recompile.
+
+> O ponto exato a alterar está sinalizado por um comentário `NOTA (CDN)` em `renderIndexHtml`.
 
 ---
 

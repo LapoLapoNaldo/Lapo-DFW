@@ -1,7 +1,27 @@
 #> Extensions
 
-// Presets opcionais inspirados no site Lapo Hub X (docs/).
-// Use: include #> Extensions;  +  using -r = recycle;
+// Biblioteca de customização VISUAL do LDFW. Tudo que é cor/aparência só aplica
+// com `using Extensions.Coloring;`. Sem ele, a Extensions não pinta nada.
+// Use: include #> Extensions;  +  using Extensions.Coloring;
+//
+// ─── Coloring (visual — using Extensions.Coloring) ────────────
+//   • cores inline com (...):   alert ("Título", "#cor", "bg", "ri-icon") { }
+//   • presets (os alert/badge definidos abaixo)
+//   • DocColors { light{} dark{} }            — cores do tema (variáveis globais)
+//   • Coloring  { light{ card{} } dark{} }    — cores por tipo de elemento
+//   Precedência: inline (...) > Coloring > DocColors > padrão (sem !important).
+//
+// ─── PageContent (FUNCIONAL — using Extensions.PageContent) ───
+//   Índice lateral "On This Page" (h1/h2/h3). No bloco Docs:
+//     using Extensions.PageContent;
+//     Docs: { layout #> stnd; #> PageContent; ... }
+//
+// ─── Switch (FUNCIONAL — using Extensions.Switch) ─────────────
+//   Variantes de página por seção:
+//     using Extensions.Switch;
+//     section "Ferramentas" { page Setup #> Linux { } page Setup #> Windows { } }
+//
+// Presets inclusos (aplicam com using Extensions.Coloring):
 
 Extensions: {
     alert recycle {
@@ -49,3 +69,20 @@ Extensions: {
         background: "rgba(100, 116, 139, 0.1)";
     }
 }
+
+
+// ─── Exemplo de DocColors + Coloring ─────────────────────────
+// Requer `using Extensions.Coloring;`. Copie para dentro do SEU
+// "Extensions: { }" e ajuste. Totalmente opcional.
+//
+// using Extensions.Coloring;
+//
+// Extensions: {
+//     DocColors {
+//         light { primary: "#2563eb"; background: "#ffffff"; }
+//         dark  { primary: "#60a5fa"; background: "#0b1120"; }
+//     }
+//     Coloring {
+//         dark  { card { border: "#26263a"; } tabs { active: "#818cf8"; } }
+//     }
+// }

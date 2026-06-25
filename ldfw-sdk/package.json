@@ -1,7 +1,7 @@
 {
-    "name": "ldfw-language-support",
-    "displayName": "LDFW Language Support",
-    "description": "Syntax highlighting, diagnostics e autocomplete para arquivos .ldfw",
+    "name": "ldfw-sdk",
+    "displayName": "LDFW SDK",
+    "description": "LDFW SDK — syntax highlighting, diagnostics e autocomplete para arquivos .ldfw (mais ferramentas em breve).",
     "version": "0.1.0",
     "publisher": "lapo",
     "private": true,
@@ -11,6 +11,10 @@
     "categories": [
         "Programming Languages"
     ],
+    "scripts": {
+        "bundle:parser": "node -e \"require('fs').copyFileSync(require('path').join('..','ldfw','compiler','parser.js'),'parser.js')\"",
+        "vscode:prepublish": "npm run bundle:parser"
+    },
     "contributes": {
         "languages": [
             {

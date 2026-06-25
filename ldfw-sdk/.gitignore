@@ -1,0 +1,4 @@
+# Cópia do parser gerada por `npm run bundle:parser` (vscode:prepublish).
+# É um artefato de empacotamento — a fonte de verdade é ../compiler/parser.js.
+parser.js
+*.vsix

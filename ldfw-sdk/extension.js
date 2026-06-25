@@ -1,12 +1,36 @@
 const vscode = require("vscode");
 const path = require("path");
+const fs = require("fs");
+
+// Resolve o parser de forma robusta. Em produção (extensão empacotada com `vsce
+// package`), o parser é copiado para junto da extensão (ver script
+// `vscode:prepublish` em package.json). Em desenvolvimento (F5 ou symlink do repo),
+// cai para o caminho relativo `../ldfw/compiler/parser`. parser.js é self-contained
+// (sem dependências), então uma cópia simples basta para empacotar.
+function loadParser(context) {
+    const candidates = [
+        path.join(context.extensionPath, "parser.js"),
+        path.join(context.extensionPath, "compiler", "parser.js"),
+        path.join(context.extensionPath, "..", "ldfw", "compiler", "parser.js"),
+        path.join(context.extensionPath, "..", "compiler", "parser.js"),
+    ];
+
+    for (const candidate of candidates) {
+        if (fs.existsSync(candidate)) {
+            return require(candidate);
+        }
+    }
+
+    throw new Error(
+        "parser.js não encontrado. Procurado em: " + candidates.join(", ")
+    );
+}
 
 function activate(context) {
-    const parserPath = path.join(context.extensionPath, "..", "compiler", "parser");
     let parser;
 
     try {
-        parser = require(parserPath);
+        parser = loadParser(context);
     } catch (e) {
         vscode.window.showErrorMessage(
             "LDFW: não foi possível carregar o parser. " + e.message
@@ -16,6 +40,8 @@ function activate(context) {
 
     const diagnosticCollection =
         vscode.languages.createDiagnosticCollection("ldfw");
+
+    let debounceTimer = null;
 
     function validateDocument(document) {
         if (document.languageId !== "ldfw") return;
@@ -46,9 +72,14 @@ function activate(context) {
         diagnosticCollection.set(document.uri, diagnostics);
     }
 
+    function debouncedValidate(document) {
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => validateDocument(document), 400);
+    }
+
     const openSub = vscode.workspace.onDidOpenTextDocument(validateDocument);
     const changeSub = vscode.workspace.onDidChangeTextDocument((e) =>
-        validateDocument(e.document)
+        debouncedValidate(e.document)
     );
     const saveSub = vscode.workspace.onDidSaveTextDocument(validateDocument);
 

@@ -1,8 +1,13 @@
-.PHONY: build build-example build-docs serve clean test test-bad install uninstall reinstall
+.PHONY: build build-example build-docs serve dev dev-example dev-docs \
+        test test-unit test-build test-bad clean install uninstall reinstall help
+
+.DEFAULT_GOAL := help
 
 BUILD  ?= build
 OUTPUT ?= dist
-EXAMPLE= examples/lapo-hub/main.ldfw
+# Projeto usado como smoke-test de compilação (make test-build / build-example).
+# Aponta para um arquivo existente no repo; sobrescreva com: make test EXAMPLE=seu.ldfw
+EXAMPLE ?= document.ldfw
 
 build: $(BUILD)
 
@@ -34,31 +39,20 @@ dev-docs:
 	@node bin/ldfw.js dev document.ldfw -o dist-docs -p 8080
 
 # --- Testes -----------------------------------------------
-test: test-good test-bad
+test: test-unit test-build test-bad
 
-test-good:
+test-unit:
+	@echo "--- Testes unitários ---"
+	@node compiler/__tests__/run.js
+
+test-build:
 	@echo "--- Compilando exemplo ---"
-	node bin/ldfw.js build $(EXAMPLE) -o /tmp/ldfw-test-example
+	@node bin/ldfw.js build $(EXAMPLE) -o /tmp/ldfw-test-example
 	@echo "✔ OK — exemplo compila sem erros"
 
 test-bad:
-	@echo "--- Criando .ldfw com indentação errada ---"
-	@echo '#> StartFW' > /tmp/ldfw-bad.ldfw
-	@echo 'include #> Standard;' >> /tmp/ldfw-bad.ldfw
-	@echo '' >> /tmp/ldfw-bad.ldfw
-	@echo 'Project: {' >> /tmp/ldfw-bad.ldfw
-	@echo '    title: "X";' >> /tmp/ldfw-bad.ldfw
-	@echo '}' >> /tmp/ldfw-bad.ldfw
-	@echo '' >> /tmp/ldfw-bad.ldfw
-	@echo 'Docs: {' >> /tmp/ldfw-bad.ldfw
-	@echo '    section "X" {' >> /tmp/ldfw-bad.ldfw
-	@echo '        page P {' >> /tmp/ldfw-bad.ldfw
-	@echo '        hero {' >> /tmp/ldfw-bad.ldfw
-	@echo '                badge: "erro";' >> /tmp/ldfw-bad.ldfw
-	@echo '            }' >> /tmp/ldfw-bad.ldfw
-	@echo '        }' >> /tmp/ldfw-bad.ldfw
-	@echo '    }' >> /tmp/ldfw-bad.ldfw
-	@echo '}' >> /tmp/ldfw-bad.ldfw
+	@echo "--- Testando rejeição de má indentação ---"
+	@printf '#> StartFW\ninclude #> Standard;\n\nProject: { title: "X"; }\n\nDocs: {\n    layout #> stnd;\n    section "X" {\n        page P {\n        hero {\n                badge: "erro";\n            }\n        }\n    }\n}\n' > /tmp/ldfw-bad.ldfw
 	@echo "--- Compilando (deve falhar) ---"
 	@if node bin/ldfw.js build /tmp/ldfw-bad.ldfw -o /tmp/ldfw-bad-out 2>&1; then \
 		echo "✖ ERRO: má indentação não foi rejeitada!"; \
@@ -84,15 +78,28 @@ reinstall: uninstall install
 
 # --- Ajuda ------------------------------------------------
 help:
-	@echo "Uso:"
-	@echo "  make build       INPUT=arq.ldfw OUTPUT=dir   compilar .ldfw"
-	@echo "  make build-example                             compilar exemplo"
-	@echo "  make build-docs                                compilar docs/ oficial"
-	@echo "  make serve                                     compilar docs/ + servir local"
-	@echo "  make dev         INPUT=arq.ldfw OUTPUT=dir     live reload (recompila + serve)"
-	@echo "  make dev-example                               live reload do exemplo"
+	@echo "LDFW — Makefile"
+	@echo ""
+	@echo "Compilação:"
+	@echo "  make build         INPUT=arq.ldfw OUTPUT=dir   compila um .ldfw"
+	@echo "  make build-example                             compila o projeto de exemplo (EXAMPLE)"
+	@echo "  make build-docs                                compila a documentação oficial -> dist-docs/"
+	@echo ""
+	@echo "Desenvolvimento (live reload):"
+	@echo "  make dev           INPUT=arq.ldfw OUTPUT=dir   recompila + serve com auto-reload"
+	@echo "  make dev-example                               live reload do projeto de exemplo"
 	@echo "  make dev-docs                                  live reload da documentação"
-	@echo "  make test                                      validar compilação"
-	@echo "  make clean                                     limpar dist/ e /tmp"
-	@echo "  make install                                   npm link (CLI global)"
+	@echo "  make serve                                     compila docs + serve em localhost:8080"
+	@echo ""
+	@echo "Testes:"
+	@echo "  make test                                      unit + build + rejeição de indentação"
+	@echo "  make test-unit                                 apenas os testes unitários"
+	@echo "  make test-build                                apenas o smoke-test de compilação"
+	@echo ""
+	@echo "CLI / Limpeza:"
+	@echo "  make install                                   npm link (registra o comando ldfw)"
 	@echo "  make uninstall                                 npm unlink"
+	@echo "  make reinstall                                 uninstall + install"
+	@echo "  make clean                                     remove dist/ e /tmp/ldfw-*"
+	@echo ""
+	@echo "Variáveis: INPUT, OUTPUT, EXAMPLE (ex: make test EXAMPLE=meu.ldfw)"

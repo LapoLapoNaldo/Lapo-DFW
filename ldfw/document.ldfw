@@ -1,19 +1,45 @@
 #> StartFW
 include #> Standard;
 include #> Extensions;
+using Extensions.PageContent;
+using Extensions.Switch;
+using Extensions.Coloring;
+
+// Tema dark um pouco mais cinza (em vez do quase-preto padrão), via DocColors.
+Extensions: {
+    DocColors {
+        dark {
+            background: "#1a1d23";
+            sidebar: "#20242b";
+            header: "rgba(26, 29, 35, 0.85)";
+            card: "#252931";
+            code: "#15171d";
+            hover: "#2b303a";
+            border: "#31363f";
+        }
+    }
+
+    Coloring {
+        dark {
+            card { border: "#343a47"; }
+            tabs { active: "#818cf8"; }
+        }
+    }
+}
 
 Project: {
     title: "LDFW";
     subtitle: "Lapo's Documentation Framework";
     version: "v0.1.0";
     status: "Em Desenvolvimento";
-    github: "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+    github: "https://github.com/LapoLapoNaldo/Lapo-DFW";
     description: "Documentação oficial do LDFW — o framework que compila .ldfw para sites de documentação premium.";
     lang: "pt-BR";
 }
 
 Docs: {
     layout #> stnd;
+    #> PageContent;
 
     section "Começando" {
         page Sobre {
@@ -26,13 +52,47 @@ Docs: {
             hero {
                 badge: "Framework Próprio";
                 title: "Lapo's Documentation Framework";
-                desc: "Uma ferramenta CLI que compila arquivos .ldfw em sites de documentação estáticos com visual premium — dark/light mode, busca, FAQ accordion, copy-code e mais.";
+                desc: "Uma ferramenta CLI que compila arquivos .ldfw em sites de documentação fáceis e responsivos (desktop e mobile) — com visual premium, dark/light, busca e componentes prontos.";
                 btn primary "Ver Exemplo" -> exemplos;
-                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework";
+                btn outline "GitHub" -> external "https://github.com/LapoLapoNaldo/Lapo-DFW";
             }
+
+            h2 "Objetivo";
+            p "O LDFW existe pra **facilitar a sua vida**: criar sites de documentação bonitos, **fáceis de escrever** e **responsivos** (desktop, tablet e mobile) sem você tocar em HTML, CSS ou JS. Você foca no **conteúdo**; o compilador cuida do resto.";
 
             h2 "Visão Geral";
             p "LDFW é um gerador de sites de documentação escrito em Node.js. Você escreve em uma linguagem própria (.ldfw), o compilador transforma em HTML + CSS + JS, e o resultado é um site completo com navegação lateral, busca, tema escuro/claro e vários componentes prontos.";
+
+            h2 "Por Que Usar";
+            grid 2 {
+                card "Fácil de escrever" icon "ri-quill-pen-line" {
+                    "Sintaxe simples e legível — sem tags nem boilerplate. Só o conteúdo e blocos prontos.";
+                }
+                card "Responsivo de fábrica" icon "ri-smartphone-line" {
+                    "O site se adapta sozinho a desktop, tablet e mobile. O menu lateral vira um drawer no celular.";
+                }
+                card "Zero runtime" icon "ri-flashlight-line" {
+                    "Saída 100% estática (HTML + CSS + JS puro). Hospeda em qualquer lugar e carrega rápido.";
+                }
+                card "Pronto pra usar" icon "ri-stack-line" {
+                    "Tema dark/light, busca, FAQ, copy-code e mais — tudo embutido, sem configurar.";
+                }
+            }
+
+            h2 "Responsivo por Padrão";
+            p "Você não precisa pensar em breakpoints — todo site gerado já se ajusta às telas:";
+            ul {
+                "**Desktop:** navegação lateral fixa + (opcional) índice \"On This Page\".";
+                "**Tablet / Mobile:** a sidebar vira um menu deslizante (drawer) com overlay.";
+                "**Toque:** botões, tabs e accordions com áreas de toque confortáveis.";
+            }
+
+            h2 "Como Funciona";
+            ol {
+                "Escreva o conteúdo em um arquivo `.ldfw`.";
+                "Compile com `ldfw build arquivo.ldfw -o ./dist`.";
+                "Publique a pasta `dist/` em qualquer host estático (GitHub Pages, Netlify, Vercel…).";
+            }
 
             h2 "O Que Vem Incluso";
             ul {
@@ -40,47 +100,13 @@ Docs: {
                 "**Codegen** que gera HTML semântico, CSS premium e JS SPA.";
                 "**Tema dark/light** com transição suave e localStorage.";
                 "**Busca global** com snippets do conteúdo.";
-                "**Componentes prontos:** hero, cards, alerts, FAQ, code blocks, listas.";
-                "**CLI** simples para compilar qualquer .ldfw.";
-                "**Extensão VS Code** com syntax highlighting, diagnostics e autocomplete.";
+                "**Componentes prontos:** hero, cards, alerts, FAQ, code blocks, tabs, tabelas, listas.";
+                "**Extensions:** cores customizadas (Coloring/DocColors), On This Page e Switch de variantes.";
+                "**CLI** simples (`build` e `dev` com live reload).";
             }
 
             alert tip "Dogfooding" {
-                "Esta documentação foi escrita em .ldfw e compilada com o próprio LDFW. Acredite: funciona.";
-            }
-        }
-
-        page Instalacao {
-            route: "instalacao";
-            icon: "ri-download-cloud-line";
-            nav: "Instalação";
-            breadcrumb: "Instalação";
-            title: "Instalação e Uso";
-
-            h1 "Instalação e Uso";
-            p "Requisitos: **Node.js >= 18** e npm.";
-
-            h2 "Setup";
-            p "Entre na pasta do framework e link o CLI globalmente:";
-            code bash {
-cd ldfw
-npm link
-            }
-
-            p "Agora o comando `ldfw` está disponível no terminal.";
-
-            h2 "Compilar um Projeto";
-            p "Com um arquivo .ldfw pronto, use:";
-            code bash {
-ldfw build meu-projeto.ldfw -o ./dist
-            }
-
-            p "Abra `dist/index.html` no navegador. Pronto.";
-
-            h2 "Sem npm link";
-            p "Se preferir não instalar globalmente, use o binário diretamente:";
-            code bash {
-node ldfw/bin/ldfw.js build entrada.ldfw -o saida
+                "Esta documentação foi escrita em .ldfw e compilada com o próprio LDFW. Acredite: funciona — inclusive o que você está vendo agora é responsivo.";
             }
         }
 
@@ -92,11 +118,13 @@ node ldfw/bin/ldfw.js build entrada.ldfw -o saida
             title: "Primeiros Passos";
 
             h1 "Primeiros Passos";
-            p "Vamos criar sua primeira página de documentação.";
+            p "Vamos criar sua primeira documentação em 3 passos. Comece copiando um dos exemplos abaixo.";
 
             h2 "1. Crie o arquivo";
-            p "Crie um arquivo `docs.ldfw` com o conteúdo mínimo:";
-            code ldfw {
+            p "Crie um arquivo `docs.ldfw`. Escolha a aba **Mínimo** para o essencial, ou **Com Extensions** para já sair com cores customizadas:";
+            tabs {
+                tab "Mínimo" icon "ri-file-text-line" {
+                    code ldfw {
 #> StartFW
 include #> Standard;
 
@@ -113,14 +141,12 @@ Docs: {
             route: "home";
             icon: "ri-home-4-line";
             nav: "Início";
-            breadcrumb: "Início";
-            title: "Meu Projeto";
 
             hero {
                 badge: "Novo";
                 title: "Meu Projeto";
-                desc: "Descrição curta do projeto.";
-                btn primary "Começar" -> guia-rapido;
+                desc: "Minha primeira documentação com LDFW.";
+                btn primary "Começar" -> home;
             }
 
             h2 "Bem-vindo";
@@ -128,6 +154,53 @@ Docs: {
         }
     }
 }
+                    }
+                }
+                tab "Com Extensions" icon "ri-palette-line" {
+                    code ldfw {
+#> StartFW
+include #> Standard;
+include #> Extensions;
+using Extensions.Coloring;
+
+Extensions: {
+    DocColors {
+        dark { primary: "#a78bfa"; }
+    }
+}
+
+Project: {
+    title: "Meu Projeto";
+    subtitle: "Documentação";
+}
+
+Docs: {
+    layout #> stnd;
+
+    section "Introdução" {
+        page Home {
+            route: "home";
+            icon: "ri-home-4-line";
+            nav: "Início";
+
+            hero {
+                badge: ("Novo", "#a78bfa", "rgba(168,85,247,0.12)");
+                title: "Meu Projeto";
+                desc: "Documentação com cores customizadas.";
+                btn primary "Começar" -> home;
+            }
+
+            h2 "Bem-vindo";
+            p "Agora com **Extensions** ligado.";
+
+            alert ("Dica", "#10b981", "rgba(16,185,129,0.1)", "ri-lightbulb-line") {
+                "Alerta colorido inline — só funciona com using Extensions.Coloring."
+            }
+        }
+    }
+}
+                    }
+                }
             }
 
             h2 "2. Compile";
@@ -136,18 +209,179 @@ ldfw build docs.ldfw -o docs
             }
 
             h2 "3. Abra";
-            p "Abra `docs/index.html` no navegador. Sua documentação está no ar.";
+            p "Abra `docs/index.html` no navegador. Sua documentação está no ar — e já é responsiva.";
+
+            h2 "Anatomia do Arquivo";
+            p "As peças que você acabou de usar:";
+            table {
+                header "Parte" "Pra que serve";
+                row "`#> StartFW`" "Marca o início de um arquivo LDFW.";
+                row "`include #> Standard`" "Importa os componentes base.";
+                row "`Project { }`" "Metadados: título, versão, github…";
+                row "`Docs { }`" "Onde mora o conteúdo (seções e páginas).";
+                row "`section \"Nome\" { }`" "Um grupo no menu lateral.";
+                row "`page Nome { }`" "Uma página, com `route`, `nav` e blocos de conteúdo.";
+            }
 
             h2 "Próximos Passos";
             ul {
                 "Adicione mais páginas e seções.";
-                "Explore os componentes: grid, cards, alerts, FAQ.";
-                "Use a indentação correta (4 espaços por nível).";
-                "Ative a extensão VS Code para autocomplete e erros em tempo real.";
+                "Explore os componentes: grid, cards, alerts, tabs, FAQ.";
+                "Ative o índice lateral com `using Extensions.PageContent` + `#> PageContent`.";
+                "Customize as cores com `using Extensions.Coloring` (veja **Extensions**).";
             }
 
             alert info "Lembrete" {
                 "A indentação é **obrigatória** no LDFW. Conteúdo dentro de blocos deve estar indentado com pelo menos 4 espaços a mais que a abertura. O compilador rejeita arquivos mal indentados.";
+            }
+        }
+
+        page SetupLinux #> Linux {
+            route: "setup-linux";
+            icon: "ri-ubuntu-line";
+            nav: "Setup";
+            breadcrumb: "Setup (Linux)";
+            title: "Setup no Linux";
+
+            h1 "Setup no Linux";
+            p "Demonstração do **Switch**: esta é a variante **Linux**. Passe o mouse na seção \"Começando\" no menu lateral e clique no controle para alternar para Windows.";
+
+            h2 "1. Instalar o Node.js (>= 18)";
+            p "Use o gerenciador de pacotes da sua distro:";
+            code bash {
+# Debian / Ubuntu
+sudo apt update && sudo apt install -y nodejs npm
+
+# Fedora
+sudo dnf install -y nodejs
+
+# Arch / Manjaro
+sudo pacman -S nodejs npm
+            }
+            alert tip "Versão desatualizada?" {
+                "Alguns repositórios trazem um Node antigo. Para a LTS mais recente, use o **nvm**.";
+            }
+            code bash {
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+# feche e reabra o terminal, depois:
+nvm install --lts
+            }
+            p "Confirme as versões:";
+            code bash {
+node -v   # v18 ou maior
+npm -v
+            }
+
+            h2 "2. Instalar o Git";
+            code bash {
+sudo apt install -y git    # Debian/Ubuntu
+sudo dnf install -y git    # Fedora
+sudo pacman -S git         # Arch
+            }
+
+            h2 "3. Clonar o LDFW";
+            code bash {
+git clone https://github.com/LapoLapoNaldo/Lapo-DFW.git
+cd Lapo-DFW/ldfw
+            }
+
+            h2 "4. Instalar o comando ldfw";
+            code bash {
+npm install
+npm link
+            }
+            alert warning "Erro de permissão (EACCES)?" {
+                "Não use `sudo` direto. Configure um prefixo de npm no seu usuário e tente de novo:";
+            }
+            code bash {
+mkdir -p ~/.npm-global
+npm config set prefix ~/.npm-global
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+npm link
+            }
+
+            h2 "5. Conferir";
+            code bash {
+ldfw --help
+            }
+
+            h2 "6. Criar e Compilar";
+            code bash {
+ldfw build meu-projeto.ldfw -o ./dist
+xdg-open dist/index.html   # abre no navegador padrão
+            }
+
+            h2 "7. Live Reload (dev)";
+            code bash {
+ldfw dev meu-projeto.ldfw -o ./dist -p 8080
+            }
+
+            alert tip "Pronto!" {
+                "Sem `npm link`? Rode direto com `node ldfw/bin/ldfw.js build meu-projeto.ldfw -o ./dist`. E para servir a saída estática: `npx serve ./dist -l 8080`.";
+            }
+        }
+
+        page SetupWindows #> Windows {
+            route: "setup-windows";
+            icon: "ri-windows-line";
+            nav: "Setup";
+            breadcrumb: "Setup (Windows)";
+            title: "Setup no Windows";
+
+            h1 "Setup no Windows";
+            p "Demonstração do **Switch**: esta é a variante **Windows**. No menu, use o controle de switch da seção \"Começando\" para voltar ao Linux.";
+
+            h2 "1. Instalar o Node.js (>= 18)";
+            p "No PowerShell, com o winget (Windows 10/11):";
+            code powershell {
+winget install OpenJS.NodeJS.LTS
+            }
+            p "Ou baixe o instalador **LTS** em https://nodejs.org e avance até o fim. Depois **feche e reabra** o terminal e confirme:";
+            code powershell {
+node -v   # v18 ou maior
+npm -v
+            }
+
+            h2 "2. Instalar o Git";
+            code powershell {
+winget install Git.Git
+            }
+            p "Ou baixe em https://git-scm.com/download/win.";
+
+            h2 "3. Clonar o LDFW";
+            code powershell {
+git clone https://github.com/LapoLapoNaldo/Lapo-DFW.git
+cd Lapo-DFW/ldfw
+            }
+
+            h2 "4. Instalar o comando ldfw";
+            code powershell {
+npm install
+npm link
+            }
+            alert warning "Scripts bloqueados?" {
+                "Se o terminal recusar rodar scripts, abra o PowerShell como Administrador e libere para o seu usuário: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.";
+            }
+
+            h2 "5. Conferir";
+            code powershell {
+ldfw --help
+            }
+
+            h2 "6. Criar e Compilar";
+            code powershell {
+ldfw build meu-projeto.ldfw -o ./dist
+start dist/index.html   # abre no navegador padrão
+            }
+
+            h2 "7. Live Reload (dev)";
+            code powershell {
+ldfw dev meu-projeto.ldfw -o ./dist -p 8080
+            }
+
+            alert tip "Pronto!" {
+                "Sem `npm link`? Rode direto com `node ldfw/bin/ldfw.js build meu-projeto.ldfw -o ./dist`. E para servir a saída estática: `npx serve ./dist -l 8080`.";
             }
         }
     }
@@ -155,298 +389,326 @@ ldfw build docs.ldfw -o docs
     section "Linguagem" {
         page Estrutura {
             route: "estrutura";
-            icon: "ri-file-code-line";
-            nav: "Estrutura do Arquivo";
+            icon: "ri-node-tree";
+            nav: "Estrutura";
             breadcrumb: "Estrutura";
             title: "Estrutura do Arquivo .ldfw";
 
-            h1 "Estrutura do Arquivo .ldfw";
-            p "Todo arquivo .ldfw segue esta estrutura geral:";
+            h1 "Estrutura do Arquivo";
+            p "Todo arquivo `.ldfw` segue a mesma ordem. Esta página é o mapa geral — **Sintaxe**, **Metadata** e **Indentação** detalham cada parte.";
 
-            h2 "1. Diretiva Inicial";
-            p "O arquivo deve começar com `#> StartFW`. Esta diretiva indica que o arquivo segue a sintaxe do LDFW.";
+            h2 "Esqueleto Completo";
             code ldfw {
 #> StartFW
-            }
-
-            h2 "2. Includes";
-            p "Em seguida, você pode incluir bibliotecas padrão com `include`:";
-            code ldfw {
 include #> Standard;
-            }
-            p "O include é opcional mas recomendado. A Standard define o layout padrão `stnd`.";
 
-            h2 "3. Bloco Project";
-            p "Define metadados do projeto. Todos os campos são opcionais:";
-            code ldfw {
 Project: {
-    title: "Nome do Projeto";
-    subtitle: "Subtítulo";
+    title: "Minha Lib";
     version: "v1.0.0";
-    status: "Estável";
-    github: "https://github.com/user/repo";
-    description: "Meta description para SEO.";
-    lang: "pt-BR";
 }
-            }
 
-            h2 "4. Bloco Docs";
-            p "Contém toda a documentação em si. É aqui que as seções e páginas são definidas:";
-            code ldfw {
 Docs: {
     layout #> stnd;
 
-    section "Nome da Seção" {
-        page NomeDaPagina {
-            route: "rota";
-            icon: "ri-icon-line";
-            nav: "Nome no Menu";
-            breadcrumb: "Nome no Breadcrumb";
-            title: "Título da Página";
-            // ... blocos de conteúdo
+    section "Introdução" {
+        page Home {
+            route: "home";
+            nav: "Início";
+
+            h1 "Bem-vindo";
+            p "Conteúdo da página aqui.";
         }
     }
 }
             }
+
+            h2 "As Quatro Partes";
+            table {
+                header "Parte" "Obrigatória?" "O que faz";
+                row "`#> StartFW`" "Sim" "Primeira linha; marca um arquivo compilável.";
+                row "`include #> Standard;`" "Sim" "Importa os componentes padrão.";
+                row "`Project { }`" "Recomendada" "Metadados do site (título, versão…).";
+                row "`Docs { }`" "Sim" "Onde ficam as seções e páginas.";
+            }
+
+            h2 "Diretivas (#>)";
+            p "Diretivas começam com `#>`. As da linguagem padrão são:";
+            table {
+                header "Diretiva" "Onde" "Função";
+                row "`#> StartFW`" "1ª linha" "Início do arquivo.";
+                row "`include #> Standard`" "topo" "Importa a biblioteca base.";
+                row "`layout #> stnd`" "dentro de `Docs`" "Define o layout (hoje só `stnd`).";
+            }
+            alert info "Mais recursos" {
+                "Cores, índice \"On This Page\" e Switch vêm via `include #> Extensions`. Veja a seção **Extensions**.";
+            }
+
+            h2 "Hierarquia";
+            ul {
+                "**Arquivo** → `Project` + `Docs`.";
+                "**Docs** → uma ou mais `section`.";
+                "**section** → uma ou mais `page`.";
+                "**page** → metadados + blocos de conteúdo (`h2`, `p`, `hero`, `grid`…).";
+            }
         }
 
-        page SessoesPaginas {
-            route: "secoes-paginas";
-            icon: "ri-layout-line";
-            nav: "Seções e Páginas";
-            breadcrumb: "Seções e Páginas";
-            title: "Seções e Páginas";
+        page Sintaxe {
+            route: "sintaxe";
+            icon: "ri-code-line";
+            nav: "Sintaxe";
+            breadcrumb: "Sintaxe";
+            title: "Sintaxe da Linguagem";
 
-            h1 "Seções e Páginas";
-            p "A documentação é organizada em **seções** que contêm **páginas**.";
+            h1 "Sintaxe";
+            p "Os blocos de construção da `.ldfw`. Vale para qualquer arquivo.";
 
-            h2 "Seções (Section)";
-            p "Seções agrupam páginas relacionadas. Elas aparecem como blocos no menu lateral:";
+            h2 "Blocos { }";
+            p "Chaves agrupam conteúdo. O que está dentro precisa ser indentado (veja **Indentação**).";
             code ldfw {
-section "Começando" {
-    // páginas aqui
-}
-
-section "Guias" {
-    // páginas aqui
+section "Nome" {
+    page Pagina {
+        route: "rota";
+    }
 }
             }
-            p "O nome da seção vira o título do grupo na sidebar.";
 
-            h2 "Páginas (Page)";
-            p "Cada página representa uma URL dentro da documentação:";
+            h2 "Strings";
+            p "Texto entre aspas duplas. Para usar aspas dentro do texto, escape com barra invertida:";
             code ldfw {
-page NomeInterno {
-    route: "url-da-pagina";
-    icon: "ri-icon-line";
-    nav: "Texto no Menu";
-    breadcrumb: "Texto no Breadcrumb";
-    title: "Título da Página";
-    // conteúdo aqui
+title: "Ele disse \"olá\"";
+            }
+
+            h2 "Ponto e Vírgula";
+            p "Encerra metadados e itens. Recomendado para clareza:";
+            code ldfw {
+route: "home";
+nav: "Início";
+            }
+
+            h2 "Comentários";
+            p "Começam com `//` e vão até o fim da linha. Dentro de uma string, `//` é texto normal:";
+            code ldfw {
+// isto é um comentário
+description: "Veja https://exemplo.com";   // o // dentro da string acima não conta
+            }
+
+            h2 "Markdown Inline";
+            p "Dentro de textos (parágrafos, itens de lista, descrições, alertas):";
+            code ldfw {
+p "Use **negrito** para destacar e `código` para termos técnicos.";
+            }
+            p "Renderiza assim: Use **negrito** para destacar e `código` para termos técnicos.";
+
+            h2 "Links e Alvos (->)";
+            p "Botões (`btn`) usam `->` para definir o destino:";
+            table {
+                header "Alvo" "Exemplo" "Vai para";
+                row "Rota interna" "`-> home`" "A página de `route: \"home\"`.";
+                row "Âncora" "`-> \"#secao\"`" "Uma âncora na página atual.";
+                row "Externo" "`-> external \"https://...\"`" "Abre o link em nova aba.";
+            }
+        }
+
+        page Metadata {
+            route: "metadata";
+            icon: "ri-list-settings-line";
+            nav: "Metadata";
+            breadcrumb: "Metadata";
+            title: "Metadata (Project e Página)";
+
+            h1 "Metadata";
+            p "Todos os campos de configuração — do projeto (`Project`) e de cada página (`page`).";
+
+            tabs {
+                tab "Project" icon "ri-settings-3-line" {
+                    code ldfw {
+Project: {
+    title: "Minha Lib";
+    subtitle: "Documentação";
+    version: "v1.0.0";
+    status: "Estável";
+    github: "https://github.com/user/repo";
+    description: "Descrição para SEO.";
+    lang: "pt-BR";
+    logo: "assets/logo.png";
+    favicon: "assets/favicon.ico";
 }
+                    }
+                    table {
+                        header "Campo" "O que faz";
+                        row "`title`" "Nome do projeto (logo da sidebar + aba do navegador).";
+                        row "`subtitle`" "Subtítulo abaixo do título, no logo.";
+                        row "`version`" "Versão exibida no rodapé da sidebar.";
+                        row "`status`" "Selo de status (ex.: Estável, Beta).";
+                        row "`github`" "URL do repositório; adiciona o botão GitHub no header.";
+                        row "`description`" "Meta description (SEO e compartilhamento).";
+                        row "`lang`" "Idioma do site (padrão `pt-BR`).";
+                        row "`logo`" "Imagem do logo (substitui o hexágono). Sempre quadrado.";
+                        row "`favicon`" "Ícone da aba (`.ico`, `.png` ou `.svg`).";
+                    }
+                    p "Todos são opcionais, mas `title` é fortemente recomendado.";
+                }
+                tab "Página" icon "ri-file-list-3-line" {
+                    code ldfw {
+page MinhaPagina {
+    route: "minha-pagina";
+    icon: "ri-book-line";
+    nav: "Minha Página";
+    breadcrumb: "Minha Página";
+    title: "Título na Aba";
+
+    h1 "Conteúdo";
+}
+                    }
+                    table {
+                        header "Campo" "Obrigatório?" "O que faz";
+                        row "`route`" "Sim" "URL da página (hash). `route: \"home\"` vira `#home`.";
+                        row "`icon`" "Não" "Ícone RemixIcon ao lado do nome no menu.";
+                        row "`nav`" "Não" "Texto no menu lateral (padrão: nome da `page`).";
+                        row "`breadcrumb`" "Não" "Texto no topo (breadcrumb).";
+                        row "`title`" "Não" "Título da aba do navegador.";
+                    }
+                    alert info "Rotas únicas" {
+                        "Cada `route` precisa ser único no arquivo — o compilador rejeita rotas duplicadas.";
+                    }
+                }
             }
 
-            h2 "Propriedades de Meta";
-            p "Todas as propriedades de meta de uma página:";
-
-            grid 2 {
-                card "route" icon "ri-link" {
-                    "Define a URL da página (hash). Ex: `route: \"instalacao\"` cria `#instalacao`.";
-                }
-                card "icon" icon "ri-palette-line" {
-                    "Ícone RemixIcon exibido no menu lateral. Ex: `icon: \"ri-home-4-line\"`.";
-                }
-                card "nav" icon "ri-menu-line" {
-                    "Texto exibido no menu de navegação lateral.";
-                }
-                card "breadcrumb" icon "ri-arrow-right-s-line" {
-                    "Texto exibido no breadcrumb do topo.";
-                }
-                card "title" icon "ri-font-size" {
-                    "Título da página usado no <title> da aba do navegador.";
-                }
-            }
-
-            alert tip "Rota Automática" {
-                "Se você não definir `route`, o LDFW gera automaticamente a partir do nome interno da página. Ex: `page MinhaPagina` vira `#minha-pagina`.";
+            alert tip "Variantes de página (Switch)" {
+                "Uma página pode ter variante: `page Setup #> Linux { }`. Isso faz parte das **Extensions** (Switch) — veja a seção Extensions.";
             }
         }
 
         page Indentacao {
             route: "indentacao";
-            icon: "ri-space";
+            icon: "ri-indent-increase";
             nav: "Indentação";
             breadcrumb: "Indentação";
             title: "Regras de Indentação";
 
-            h1 "Regras de Indentação";
-            p "Diferente de outras linguagens de template, o LDFW **exige** indentação correta. Isso garante que o código fonte fique organizado e legível.";
+            h1 "Indentação";
+            p "O LDFW **valida a indentação** na compilação — assim seus arquivos ficam sempre organizados.";
 
-            h2 "Regra 1: 4 Espaços por Nível";
-            p "Cada nível de aninhamento adiciona **4 espaços**. Use sempre espaços, não tabs.";
-            code ldfw {
-Project: {
-    title: "OK";    // 4 espaços
-}
-
-Docs: {
-    layout #> stnd; // 4 espaços
-
-    section "X" {   // 4 espaços
-        page Y {    // 8 espaços
-            route: "y"; // 12 espaços
-            hero {      // 12 espaços
-                title: "OK"; // 16 espaços
+            h2 "A Regra";
+            ul {
+                "Use **4 espaços** por nível de aninhamento.";
+                "O conteúdo dentro de `{` fica com **+4 espaços** (no mínimo) em relação à linha que abriu.";
+                "O `}` de fechamento alinha com a **coluna da linha de abertura**.";
+                "Use espaços — **não** tabs.";
             }
-        }
+
+            h2 "Correto";
+            code ldfw {
+section "Guia" {
+    page Home {
+        route: "home";
     }
 }
             }
 
-            h2 "Regra 2: Chaves na Mesma Coluna";
-            p "O `}` de fechamento deve estar na **mesma coluna** que a linha que abriu o bloco:";
+            h2 "Errado (rejeitado)";
             code ldfw {
-section "Correto" {     // abertura na coluna 4
-    page OK {           // abertura na coluna 8
-    }                   // coluna 8
-}                       // coluna 4
-            }
-
-            h2 "Regra 3: Conteúdo Indentado";
-            p "Todo conteúdo dentro de um bloco deve ter **pelo menos 4 espaços a mais** que a abertura:";
-            code ldfw {
-hero {              // coluna 0
-    badge: "OK";    // coluna 4 (mínimo)
-    btn primary "Ver" -> pagina; // coluna 4
+section "Guia" {
+  page Home {
+        route: "home";
+  }
 }
             }
+            p "O compilador aponta a linha: *Indentação insuficiente na linha N*.";
 
-            h2 "Regra 4: Blocos Vazios";
-            p "Blocos sem conteúdo são permitidos (`{ }`), mas mantenha a consistência.";
-
-            alert warning "Importante" {
-                "O compilador **rejeita** arquivos com indentação incorreta com uma mensagem de erro clara indicando a linha e o esperado. Isso é proposital: força o código a ficar limpo.";
-            }
-
-            h2 "Exemplo de Erro";
-            p "Isso NÃO compila:";
+            h2 "Em Uma Linha Só";
+            p "Blocos curtos podem ficar numa linha — a validação não exige quebra:";
             code ldfw {
-hero {
-badge: "Erro"; // indentação insuficiente!
-}
-            }
-            p "O compilador mostra: `Indentação insuficiente na linha X: 0 espaços, mínimo 4 dentro do bloco`.";
-        }
-
-        page BlocosTexto {
-            route: "blocos-texto";
-            icon: "ri-text";
-            nav: "Blocos de Texto";
-            breadcrumb: "Blocos de Texto";
-            title: "Títulos, Parágrafos e Formatação";
-
-            h1 "Títulos, Parágrafos e Formatação";
-            p "O LDFW oferece headings e parágrafos com suporte a formatação inline.";
-
-            h2 "Headings";
-            p "Use `h1`, `h2` e `h3` para títulos:";
-            code ldfw {
-h1 "Título Principal";
-h2 "Subtítulo";
-h3 "Seção Menor";
-            }
-            p "Eles são renderizados como `<h1>`, `<h2>` e `<h3>` com estilos próprios.";
-
-            h2 "Parágrafo";
-            p "Use `p` para parágrafos:";
-            code ldfw {
-p "Texto do parágrafo aqui.";
-            }
-            p "Textos longos podem usar múltiplas strings dentro de chaves:";
-            code ldfw {
-p {
-    "Primeira linha do parágrafo.";
-    "Segunda linha do parágrafo.";
-}
-            }
-
-            h2 "Formatação em Linha";
-            p "Dentro de strings, use `**texto**` para **negrito**:";
-            code ldfw {
-p "Este é um texto com **negrito** e **mais negrito**.";
-            }
-
-            h2 "Dica: Strings Longas";
-            p "Para textos longos, prefira usar múltiplas strings em linhas separadas. Fica mais legível e a indentação é validada automaticamente:";
-            code ldfw {
-alert tip "Nota" {
-    "Este é um texto longo que pode ocupar várias linhas.";
-    "Cada linha é uma string separada por ponto e vírgula.";
-    "No HTML final, elas são unidas com quebra de linha.";
-}
+Project: { title: "X"; version: "v1.0.0"; }
+page P { route: "p"; }
             }
         }
     }
 
     section "Componentes" {
+        page Titulos {
+            route: "componente-titulos";
+            icon: "ri-text";
+            nav: "Títulos e Texto";
+            breadcrumb: "Títulos e Texto";
+            title: "Títulos e Texto";
+
+            h1 "Títulos e Texto";
+            p "Os blocos mais básicos: títulos (`h1`, `h2`, `h3`) e parágrafos (`p`).";
+
+            h2 "Sintaxe";
+            code ldfw {
+h1 "Título principal";
+h2 "Seção";
+h3 "Subseção";
+p "Um parágrafo de texto.";
+            }
+
+            h2 "Quando Usar Cada Título";
+            table {
+                header "Bloco" "Uso";
+                row "`h1`" "Título principal da página (grande).";
+                row "`h2`" "Seções da página (entram no \"On This Page\").";
+                row "`h3`" "Subseções dentro de um h2.";
+            }
+
+            h2 "Parágrafo";
+            p "O `p` aceita **negrito** e `código` inline:";
+            code ldfw {
+p "Rode `ldfw build` para gerar o **site estático**.";
+            }
+            p "Resultado: Rode `ldfw build` para gerar o **site estático**.";
+
+            h2 "Texto em Várias Linhas";
+            p "Títulos e parágrafos também aceitam um bloco com várias linhas:";
+            code ldfw {
+p {
+    "Primeira linha do parágrafo.";
+    "Segunda linha.";
+}
+            }
+        }
+
         page Hero {
             route: "componente-hero";
-            icon: "ri-bookmark-3-line";
+            icon: "ri-layout-top-line";
             nav: "Hero";
             breadcrumb: "Hero";
-            title: "Componente Hero";
+            title: "Hero";
 
             h1 "Hero";
-            p "O Hero é o banner principal da página inicial. Combina badge, título, descrição e botões.";
+            p "O banner de destaque no topo de uma página: badge, título, descrição e botões.";
 
             h2 "Sintaxe";
             code ldfw {
 hero {
-    badge: "Novo";
-    title: "Título Principal";
-    desc: "Descrição curta e impactante.";
-    btn primary "Começar" -> pagina-inicial;
-    btn outline "GitHub" -> external "https://github.com/...";
+    badge: "v2.0";
+    title: "Meu Projeto";
+    desc: "Uma descrição curta e direta.";
+    btn primary "Começar" -> home;
+    btn outline "GitHub" -> external "https://github.com/user/repo";
 }
             }
 
-            h2 "Propriedades";
-            grid 2 {
-                card "badge" icon "ri-price-tag-3-line" {
-                    "Pequeno rótulo colorido acima do título. Opcional.";
-                }
-                card "title" icon "ri-font-size-2" {
-                    "Título principal do hero. Opcional.";
-                }
-                card "desc" icon "ri-file-text-line" {
-                    "Descrição abaixo do título. Opcional.";
-                }
-                card "btn" icon "ri-rocket-line" {
-                    "Botão de ação. Pode ter múltiplos botões. Cada um em uma linha `btn ...`.";
-                }
+            h2 "Campos";
+            table {
+                header "Campo" "O que é";
+                row "`badge`" "Selo pequeno acima do título.";
+                row "`title`" "Título grande do hero.";
+                row "`desc`" "Texto descritivo abaixo do título.";
+                row "`btn`" "Botão (pode ter vários). Veja **Botões**.";
             }
 
-            h2 "Botões";
-            p "A sintaxe do botão é:";
-            code ldfw {
-btn primary|outline "Rótulo" -> destino;
+            h2 "Exemplo Renderizado";
+            hero {
+                badge: "Exemplo";
+                title: "Título do Hero";
+                desc: "É assim que um hero aparece na página.";
+                btn primary "Ação" -> componente-hero;
             }
 
-            p "O destino pode ser:";
-            ul {
-                "**Outra página:** `btn primary \"Ver Docs\" -> instalacao;` (usa a route da página)";
-                "**Link externo:** `btn outline \"GitHub\" -> external \"https://...\";`";
-            }
-
-            h2 "Exemplo Completo";
-            code ldfw {
-hero {
-    badge: "Framework v1.0";
-    title: "Lapo's Documentation Framework";
-    desc: "Crie sites de documentação premium compilando .ldfw.";
-    btn primary "Documentação" -> estrutura;
-    btn outline "Repositório" -> external "https://github.com/...";
-}
+            alert info "Badge colorido" {
+                "Um badge com cor própria (`badge: (\"v2\", \"#cor\", \"bg\")`) precisa do `using Extensions.Coloring`. Veja **Extensions**.";
             }
         }
 
@@ -458,428 +720,287 @@ hero {
             title: "Grid e Cards";
 
             h1 "Grid e Cards";
-            p "Use grids para exibir cards lado a lado.";
+            p "Cards em grade (`grid`) ou um card avulso ocupando a largura toda.";
 
-            h2 "Grid";
-            p "O grid define quantas colunas terá. Suporta 2 ou 3 colunas:";
+            h2 "Grid de Cards";
             code ldfw {
 grid 2 {
-    card "Título 1" icon "ri-icon-1" {
-        "Descrição do card 1.";
+    card "Rápido" icon "ri-flashlight-line" {
+        "Texto do card, com **negrito** se quiser.";
     }
-    card "Título 2" icon "ri-icon-2" {
-        "Descrição do card 2.";
+    card "Seguro" icon "ri-shield-check-line" {
+        "Outro card.";
     }
 }
             }
+            p "`grid` aceita **2** ou **3** colunas. Cada `card` tem título, ícone (RemixIcon) e texto.";
 
-            h2 "Card";
-            p "Cada card dentro de um grid tem:";
-            ul {
-                "**Título** (obrigatório) — texto em negrito no topo do card.";
-                "**Icon** (opcional) — classe RemixIcon exibida antes do título.";
-                "**Conteúdo** (obrigatório) — texto dentro de chaves, com suporte a **negrito**.";
+            h2 "Exemplo Renderizado";
+            grid 2 {
+                card "Card 1" icon "ri-checkbox-circle-line" {
+                    "Primeiro card do grid.";
+                }
+                card "Card 2" icon "ri-star-line" {
+                    "Segundo card do grid.";
+                }
             }
 
             h2 "Card Avulso";
-            p "Cards também podem ser usados fora de grids (ocupam a largura inteira):";
+            p "Fora de um grid, o `card` ocupa a largura inteira:";
             code ldfw {
-card "Aviso Importante" icon "ri-alert-line" {
-    "Use cards avulsos para destacar informações importantes.";
+card "Destaque" icon "ri-star-line" {
+    "Um card sozinho, em largura total.";
+}
+            }
+            card "Card Avulso" icon "ri-medal-line" {
+                "Exemplo de card avulso renderizado.";
+            }
+        }
+
+        page Botoes {
+            route: "componente-botoes";
+            icon: "ri-cursor-line";
+            nav: "Botões";
+            breadcrumb: "Botões";
+            title: "Botões (btn)";
+
+            h1 "Botões";
+            p "Botões aparecem dentro do `hero`. Cada um tem um estilo e um destino (`->`).";
+
+            h2 "Sintaxe";
+            code ldfw {
+btn primary "Começar" -> home;
+btn outline "Repositório" -> external "https://github.com/user/repo";
+            }
+
+            h2 "Estilos";
+            table {
+                header "Estilo" "Aparência";
+                row "`primary`" "Botão cheio, na cor de destaque.";
+                row "`outline`" "Botão com contorno (secundário).";
+            }
+
+            h2 "Destinos (->)";
+            table {
+                header "Alvo" "Exemplo";
+                row "Rota interna" "`-> home`";
+                row "Âncora" "`-> \"#secao\"`";
+                row "Externo" "`-> external \"https://...\"`";
+            }
+            p "Links externos abrem em uma nova aba automaticamente.";
+        }
+
+        page CodeBlock {
+            route: "componente-code";
+            icon: "ri-code-s-slash-line";
+            nav: "Código";
+            breadcrumb: "Código";
+            title: "Bloco de Código";
+
+            h1 "Bloco de Código";
+            p "Exibe código com botão de copiar e destaque de sintaxe (quando a linguagem é suportada).";
+
+            h2 "Sintaxe";
+            code ldfw {
+code lua {
+print("Olá, LDFW!")
+}
+            }
+            p "Troque `lua` pela linguagem do trecho (`bash`, `javascript`, `python`, etc.).";
+
+            h2 "Exemplo Renderizado";
+            code bash {
+ldfw build docs.ldfw -o ./dist
+npx serve ./dist -l 8080
+            }
+
+            alert info "Destaque de sintaxe" {
+                "O highlight usa o Prism via CDN. Por padrão só Lua vem carregado; outras linguagens aparecem em fonte mono sem cor. Veja a nota de CDN no README.";
+            }
+        }
+
+        page Alertas {
+            route: "componente-alert";
+            icon: "ri-alert-line";
+            nav: "Alertas";
+            breadcrumb: "Alertas";
+            title: "Alertas";
+
+            h1 "Alertas";
+            p "Caixas de destaque para dicas, avisos e erros. Cinco variantes prontas — sem precisar de nada extra.";
+
+            h2 "Sintaxe";
+            code ldfw {
+alert tip "Dica" {
+    "Texto do alerta, com **negrito** e `código` se quiser.";
 }
             }
 
-            h2 "Exemplo com 3 Colunas";
+            h2 "Variantes Prontas";
+            table {
+                header "Variante" "Uso";
+                row "`tip`" "Dicas e boas práticas.";
+                row "`info`" "Informação neutra.";
+                row "`warning`" "Atenção / cuidado.";
+                row "`danger`" "Erro / risco.";
+                row "`important`" "Destaque importante.";
+            }
+
+            h2 "Exemplos Renderizados";
+            alert tip "Dica" { "Variante tip."; }
+            alert info "Info" { "Variante info."; }
+            alert warning "Aviso" { "Variante warning."; }
+            alert danger "Erro" { "Variante danger."; }
+
+            alert info "Cores personalizadas" {
+                "Para alertas com cores próprias (`alert (\"Título\", \"#cor\", \"bg\", \"ícone\")`) ou presets nomeados, use as **Extensions** (`using Extensions.Coloring`).";
+            }
+        }
+
+        page Tabelas {
+            route: "componente-tabelas";
+            icon: "ri-table-line";
+            nav: "Tabelas";
+            breadcrumb: "Tabelas";
+            title: "Tabelas";
+
+            h1 "Tabelas";
+            p "Dois tipos: a **genérica** (colunas livres) e a **config** (parâmetros, com badge de tipo).";
+
+            h2 "Tabela Genérica";
             code ldfw {
-grid 3 {
-    card "Rápido" icon "ri-flashlight-line" {
-        "Compila em milissegundos.";
-    }
-    card "Premium" icon "ri-vip-crown-line" {
-        "Visual moderno e responsivo.";
-    }
-    card "Simples" icon "ri-code-line" {
-        "Sintaxe limpa e indentação validada.";
-    }
+table {
+    header "Método" "Descrição";
+    row "init()" "Inicializa a biblioteca.";
+    row "destroy()" "Encerra e limpa.";
 }
+            }
+            table {
+                header "Método" "Descrição";
+                row "`init()`" "Inicializa a biblioteca.";
+                row "`destroy()`" "Encerra e limpa.";
+            }
+
+            h2 "Tabela de Configuração";
+            p "Colunas fixas: Parâmetro, Tipo, Padrão, Descrição. O tipo vira um badge:";
+            code ldfw {
+table config {
+    row "title" string "\"App\"" "Título da janela.";
+    row "debug" boolean "false" "Ativa logs.";
+}
+            }
+            table config {
+                row "title" string "\"App\"" "Título da janela.";
+                row "debug" boolean "false" "Ativa logs.";
+            }
+            p "Tipos com badge pronto: `string`, `number`, `boolean`, `function`, `table`, `void`.";
+
+            alert info "Badge colorido" {
+                "Para um badge de tipo com cor própria (`(\"string\", \"#cor\", \"bg\")`), use as **Extensions** (`using Extensions.Coloring`).";
+            }
+        }
+
+        page Listas {
+            route: "componente-listas";
+            icon: "ri-list-check";
+            nav: "Listas";
+            breadcrumb: "Listas";
+            title: "Listas";
+
+            h1 "Listas";
+            p "Listas não ordenadas (`ul`) e ordenadas (`ol`). Cada item aceita markdown inline.";
+
+            h2 "Sintaxe";
+            code ldfw {
+ul {
+    "Item não ordenado.";
+    "Outro item com **negrito**.";
+}
+
+ol {
+    "Primeiro passo.";
+    "Segundo passo.";
+}
+            }
+
+            h2 "Exemplo Renderizado";
+            ul {
+                "Item A.";
+                "Item B com `código`.";
+            }
+            ol {
+                "Passo 1.";
+                "Passo 2.";
             }
         }
 
         page Tabs {
             route: "componente-tabs";
-            icon: "ri-file-list-3-line";
+            icon: "ri-layout-column-line";
             nav: "Tabs";
             breadcrumb: "Tabs";
-            title: "Componente Tabs";
+            title: "Tabs";
 
             h1 "Tabs";
-            p "O componente Tabs organiza conteúdo em abas. Cada `tab { }` dentro de `tabs { }` é um painel independente com qualquer componente dentro: texto, código, grid, alertas, etc.";
+            p "Organiza conteúdo em abas. Ótimo para alternativas (Linux/Windows, Lua/JS, etc.).";
 
             h2 "Sintaxe";
             code ldfw {
 tabs {
     tab "Lua" icon "ri-code-line" {
         code lua {
-print("Hello World")
+print("Olá")
         }
     }
     tab "Python" icon "ri-code-line" {
         code python {
-print("Hello World")
-        }
-    }
-    tab "JavaScript" icon "ri-code-line" {
-        code javascript {
-console.log("Hello World")
+print("Olá")
         }
     }
 }
             }
+            p "Cada `tab` tem um nome, um ícone (opcional) e qualquer conteúdo dentro (até `code`, `p`, `alert`…).";
 
-            h2 "Exemplo ao Vivo";
-            p "Abaixo, um exemplo funcional com código em diferentes linguagens:";
+            h2 "Exemplo Renderizado";
             tabs {
-                tab "Lua" icon "ri-code-line" {
-                    code lua {
--- Exemplo em Lua
-local function greet(name)
-    return "Hello, " .. name .. "!"
-end
-print(greet("LDFW"))
-                    }
+                tab "Aba 1" icon "ri-terminal-line" {
+                    p "Conteúdo da primeira aba.";
                 }
-                tab "Python" icon "ri-code-line" {
-                    code python {
-# Exemplo em Python
-def greet(name):
-    return f"Hello, {name}!"
-
-print(greet("LDFW"))
-                    }
+                tab "Aba 2" icon "ri-code-line" {
+                    p "Conteúdo da segunda aba.";
                 }
-                tab "JavaScript" icon "ri-code-line" {
-                    code javascript {
-// Exemplo em JavaScript
-function greet(name) {
-    return `Hello, ${name}!`;
-}
-console.log(greet("LDFW"));
-                    }
-                }
-            }
-
-            h2 "Aninhamento";
-            p "Tabs podem conter qualquer componente, incluindo alertas, listas, grids e até outras tabs (nested tabs):";
-            code ldfw {
-tabs {
-    tab "Instalação" icon "ri-download-line" {
-        alert tip "Dica" {
-            "Use o comando `make build` para compilar."
-        }
-    }
-    tab "Configuração" icon "ri-settings-line" {
-        ul {
-            "Defina o layout em Docs.";
-            "Adicione seções e páginas.";
-        }
-    }
-}
-            }
-
-            h2 "Uso com Extensions";
-            p "Tabs funcionam com Extensions normalmente. Basta incluir `using Extensions.alert` ou `using Extensions.badge` no início do arquivo:";
-            code ldfw {
-tabs {
-    tab "Alertas" icon "ri-notification-line" {
-        alert ("Título", "#10b981", "rgba(16,185,129,0.08)", "ri-check-line") {
-            "Este alerta usa a sintaxe abreviada do Extensions.";
-        }
-    }
-    tab "Tabela" icon "ri-table-line" {
-        table config {
-            row "parametro" ("string", "#3b82f6", "rgba(59,130,246,0.1)")  "valor"  "Descrição";
-        }
-    }
-}
-            }
-        }
-
-        page CodeBlock {
-            route: "componente-code";
-            icon: "ri-code-box-line";
-            nav: "Bloco de Código";
-            breadcrumb: "Bloco de Código";
-            title: "Bloco de Código";
-
-            h1 "Bloco de Código";
-            p "Exiba código com syntax highlighting usando o componente `code`.";
-
-            h2 "Sintaxe";
-            p "Especifique a linguagem após `code` e o conteúdo dentro de chaves:";
-            code ldfw {
-code lua {
-print("Hello LDFW!")
-local x = 1 + 2
-}
-            }
-
-            h2 "Linguagens Suportadas";
-            p "O highlighting usa Prism.js. Qualquer linguagem suportada pelo Prism funciona. Basta especificar o nome: `lua`, `javascript`, `python`, `bash`, `html`, `css`, etc.";
-
-            h2 "Funcionalidades";
-            ul {
-                "**Syntax highlighting** automático via Prism.js.";
-                "**Botão Copiar** — um clique copia o código para a área de transferência.";
-                "**Indentação livre** — o conteúdo dentro de code NÃO segue as regras de indentação do LDFW (é código literal).";
-            }
-
-            h2 "Exemplo com JavaScript";
-            code javascript {
-function greet(name) {
-    console.log(`Hello, ${name}!`);
-}
-
-greet("LDFW");
-            }
-
-            alert tip "Dica" {
-                "O conteúdo do code block é preservado exatamente como escrito. A indentação dentro dele é livre — as regras do LDFW não se aplicam aí.";
-            }
-        }
-
-        page Alertas {
-            route: "componente-alert";
-            icon: "ri-notification-line";
-            nav: "Alertas";
-            breadcrumb: "Alertas";
-            title: "Alertas";
-
-            h1 "Alertas";
-            p "Alertas são caixas coloridas para destacar informações importantes.";
-
-            h2 "Variantes";
-            grid 2 {
-                card "tip" icon "ri-lightbulb-line" {
-                    "Tom roxo/índigo. Para dicas e sugestões.";
-                }
-                card "info" icon "ri-information-line" {
-                    "Tom azul. Para informações gerais.";
-                }
-                card "warning" icon "ri-alert-line" {
-                    "Tom amarelo. Para avisos e cuidados.";
-                }
-                card "danger" icon "ri-error-warning-line" {
-                    "Tom vermelho. Para erros e perigos.";
-                }
-                card "important" icon "ri-information-line" {
-                    "Tom roxo com ícone de info. Para notas técnicas importantes de API.";
-                }
-            }
-
-            h2 "Sintaxe";
-            code ldfw {
-alert tip "Título do Alerta" {
-    "Texto do alerta com suporte a **negrito**.";
-}
-            }
-
-            h2 "Exemplos";
-            code ldfw {
-alert tip "Dica" {
-    "Use `alert tip` para dicas úteis.";
-}
-
-alert info "Informação" {
-    "Use `alert info` para informações contextuais.";
-}
-
-alert warning "Atenção" {
-    "Use `alert warning` para alertar sobre algo importante.";
-}
-
-alert danger "Cuidado" {
-    "Use `alert danger` para erros ou ações irreversíveis.";
-}
-
-alert important "Importante sobre `:Set`" {
-    "Trocar opções com `handle:Set({ ... })` **não** dispara o callback. Atualize a variável manualmente para `options[1]`.";
-}
-
-alert tip "Múltiplas Linhas" {
-    "Alertas também suportam textos longos.";
-    "Basta usar múltiplas strings dentro das chaves.";
-}
-            }
-
-            p "Renderização real dos alertas:";
-
-            alert tip "Tip" {
-                "Isso é um alerta do tipo **tip**. Use para dicas.";
-            }
-
-            alert info "Info" {
-                "Isso é um alerta do tipo **info**. Use para informações.";
-            }
-
-            alert warning "Warning" {
-                "Isso é um alerta do tipo **warning**. Use para avisos.";
-            }
-
-            alert danger "Danger" {
-                "Isso é um alerta do tipo **danger**. Use para perigos.";
-            }
-
-            alert important "Important" {
-                "Isso é um alerta do tipo **important**. Use para notas técnicas de API com suporte a `código` inline.";
-            }
-        }
-
-        page Tabelas {
-            route: "componente-tabelas";
-            icon: "ri-table-2";
-            nav: "Tabelas";
-            breadcrumb: "Tabelas";
-            title: "Tabelas de API";
-
-            h1 "Tabelas";
-            p "Use tabelas para documentar parâmetros de configuração, métodos e cheat sheets de API.";
-
-            h2 "Tabela de Configuração";
-            p "O preset `table config` gera automaticamente as colunas **Parâmetro | Tipo | Padrão | Descrição**.";
-
-            code ldfw {
-table config {
-    row "title"    string  "\"Lapo Hub X\""  "O título do balão de notificação.";
-    row "content"  string  "\"\""            "O conteúdo descritivo da mensagem.";
-    row "duration" number  "4"               "Tempo de exibição em segundos.";
-}
-            }
-
-            h2 "Argumentos da Configuração";
-            table config {
-                row "title"    string  "\"Lapo Hub X\""  "O título do balão de notificação.";
-                row "content"  string  "\"\""            "O conteúdo descritivo da mensagem.";
-                row "duration" number  "4"               "Tempo de exibição em segundos.";
-            }
-
-            h2 "Tabela Genérica";
-            p "Defina os headers manualmente. Use `badge:tipo` seguido do rótulo para badges de tipo.";
-
-            code ldfw {
-table {
-    header "Função" "Retorno" "O que faz";
-    row "`LapoHub:Notify(config)`" badge:table self "Balão flutuante. `config = { title, content, duration }`.";
-}
-            }
-
-            h2 "Exemplo Genérico";
-            table {
-                header "Função" "Retorno" "O que faz";
-                row "`LapoHub:Notify(config)`" badge:table self "Balão flutuante. `config = { title, content, duration }`.";
-            }
-
-            h2 "Tipos de Badge";
-            p "Tipos reconhecidos: `string`, `number`, `boolean`, `function`, `table`, `void`.";
-
-            alert important "Inline Markdown" {
-                "Tabelas e alertas suportam **negrito** e `código inline` nas células de texto e descrições.";
-            }
-        }
-
-        page Listas {
-            route: "componente-listas";
-            icon: "ri-list-unordered";
-            nav: "Listas";
-            breadcrumb: "Listas";
-            title: "Listas Ordenadas e Não Ordenadas";
-
-            h1 "Listas";
-            p "O LDFW suporta listas ordenadas (`ol`) e não ordenadas (`ul`).";
-
-            h2 "Lista Não Ordenada (ul)";
-            code ldfw {
-ul {
-    "Item 1 com **negrito** suportado.";
-    "Item 2 com texto normal.";
-    "Item 3 com **destaque**.";
-}
-            }
-
-            p "Renderiza como:";
-            ul {
-                "Item 1 com **negrito** suportado.";
-                "Item 2 com texto normal.";
-                "Item 3 com **destaque**.";
-            }
-
-            h2 "Lista Ordenada (ol)";
-            code ldfw {
-ol {
-    "Primeiro passo.";
-    "Segundo passo.";
-    "Terceiro passo.";
-}
-            }
-
-            p "Renderiza como:";
-            ol {
-                "Primeiro passo.";
-                "Segundo passo.";
-                "Terceiro passo.";
-            }
-
-            h2 "Observações";
-            ul {
-                "Cada item é uma string delimitada por ponto e vírgula.";
-                "Suporta **negrito** inline.";
-                "Listas não podem conter sub-listas (por enquanto).";
             }
         }
 
         page FAQ {
             route: "componente-faq";
-            icon: "ri-question-answer-line";
+            icon: "ri-questionnaire-line";
             nav: "FAQ";
             breadcrumb: "FAQ";
-            title: "FAQ (Perguntas Frequentes)";
+            title: "FAQ";
 
-            h1 "FAQ (Accordion)";
-            p "O componente `faq` cria um acordeão de perguntas e respostas.";
+            h1 "FAQ";
+            p "Lista de perguntas e respostas em accordion (clique para expandir).";
 
             h2 "Sintaxe";
             code ldfw {
 faq {
-    q "Qual a pergunta?" {
-        "Resposta aqui. Com **negrito** se quiser.";
+    q "Posso usar offline?" {
+        "Sim, o site é estático. Só ícones/fontes/highlight vêm de CDN.";
     }
-    q "Outra pergunta?" {
-        "Outra resposta. Suporta múltiplas linhas.";
-        "Segunda linha da resposta.";
+    q "Preciso saber HTML?" {
+        "Não — você escreve só .ldfw.";
     }
 }
             }
 
-            h2 "Comportamento";
-            ul {
-                "Apenas uma resposta fica aberta por vez (accordion).";
-                "Clique na pergunta para abrir/fechar.";
-                "Animação suave de abertura.";
-                "Ícone de `+` gira quando ativo.";
-            }
-
-            h2 "Exemplo Real";
+            h2 "Exemplo Renderizado";
             faq {
-                q "O LDFW funciona sem Node.js?" {
-                    "Não. O compilador é escrito em Node.js e requer a runtime instalada.";
+                q "Isto é um accordion?" {
+                    "Sim — clique no título para abrir e fechar.";
                 }
-                q "Posso customizar o tema?" {
-                    "Sim, editando `templates/style.css` antes de compilar, ou sobrescrevendo cores via CSS customizado após a compilação.";
-                }
-                q "Tem suporte a hot reload?" {
-                    "Ainda não, mas está nos planos (comando `ldfw dev`).";
-                }
-                q "O .ldfw é uma linguagem completa?" {
-                    "É uma DSL focada em documentação. Não é Turing-completa — não tem variáveis, loops ou condicionais. É propositalmente simples.";
+                q "A resposta aceita markdown?" {
+                    "Aceita **negrito** e `código`.";
                 }
             }
         }
@@ -888,162 +1009,353 @@ faq {
     section "Extensions" {
         page Extensions {
             route: "extensions";
-            icon: "ri-palette-line";
+            icon: "ri-plug-line";
             nav: "Extensions";
             breadcrumb: "Extensions";
             title: "Extensions";
 
             h1 "Extensions";
-            p "A biblioteca **Extensions** permite customizar cores, ícones e emojis de alertas e badges inline com `custom::()`. É 100% opcional.";
+            p "A **Extensions** é uma biblioteca opcional (`include #> Extensions;`) que adiciona dois tipos de recurso: **customização visual** (cores) e **recursos funcionais** (índice lateral, variantes de página).";
+
+            h2 "A Regra";
+            ul {
+                "**Visual (cores)** → tudo num único `using Extensions.Coloring;`. Sem ele, a Extensions não pinta nada.";
+                "**Funcional** → cada recurso tem o seu próprio `using` (`PageContent`, `Switch`).";
+            }
+            alert info "Sem custom::" {
+                "O antigo `custom::` não existe mais. Cores inline agora são só `(...)`, liberadas pelo `using Extensions.Coloring`.";
+            }
 
             h2 "Ativando";
+            p "Inclua a lib e ligue só os `using` que for usar:";
+            code ldfw {
+include #> Extensions;
+using Extensions.Coloring;
+using Extensions.PageContent;
+using Extensions.Switch;
+            }
+
+            h2 "Recursos";
+            grid 2 {
+                card "Coloring" icon "ri-palette-line" {
+                    "Cores inline `(...)`, presets e cores por elemento. Veja a página **Coloring**.";
+                }
+                card "DocColors" icon "ri-contrast-2-line" {
+                    "Troca as cores do tema light/dark globalmente. Veja **DocColors**.";
+                }
+                card "On This Page" icon "ri-list-check" {
+                    "Índice lateral automático a partir dos títulos. Veja **On This Page**.";
+                }
+                card "Switch" icon "ri-arrow-left-right-line" {
+                    "Variantes de página por seção (ex.: Linux/Windows). Veja **Switch**.";
+                }
+            }
+        }
+
+        page DocColors {
+            route: "extension-doccolors";
+            icon: "ri-contrast-2-line";
+            nav: "DocColors";
+            breadcrumb: "DocColors";
+            title: "Extensions — DocColors";
+
+            h1 "DocColors";
+            p "O **DocColors** troca as cores dos temas **Light** e **Dark** globalmente (via variáveis de tema). É **opcional**, mas requer `using Extensions.Coloring;` — sem ele, não tem efeito.";
+
+            h2 "Ativando";
+            p "Defina um bloco `DocColors` dentro do seu `Extensions: { }`, com sub-blocos `light` e `dark` (e ligue o `Coloring`):";
+
             code ldfw {
 #> StartFW
 include #> Standard;
-include #> Extensions;
+using Extensions.Coloring;
+
+Extensions: {
+    DocColors {
+        light {
+            primary: "#2563eb";
+            background: "#ffffff";
+            text: "#0f172a";
+        }
+        dark {
+            primary: "#60a5fa";
+            background: "#0b1120";
+            text: "#f1f5f9";
+        }
+    }
+}
             }
 
-            h2 "custom::() — Parâmetros Inline";
+            p "Defina só as chaves que quiser mudar — as demais mantêm o valor padrão.";
 
-            p "O `custom::()` é a função principal do Extensions. Ela recebe parâmetros posicionais pra configurar cor, fundo, ícone e emoji:";
+            h2 "Chaves Disponíveis";
+            p "Cada chave mapeia para uma cor do tema. Chaves desconhecidas são ignoradas.";
 
             table {
-                header "Contexto" "Parâmetros" "Exemplo";
-                row "`alert`" custom::("(título, cor, bg, icon, emoji)", "#a855f7", "") 'alert custom::("Título", "#ff6b6b", "rgba(...)", "ri-star-line") { }';
-                row "`badge` (tabela)" custom::("(label, cor, bg)", "#3b82f6", "") 'custom::("string", "#3b82f6", "rgba(...)")';
-                row "`badge` (hero)" custom::("(texto, cor, bg)", "#f59e0b", "") 'badge: custom::("Guia", "#f59e0b", "rgba(...)");';
+                header "Chave" "O que muda";
+                row "`primary`" "Cor principal — links, destaques e botões.";
+                row "`primaryHover`" "Cor principal em hover.";
+                row "`primaryLight`" "Versão suave da principal (fundos sutis).";
+                row "`accent`" "Cor de acento secundária.";
+                row "`accentHover`" "Acento em hover.";
+                row "`accentLight`" "Acento suave.";
+                row "`background`" "Fundo principal da página.";
+                row "`sidebar`" "Fundo da barra lateral.";
+                row "`header`" "Fundo do header fixo (aceita rgba p/ transparência).";
+                row "`card`" "Fundo de cards e blocos.";
+                row "`code`" "Fundo dos blocos de código.";
+                row "`hover`" "Fundo de itens sob o cursor.";
+                row "`text`" "Cor principal do texto.";
+                row "`textSub`" "Texto secundário.";
+                row "`textMuted`" "Texto esmaecido / labels.";
+                row "`border`" "Cor das bordas.";
             }
 
-            h2 "Alert com custom::()";
-
-            p "Use `custom::()` no lugar do preset pra definir cores inline:";
-
+            h2 "Exemplo Completo";
             code ldfw {
-alert custom::("Custom Alert", "#ff6b6b", "rgba(255, 107, 107, 0.08)", "ri-star-line") {
-    "Alerta inline com cor, background e ícone personalizados.";
+Extensions: {
+    DocColors {
+        light {
+            primary: "#e11d48";
+            accent: "#7c3aed";
+            background: "#fffdf7";
+            card: "#ffffff";
+            text: "#1f2937";
+            border: "#e5e7eb";
+        }
+        dark {
+            primary: "#fb7185";
+            accent: "#a78bfa";
+            background: "#0b0b14";
+            card: "#15151f";
+            text: "#f3f4f6";
+            border: "#26263a";
+        }
+    }
+}
+            }
+
+            alert tip "Opcional e seguro" {
+                "Se uma lib incluída trouxer DocColors **e** você definir o seu, o **seu** tem prioridade. Os valores passam por sanitização — apenas hex, rgb/rgba, hsl/hsla e nomes de cor são aceitos.";
+            }
+        }
+
+        page Coloring {
+            route: "extension-coloring";
+            icon: "ri-palette-line";
+            nav: "Coloring";
+            breadcrumb: "Coloring";
+            title: "Extensions — Coloring";
+
+            h1 "Coloring";
+            p "O **Coloring** é todo o sistema de **cores** da Extensions: cores inline `(...)`, presets reutilizáveis e cores por elemento. Tudo requer `using Extensions.Coloring;` — sem ele, nada pinta.";
+
+            h2 "Cores Inline com (...)";
+            p "Passe as cores direto entre parênteses — em alertas, badges de tabela e badge do hero:";
+            code ldfw {
+alert ("Erro", "#ef4444", "rgba(239,68,68,0.08)", "ri-fire-line") {
+    "Alerta com cor, fundo e ícone inline."
 }
 
-alert custom::("Com Emoji", "#a855f7", "rgba(168, 85, 247, 0.08)", "", "📝") {
-    "Alerta inline usando emoji no lugar do ícone.";
-}
-            }
-
-            p "Parâmetros do `alert custom::()`:";
-            ul {
-                "**1º — título:** texto do título do alerta.";
-                "**2º — cor:** cor do título e da borda (hex).";
-                "**3º — background:** cor de fundo (rgb/rgba/hex).";
-                "**4º — ícone:** classe RemixIcon (opcional).";
-                "**5º — emoji:** emoji no lugar do ícone (opcional).";
-            }
-
-            h2 "using Extensions.alert / using Extensions.badge";
-
-            p "A diretiva `using` importa o shorthand pra não precisar escrever `custom::` toda vez:";
-
-            code ldfw {
-using Extensions.alert;
-using Extensions.badge;
-
-alert ("Shorthand", "#10b981", "rgba(16, 185, 129, 0.08)", "ri-check-line") {
-    "Com `using Extensions.alert`, o `custom::` fica implícito.";
-}
-            }
-
-            p "Com `using`, você usa `(...)` no lugar de `custom::(...)`.";
-
-            h2 "Badge custom::() em Tabelas";
-
-            p "O campo de tipo em tabelas aceita `custom::()` pra customizar a cor do badge:";
-
-            code ldfw {
 table config {
-    row "title"    custom::("string", "#3b82f6", "rgba(59, 130, 246, 0.1)")  "\"Meu Projeto\""  "Título exibido no site.";
-    row "enabled"  custom::("boolean", "#10b981", "rgba(16, 185, 129, 0.1)") "true"             "Se está ativo.";
+    row "title" ("string", "#3b82f6", "rgba(59,130,246,0.1)") "\"App\"" "Título.";
 }
 
-// Com using Extensions.badge:
-table config {
-    row "count"  ("number", "#f59e0b", "rgba(245, 158, 11, 0.1)") "0"  "Quantidade.";
-}
-            }
-
-            h2 "Hero Badge com custom::()";
-
-            p "O `badge` do hero aceita `custom::()` pra personalizar as cores:";
-
-            code ldfw {
 hero {
-    badge: custom::("LDFW", "#7850ff", "rgba(120, 80, 255, 0.15)");
+    badge: ("LDFW", "#7850ff", "rgba(120,80,255,0.15)");
     title: "Meu Projeto";
-    desc: "Descrição aqui.";
-    btn primary "Começar" -> home;
 }
             }
+            p "Parâmetros do `alert (...)`: **1º** título · **2º** cor (título + borda) · **3º** fundo · **4º** ícone (opcional) · **5º** emoji (opcional).";
+            alert tip "Built-in não precisam de cor" {
+                "Os alertas built-in (`tip`, `info`, `warning`, `danger`, `important`) funcionam **sem** `using`. O `(...)` é só quando você quer cores próprias.";
+            }
 
-            h2 "Presets (Extensions: { })";
-
-            p "O bloco `Extensions:` cria presets reutilizáveis:";
-
+            h2 "Presets";
+            p "Crie alertas/badges reutilizáveis pelo nome, no bloco `Extensions: { }`:";
             code ldfw {
 Extensions: {
     alert recycle {
         icon: "ri-recycle-line";
         color: "#6366f1";
-        background: "rgba(99, 102, 241, 0.08)";
+        background: "rgba(99,102,241,0.08)";
         border: "#6366f1";
     }
+    badge lua { color: "#e8a838"; background: "rgba(232,168,56,0.1)"; }
+}
+            }
+            code ldfw {
+alert recycle "Título" { "Usa o preset recycle." }
+            }
+            p "A lib `#> Extensions` já traz presets prontos: `recycle`, `shield`, `pulse`, `retro`, `devnote` (alerts) e `lua`, `self` (badges).";
+            h3 "Exemplos de presets";
+            alert recycle "Recycle" { "Preset recycle — tom roxo."; }
+            alert devnote "Devnote" { "Preset devnote — emoji 📝."; }
 
-    badge lua {
-        color: "#e8a838";
-        background: "rgba(232, 168, 56, 0.1)";
+            h2 "Cores por Elemento — Coloring { }";
+            p "Recolore tipos de elemento por tema (`light`/`dark`), como uma folha de estilo segura:";
+            code ldfw {
+Extensions: {
+    Coloring {
+        light {
+            card { background: "#ffffff"; border: "#e5e7eb"; }
+            tabs { active: "#2563eb"; }
+            p    { color: "#334155"; }
+        }
+        dark {
+            card  { background: "#15151f"; border: "#26263a"; }
+            badge { background: "rgba(120,80,255,.12)"; color: "#a78bfa"; }
+        }
     }
 }
             }
 
-            p "Presets são usados pelo nome:";
+            h3 "Elementos e Propriedades";
+            table {
+                header "Elemento" "Propriedades";
+                row "`p`, `h1`, `h2`, `h3`, `link`" "color";
+                row "`hero`" "title, desc, badge, badgeBg";
+                row "`card`" "background, border, title, text";
+                row "`tabs`" "active, border, hover, background";
+                row "`alert`" "background, border, title, text";
+                row "`badge`" "background, color";
+                row "`code`" "background, header";
+                row "`table`" "header, headerText, border";
+                row "`inlineCode`" "background, color";
+                row "`faq`" "question, border";
+            }
+            p "Elementos ou propriedades desconhecidos são **ignorados** (não quebram a compilação).";
+
+            h2 "Precedência";
+            p "Da maior para a menor prioridade:";
+            ol {
+                "**Inline** `(...)` no elemento (vence sempre).";
+                "**Coloring** (cores por elemento).";
+                "**DocColors** (variáveis de tema).";
+                "**Padrão** do template.";
+            }
+            alert info "Sem !important" {
+                "O CSS gerado **não** usa `!important` — então o inline `(...)` num elemento específico sempre sobrescreve o Coloring global.";
+            }
+
+            alert tip "DocColors x Coloring" {
+                "Use **DocColors** para o tema amplo (uma cor vaza pra tudo via variáveis). Use **Coloring** quando quiser um elemento específico diferente do tema.";
+            }
+        }
+
+        page PageContent {
+            route: "extension-on-this-page";
+            icon: "ri-list-check";
+            nav: "On This Page";
+            breadcrumb: "On This Page";
+            title: "Extensions — On This Page";
+
+            h1 "On This Page";
+            p "O **PageContent** adiciona um índice lateral (**On This Page**) gerado automaticamente a partir dos títulos `h1`, `h2` e `h3` da página. Clicar em um item rola suavemente até a seção, e a seção visível fica destacada enquanto você rola.";
+
+            h2 "Ativando";
+            p "Habilite o atalho com `using Extensions.PageContent;` e ative no bloco `Docs`, logo após o `layout`:";
 
             code ldfw {
-alert recycle "Título" {
-    "Texto do alerta usando preset.";
+#> StartFW
+include #> Standard;
+using Extensions.PageContent;
+
+Project: { title: "Meu Projeto"; }
+
+Docs: {
+    layout #> stnd;
+    #> PageContent;
+
+    section "Guia" {
+        page Home {
+            route: "home";
+            h2 "Instalação";
+            h3 "Requisitos";
+            h2 "Uso";
+        }
+    }
 }
             }
 
-            h2 "Presets Inclusos";
-            p "Ao incluir `#> Extensions`, estes presets já vêm prontos:";
+            h2 "Como Ativar";
+            p "Declare `using Extensions.PageContent;` no topo e adicione `#> PageContent;` dentro do bloco `Docs`, logo após o `layout`. Sem o `using`, o `#> PageContent;` dá erro de compilação.";
 
-            table config {
-                row "recycle"  string  "`ri-recycle-line`"  "Anti-duplicação / recarregar scripts.";
-                row "shield"   string  "`ri-shield-check-line`" "Segurança e foco liberado.";
-                row "pulse"    string  "`ri-pulse-line`"  "Avisos de performance / loops.";
-                row "retro"    string  "`ri-checkbox-circle-line`" "Compatibilidade / changelog.";
-                row "devnote"  string  "📝 emoji"         "Notas com emoji 📝.";
+            h2 "Hierarquia";
+            p "O índice respeita a hierarquia dos títulos:";
+            ul {
+                "**h1** é o nível mestre (raiz).";
+                "**h2** aparece aninhado dentro do h1.";
+                "**h3** aparece aninhado dentro do h2.";
             }
 
-            h2 "Renderização";
-            alert recycle "Recycle" {
-                "Preset `recycle` — ícone `ri-recycle-line`, tom roxo.";
+            h2 "Comportamento";
+            ul {
+                "Aparece em telas largas (a partir de ~1280px) e some no mobile.";
+                "Rola suavemente até o título exato, descontando o header fixo.";
+                "Destaque automático (scrollspy) da seção visível.";
             }
 
-            alert shield "Shield" {
-                "Preset `shield` — ícone `ri-shield-check-line`.";
+            alert tip "Dica" {
+                "Esta própria documentação usa o On This Page — veja o índice à direita (em telas largas).";
+            }
+        }
+
+        page Switch {
+            route: "extension-switch";
+            icon: "ri-arrow-left-right-line";
+            nav: "Switch";
+            breadcrumb: "Switch";
+            title: "Extensions — Switch";
+
+            h1 "Switch";
+            p "O **Switch** permite que uma `section` tenha **variantes** (ex.: Linux / Windows). Ao passar o mouse na seção (no menu lateral) aparece um controle que troca a variante ativa — filtrando quais páginas aparecem ali.";
+
+            h2 "Ativando";
+            p "Habilite com `using Extensions.Switch;` e marque cada página com sua variante usando `#> Variante` logo após o nome:";
+            code ldfw {
+#> StartFW
+include #> Standard;
+using Extensions.Switch;
+
+Project: { title: "Minha Lib"; }
+
+Docs: {
+    layout #> stnd;
+
+    section "Ferramentas" {
+        page Setup #> Linux {
+            route: "setup-linux";
+            nav: "Setup";
+            h1 "Setup no Linux";
+        }
+        page Setup #> Windows {
+            route: "setup-windows";
+            nav: "Setup";
+            h1 "Setup no Windows";
+        }
+    }
+}
             }
 
-            alert devnote "Devnote" {
-                "Preset `devnote` — emoji 📝 e tom violeta.";
+            h2 "Como Funciona";
+            ul {
+                "A seção vira **switchável** quando tem páginas com variante.";
+                "O controle aparece ao passar o mouse no título da seção; clicar **cicla** entre as variantes.";
+                "A **primeira** variante encontrada é a padrão (no exemplo, Linux).";
+                "Páginas **sem** variante aparecem sempre, em qualquer modo.";
             }
 
-            h2 "Badges Customizados (Presets + Inline)";
-
-            table config {
-                row "callback" function  "function()end"  "Badge built-in (amarelo).";
-                row "lang"     lua      "lua"            "Badge via preset `lua` do Extensions.";
+            h2 "Sintaxe da Variante";
+            p "A variante vai logo após o nome da página, com `#>`:";
+            code ldfw {
+page Setup #> Linux { ... }
+page Setup #> Windows { ... }
             }
+            p "É **exclusivo da biblioteca Extensions** — sem `using Extensions.Switch;`, marcar a variante de uma página gera erro de compilação.";
 
-            p "Inline custom::() — independe de preset:";
-
-            table config {
-                row "timeout" custom::("number", "#f59e0b", "rgba(245, 158, 11, 0.1)") "4" "Badge inline, cor laranja.";
+            alert tip "Experimente" {
+                "Esta documentação usa Switch na seção **Começando**: passe o mouse nela no menu e troque entre Linux e Windows.";
             }
         }
     }
@@ -1057,28 +1369,32 @@ alert recycle "Título" {
             title: "Linha de Comando";
 
             h1 "CLI — Linha de Comando";
-            p "O LDFW vem com um CLI para compilar arquivos .ldfw.";
+            p "O LDFW vem com um CLI para compilar e servir arquivos `.ldfw`.";
 
             h2 "Comandos";
             grid 2 {
                 card "build" icon "ri-hammer-line" {
-                    "Compila um arquivo .ldfw em HTML + CSS + JS. Principal e único comando por enquanto.";
+                    "Compila um arquivo `.ldfw` em HTML + CSS + JS estático.";
                 }
-                card "--help" icon "ri-question-line" {
-                    "Exibe a ajuda do CLI com exemplos de uso.";
+                card "dev" icon "ri-refresh-line" {
+                    "Compila e sobe um servidor com **live reload** — recompila e recarrega a cada alteração no arquivo.";
                 }
             }
 
             h2 "Uso";
             code bash {
-ldfw build entrada.ldfw -o ./saida
+ldfw build <entrada.ldfw> [-o ./dist] [--verbose]
+ldfw dev   <entrada.ldfw> [-o ./dist] [-p 8080]
             }
 
             h2 "Flags";
             ul {
-                "`-o` — Diretório de saída (padrão: `dist`).";
-                "`-h`, `--help` — Exibe a ajuda.";
+                "`-o <dir>` — Diretório de saída (padrão: `dist`).";
+                "`-p <porta>` — Porta do servidor no modo `dev` (padrão: `8080`).";
+                "`--verbose` — Exibe logs detalhados (caminhos de entrada/saída resolvidos).";
+                "`-h`, `--help` — Exibe a ajuda do CLI.";
             }
+            p "As flags podem vir em **qualquer ordem**: `ldfw build -o dist app.ldfw` e `ldfw build app.ldfw -o dist` funcionam igual.";
 
             h2 "Exemplos";
             code bash {
@@ -1088,12 +1404,15 @@ ldfw build docs.ldfw
 # Compilar com saída customizada
 ldfw build docs.ldfw -o ./site
 
+# Modo dev com live reload na porta 3000
+ldfw dev docs.ldfw -o ./site -p 3000
+
 # Ver ajuda
 ldfw --help
             }
 
             h2 "Sem Instalação Global";
-            p "Você pode executar diretamente sem npm link:";
+            p "Você pode executar diretamente sem `npm link`:";
             code bash {
 node ldfw/bin/ldfw.js build entrada.ldfw -o saida
             }
@@ -1107,36 +1426,81 @@ node ldfw/bin/ldfw.js build entrada.ldfw -o saida
             title: "Comandos Makefile";
 
             h1 "Makefile";
-            p "O LDFW inclui um Makefile com comandos úteis para desenvolvimento.";
+            p "Dentro de `ldfw/`, o Makefile reúne atalhos para compilar, servir, testar e instalar. Rode `make` (ou `make help`) para ver a lista completa.";
 
-            h2 "Comandos Disponíveis";
-
+            h2 "Compilação";
             grid 2 {
                 card "make build" icon "ri-hammer-line" {
-                    "Compila um .ldfw. Use `INPUT=arq.ldfw OUTPUT=dir`.";
+                    "Compila um `.ldfw`. Use `INPUT=arq.ldfw OUTPUT=dir`.";
                 }
                 card "make build-example" icon "ri-file-code-line" {
-                    "Compila o exemplo `lapo-hub` para `dist/`.";
+                    "Compila o projeto de exemplo (variável `EXAMPLE`, padrão `document.ldfw`).";
                 }
                 card "make build-docs" icon "ri-book-open-line" {
-                    "Compila a documentação oficial para `../docs`.";
+                    "Compila a documentação oficial para `dist-docs/`.";
+                }
+            }
+
+            h2 "Desenvolvimento (live reload)";
+            grid 2 {
+                card "make dev" icon "ri-refresh-line" {
+                    "Recompila + serve com auto-reload. Use `INPUT=` e `OUTPUT=`.";
+                }
+                card "make dev-example" icon "ri-refresh-line" {
+                    "Live reload do projeto de exemplo.";
+                }
+                card "make dev-docs" icon "ri-refresh-line" {
+                    "Live reload da documentação oficial.";
                 }
                 card "make serve" icon "ri-server-line" {
-                    "Compila docs + sobe servidor em localhost:8080.";
+                    "Compila a documentação + sobe servidor estático em localhost:8080.";
                 }
-                card "make test" icon "ri-check-line" {
-                    "Valida compilação correta e rejeição de má indentação.";
+            }
+
+            h2 "Testes";
+            grid 2 {
+                card "make test" icon "ri-check-double-line" {
+                    "Suíte completa: unitários + compilação + rejeição de má indentação.";
                 }
-                card "make clean" icon "ri-delete-bin-line" {
-                    "Remove `dist/` e arquivos temporários.";
+                card "make test-unit" icon "ri-flask-line" {
+                    "Apenas os testes unitários (parser + extensions).";
                 }
+                card "make test-build" icon "ri-test-tube-line" {
+                    "Apenas o smoke-test de compilação do exemplo.";
+                }
+            }
+
+            h2 "CLI e Limpeza";
+            grid 2 {
+                card "make install" icon "ri-download-line" {
+                    "`npm link` — registra o comando `ldfw` globalmente.";
+                }
+                card "make uninstall" icon "ri-delete-bin-line" {
+                    "`npm unlink` — remove o comando global.";
+                }
+                card "make reinstall" icon "ri-loop-left-line" {
+                    "uninstall + install.";
+                }
+                card "make clean" icon "ri-eraser-line" {
+                    "Remove `dist/` e `/tmp/ldfw-*`.";
+                }
+            }
+
+            h2 "Variáveis";
+            table {
+                header "Variável" "Padrão" "Descrição";
+                row "`INPUT`" "—" "Arquivo `.ldfw` de entrada (build / dev).";
+                row "`OUTPUT`" "`dist`" "Diretório de saída.";
+                row "`EXAMPLE`" "`document.ldfw`" "Projeto usado em build-example / dev-example / test-build.";
             }
 
             code bash {
 # Exemplos
-make build-example
+make                                  # mostra a ajuda
+make build INPUT=app.ldfw OUTPUT=site
+make dev-docs
 make test
-make serve
+make install
             }
         }
 
@@ -1148,7 +1512,7 @@ make serve
             title: "Extensão VS Code";
 
             h1 "Extensão VS Code para .ldfw";
-            p "O LDFW inclui uma extensão para VS Code (e Cursor) com três funcionalidades principais.";
+            p "O LDFW tem uma extensão para VS Code (e Cursor) com três funcionalidades principais. Ela é um projeto **separado** em `ldfw-sdk/` (fora de `ldfw/`) e será a base de uma **SDK completa** no futuro.";
 
             h2 "Funcionalidades";
             grid 2 {
@@ -1164,15 +1528,15 @@ make serve
             }
 
             h2 "Instalação";
-            p "A extensão fica em `ldfw/vscode/`. Para ativar:";
+            p "A extensão fica em `ldfw-sdk/` (na raiz, fora de `ldfw/`). Para ativar:";
             code bash {
 # No Cursor
-ln -s "/caminho/para/ldfw/vscode" ~/.cursor/extensions/ldfw-language-support
+ln -s "/caminho/para/ldfw-sdk" ~/.cursor/extensions/ldfw-sdk
 
 # No VS Code
-ln -s "/caminho/para/ldfw/vscode" ~/.vscode/extensions/ldfw-language-support
+ln -s "/caminho/para/ldfw-sdk" ~/.vscode/extensions/ldfw-sdk
             }
-            p "Depois reinicie o editor. Qualquer arquivo `.ldfw` já reconhece automaticamente.";
+            p "Depois reinicie o editor. Qualquer arquivo `.ldfw` já é reconhecido automaticamente.";
 
             h2 "O Que Cada Funcionalidade Faz";
 
@@ -1193,7 +1557,7 @@ ln -s "/caminho/para/ldfw/vscode" ~/.vscode/extensions/ldfw-language-support
             p "Ao digitar, o editor sugere:";
             ul {
                 "**Palavras-chave**: `include`, `Project`, `Docs`, `section`, `page`, etc.";
-                "**Componentes**: `hero`, `grid`, `card`, `alert`, `code`, `faq`, `ul`, `ol`.";
+                "**Componentes**: `hero`, `grid`, `card`, `alert`, `code`, `tabs`, `table`, `faq`, `ul`, `ol`.";
                 "**Propriedades**: `route`, `icon`, `nav`, `breadcrumb`, `badge`, `title`, `desc`, `btn`.";
                 "**Snippets**: `include #> Standard;`, `Project: { }`, `Docs: { }`, `hero { }`, etc. com placeholders para preencher.";
             }
@@ -1236,6 +1600,7 @@ Docs: {
             }
 
             h2 "Página com Todos os Componentes";
+            p "Uma única página exercitando **todos** os componentes do LDFW:";
             code ldfw {
 page Completa {
     route: "completa";
@@ -1245,46 +1610,115 @@ page Completa {
     title: "Todos os Componentes";
 
     hero {
-        badge: "Demonstração";
+        badge: ("v2.0", "#7850ff", "rgba(120, 80, 255, 0.15)");
         title: "Página Completa";
         desc: "Todos os componentes do LDFW em uma página.";
-        btn primary "Ver" -> home;
+        btn primary "Começar" -> home;
+        btn outline "GitHub" -> external "https://github.com/exemplo/repo";
     }
+
+    h2 "Títulos e Texto";
+    p "Parágrafo com **negrito** e `código inline`.";
+    h3 "Subtítulo (h3)";
+    p "Texto sob um h3.";
 
     h2 "Grid de Cards";
-    grid 2 {
-        card "Card 1" icon "ri-numbers-line" {
-            "Primeiro card do grid.";
+    grid 3 {
+        card "Rápido" icon "ri-flashlight-line" { "Primeiro card."; }
+        card "Seguro" icon "ri-shield-check-line" { "Segundo card."; }
+        card "Leve" icon "ri-feather-line" { "Terceiro card."; }
+    }
+
+    h2 "Card Avulso";
+    card "Destaque" icon "ri-star-line" {
+        "Card fora do grid — ocupa a largura toda.";
+    }
+
+    h2 "Tabs";
+    tabs {
+        tab "Lua" icon "ri-code-line" {
+            code lua {
+print("Olá do Lua")
+            }
         }
-        card "Card 2" icon "ri-numbers-line" {
-            "Segundo card do grid.";
+        tab "JavaScript" icon "ri-code-line" {
+            code javascript {
+console.log("Olá do JS");
+            }
         }
     }
 
-    h2 "Alerta";
-    alert info "Informação" {
-        "Isso é um alerta de informação.";
+    h2 "Bloco de Código";
+    code bash {
+ldfw build meu-projeto.ldfw -o ./dist
     }
 
-    h2 "Código";
-    code javascript {
-console.log("Hello LDFW!");
+    h2 "Alertas";
+    alert tip "Dica" { "Alerta de preset (tip / info / warning / danger / important)."; }
+    alert ("Custom", "#ff6b6b", "rgba(255, 107, 107, 0.08)", "ri-fire-line", "🔥") {
+        "Alerta com cores inline via ().";
     }
 
-    h2 "Lista";
-    ul {
-        "Item A";
-        "Item B";
-        "Item C";
+    h2 "Tabela de Configuração";
+    table config {
+        row "title" ("string", "#3b82f6", "rgba(59, 130, 246, 0.1)") "\"App\"" "Título da janela.";
+        row "debug" boolean "false" "Ativa logs no console.";
     }
+
+    h2 "Tabela Genérica";
+    table {
+        header "Método" "Descrição";
+        row "init()" "Inicializa a biblioteca.";
+        row "destroy()" "Encerra e limpa recursos.";
+    }
+
+    h2 "Listas";
+    ul { "Item não ordenado A"; "Item não ordenado B"; }
+    ol { "Primeiro passo"; "Segundo passo"; }
 
     h2 "FAQ";
     faq {
-        q "Pergunta 1?" {
-            "Resposta 1.";
+        q "Pergunta 1?" { "Resposta 1."; }
+        q "Pergunta 2?" { "Resposta 2."; }
+    }
+}
+            }
+
+            h2 "Arquivo Completo com Extensions";
+            p "Um arquivo usando as features novas — **On This Page** (PageContent) e **DocColors** (cores do tema):";
+            code ldfw {
+#> StartFW
+include #> Standard;
+include #> Extensions;
+using Extensions.PageContent;
+using Extensions.Coloring;
+
+// DocColors precisa do using Extensions.Coloring para ter efeito.
+Extensions: {
+    DocColors {
+        dark {
+            background: "#1a1d23";
+            card: "#252931";
+            border: "#31363f";
         }
-        q "Pergunta 2?" {
-            "Resposta 2.";
+    }
+}
+
+Project: {
+    title: "Minha Lib";
+    version: "v2.0.0";
+}
+
+Docs: {
+    layout #> stnd;
+    #> PageContent;
+
+    section "Guia" {
+        page Home {
+            route: "home";
+            h1 "Minha Lib";
+            h2 "Instalação";
+            h2 "Uso";
         }
     }
 }
@@ -1330,6 +1764,17 @@ code linguagem { conteudo }
 alert variante "Título" { "texto"; }
             }
 
+            p "`tabs` + `tab` — Conteúdo organizado em abas.";
+            code ldfw {
+tabs { tab "Nome" icon "ri-code-line" { "conteúdo"; } }
+            }
+
+            p "`btn` — Botão dentro do `hero`. Estilo `primary`/`outline` e destino com `->`.";
+            code ldfw {
+btn primary "Texto" -> rota;
+btn outline "Externo" -> external "https://...";
+            }
+
             p "`table config` — Tabela de parâmetros de configuração (Parâmetro, Tipo, Padrão, Descrição).";
             code ldfw {
 table config { row "param" string "default" "descrição"; }
@@ -1337,15 +1782,14 @@ table config { row "param" string "default" "descrição"; }
 
             p "`table` — Tabela genérica com headers customizados.";
             code ldfw {
-table { header "Col1" "Col2"; row "valor" badge:table self "texto"; }
+table { header "Col1" "Col2"; row "valor 1" "valor 2"; }
             }
 
-            p "`Extensions` + `using` — Alertas/badges customizados (opcional).";
+            p "`Extensions` + `using Extensions.Coloring` — customização visual: cores inline `(...)`, presets, DocColors e Coloring (opcional).";
             code ldfw {
 include #> Extensions;
-using -c = recycle;
-Extensions: { alert custom { icon: "ri-star-line"; color: "#6366f1"; background: "rgba(99,102,241,0.08)"; border: "#6366f1"; } }
-alert -c "Título" { "texto"; }
+using Extensions.Coloring;
+alert ("Título", "#6366f1", "rgba(99,102,241,0.08)", "ri-star-line") { "texto"; }
             }
 
             p "`ul` / `ol` — Lista não ordenada / ordenada.";
@@ -1413,6 +1857,30 @@ p "Texto do parágrafo.";
                 card "lang" icon "ri-translate" {
                     "Idioma do site (`pt-BR`, `en`, etc.).";
                 }
+                card "logo" icon "ri-image-2-line" {
+                    "Caminho de uma imagem para o logo da sidebar (substitui o hexágono). Sempre exibido em quadrado.";
+                }
+                card "favicon" icon "ri-bookmark-line" {
+                    "Caminho do favicon (`.ico`, `.png` ou `.svg`) exibido na aba do navegador.";
+                }
+            }
+
+            h2 "Features de Extensions";
+            p "Recursos opcionais da biblioteca **Extensions** (veja as páginas dedicadas):";
+
+            grid 2 {
+                card "Coloring" icon "ri-palette-line" {
+                    "Cores inline `(...)`, presets e cores por elemento. Requer `using Extensions.Coloring`.";
+                }
+                card "DocColors" icon "ri-contrast-2-line" {
+                    "Cores dos temas light/dark globalmente, via bloco `DocColors`.";
+                }
+                card "On This Page" icon "ri-list-check" {
+                    "Índice lateral dos `h1`/`h2`/`h3`. Ative com `using Extensions.PageContent;` + `#> PageContent;`.";
+                }
+                card "Switch" icon "ri-arrow-left-right-line" {
+                    "Variantes de página por seção (ex.: Linux/Windows). Requer `using Extensions.Switch`.";
+                }
             }
         }
 
@@ -1456,7 +1924,10 @@ p "Texto do parágrafo.";
 
             h2 "Customização";
             ul {
-                "Edite `ldfw/templates/style.css` para alterar cores, fontes e estilos globais.";
+                "Toda customização visual da **Extensions** (cores) é ligada por `using Extensions.Coloring`.";
+                "Use `DocColors` para o tema (light/dark) e `Coloring` para recolorir elementos específicos — sem editar CSS.";
+                "Ative `#> PageContent;` (com `using Extensions.PageContent`) para o índice \"On This Page\".";
+                "Edite `ldfw/templates/style.css` para alterar fontes e estilos globais.";
                 "Edite `ldfw/templates/runtime.js` para modificar o comportamento da SPA.";
                 "Após compilar, você pode sobrescrever `style.css` no diretório de saída sem recompilar.";
             }

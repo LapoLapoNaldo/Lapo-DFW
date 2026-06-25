@@ -22,6 +22,8 @@ npx serve ./dist -l 8080
 ```ldfw
 #> StartFW
 include #> Standard;
+include #> Extensions;
+using Extensions.Coloring;
 
 Project: {
     title: "Meu Projeto";
@@ -62,13 +64,13 @@ print("Hello")
             }
 
             h2 "Alerta Custom";
-            alert custom::("Título", "#ff6b6b", "rgba(255,107,107,0.08)", "ri-star-line") {
+            alert ("Título", "#ff6b6b", "rgba(255,107,107,0.08)", "ri-star-line") {
                 "Alerta com cores inline.";
             }
 
             h2 "Tabela com Badge";
             table config {
-                row "title" custom::("string","#3b82f6","rgba(59,130,246,0.1)")
+                row "title" ("string","#3b82f6","rgba(59,130,246,0.1)")
                     "\"valor\"" "Descrição";
             }
         }
@@ -85,12 +87,10 @@ print("Hello")
 | Card avulso | `card "Título" icon "ri-..." { "texto" }` |
 | Code | `code linguagem { ... }` |
 | Alert (preset) | `alert tip\|info\|warning\|danger\|important "Título" { "texto" }` |
-| Alert (custom) | `alert custom::("Título","#cor","bg","ri-icon","emoji") { "texto" }` |
-| Alert (shorthand) | `alert ("Título","#cor","bg","ri-icon") { "texto" }` (com `using Extensions.alert`) |
+| Alert (cores) | `alert ("Título","#cor","bg","ri-icon","emoji") { "texto" }` (com `using Extensions.Coloring`) |
 | Table config | `table config { row "param" tipo "default" "desc"; }` |
 | Table genérica | `table { header "A" "B"; row "a" "b"; }` |
-| Badge custom | `custom::("texto","#cor","bg")` |
-| Badge shorthand | `("texto","#cor","bg")` (com `using Extensions.badge`) |
+| Badge (cores) | `("texto","#cor","bg")` (com `using Extensions.Coloring`) |
 | Tabs | `tabs { tab "Nome" { ... } }` |
 | FAQ | `faq { q "pergunta" { "resposta" } }` |
 | Listas | `ul { "item" }` / `ol { "item" }` |
@@ -99,13 +99,14 @@ print("Hello")
 
 ## Extensions
 
+Customização visual (cores) — ative com `using Extensions.Coloring`:
+
 ```ldfw
 include #> Extensions;
-using Extensions.alert;
-using Extensions.badge;
+using Extensions.Coloring;
 
 alert ("Título", "#10b981", "rgba(16,185,129,0.08)", "ri-check-line") {
-    "Shorthand sem custom::()."
+    "Cor inline com (...)."
 }
 
 table config {
@@ -114,17 +115,9 @@ table config {
 }
 ```
 
-## VSCode Extension
+## LDFW SDK (Extensão VS Code / Cursor)
 
-Em `vscode/` — syntax highlighting, autocomplete e diagnóstico de erros.
-
-```bash
-# Cursor
-ln -sf $(pwd)/vscode ~/.cursor/extensions/ldfw-language-support
-
-# VSCode
-ln -sf $(pwd)/vscode ~/.vscode/extensions/ldfw-language-support
-```
+A extensão foi movida para `../ldfw-sdk/` (fora desta pasta) — será a base de uma SDK completa. Veja o README da raiz para a instalação.
 
 ## Estrutura
 
@@ -134,10 +127,10 @@ ldfw/
 ├── compiler/            # Parser, codegen, components, extensions
 ├── templates/           # runtime.js + style.css
 ├── std/                 # Standard.ldfw, Extensions.ldfw
-├── vscode/              # Extensão VSCode/Cursor
-├── examples/            # Projetos exemplo
 ├── Makefile             # build / serve / test
 └── package.json
+
+../ldfw-sdk/             # Extensão VS Code / Cursor (futura SDK)
 ```
 
 ## Commands

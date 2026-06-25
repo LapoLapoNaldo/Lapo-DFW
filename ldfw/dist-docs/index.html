@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
+    <!-- Recursos externos via CDN (sem SRI). Para offline/air-gapped, faça self-host. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDFW | Documentação</title>
     <meta name="description" content="Documentação oficial do LDFW — o framework que compila .ldfw para sites de documentação premium.">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Outfit:wght@400;500;600;700;800&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" id="prism-theme-dark">
@@ -26,7 +27,7 @@
                     </div>
                     <div class="logo-text">
                         <span class="logo-title">LDFW</span>
-                        <span class="logo-subtitle">Lapo's Documentation Framework</span>
+                        <span class="logo-subtitle">Lapo&#39;s Documentation Framework</span>
                     </div>
                 </a>
                 <button class="close-sidebar-btn" id="closeSidebarBtn">
@@ -44,48 +45,69 @@
             </div>
 
             <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <h3 class="nav-section-title">Começando</h3>
+                <div class="nav-section" data-switch-variants="Linux,Windows" data-switch-default="Linux">
+                    <h3 class="nav-section-title">
+                        <span class="nav-section-name">Começando</span>
+                        <button class="section-switch" type="button" title="Trocar variante" aria-label="Trocar variante">
+                            <i class="ri-arrow-left-right-line"></i>
+                            <span class="section-switch-label">Linux</span>
+                        </button>
+                    </h3>
                     <ul class="nav-list">
-                        <li><a href="#home" class="nav-link active" data-route="home"><i class="ri-home-4-line"></i> Sobre o LDFW</a></li>
-                        <li><a href="#instalacao" class="nav-link" data-route="instalacao"><i class="ri-download-cloud-line"></i> Instalação</a></li>
+                        <li><a href="#home" class="nav-link" data-route="home"><i class="ri-home-4-line"></i> Sobre o LDFW</a></li>
                         <li><a href="#primeiros-passos" class="nav-link" data-route="primeiros-passos"><i class="ri-rocket-line"></i> Primeiros Passos</a></li>
+                        <li data-variant="Linux"><a href="#setup-linux" class="nav-link" data-route="setup-linux"><i class="ri-ubuntu-line"></i> Setup</a></li>
+                        <li data-variant="Windows"><a href="#setup-windows" class="nav-link" data-route="setup-windows"><i class="ri-windows-line"></i> Setup</a></li>
                     </ul>
                 </div>
 
                 <div class="nav-section">
-                    <h3 class="nav-section-title">Linguagem</h3>
+                    <h3 class="nav-section-title">
+                        <span class="nav-section-name">Linguagem</span>
+                    </h3>
                     <ul class="nav-list">
-                        <li><a href="#estrutura" class="nav-link" data-route="estrutura"><i class="ri-file-code-line"></i> Estrutura do Arquivo</a></li>
-                        <li><a href="#secoes-paginas" class="nav-link" data-route="secoes-paginas"><i class="ri-layout-line"></i> Seções e Páginas</a></li>
-                        <li><a href="#indentacao" class="nav-link" data-route="indentacao"><i class="ri-space"></i> Indentação</a></li>
-                        <li><a href="#blocos-texto" class="nav-link" data-route="blocos-texto"><i class="ri-text"></i> Blocos de Texto</a></li>
+                        <li><a href="#estrutura" class="nav-link" data-route="estrutura"><i class="ri-node-tree"></i> Estrutura</a></li>
+                        <li><a href="#sintaxe" class="nav-link" data-route="sintaxe"><i class="ri-code-line"></i> Sintaxe</a></li>
+                        <li><a href="#metadata" class="nav-link" data-route="metadata"><i class="ri-list-settings-line"></i> Metadata</a></li>
+                        <li><a href="#indentacao" class="nav-link" data-route="indentacao"><i class="ri-indent-increase"></i> Indentação</a></li>
                     </ul>
                 </div>
 
                 <div class="nav-section">
-                    <h3 class="nav-section-title">Componentes</h3>
+                    <h3 class="nav-section-title">
+                        <span class="nav-section-name">Componentes</span>
+                    </h3>
                     <ul class="nav-list">
-                        <li><a href="#componente-hero" class="nav-link" data-route="componente-hero"><i class="ri-bookmark-3-line"></i> Hero</a></li>
+                        <li><a href="#componente-titulos" class="nav-link" data-route="componente-titulos"><i class="ri-text"></i> Títulos e Texto</a></li>
+                        <li><a href="#componente-hero" class="nav-link" data-route="componente-hero"><i class="ri-layout-top-line"></i> Hero</a></li>
                         <li><a href="#componente-grid" class="nav-link" data-route="componente-grid"><i class="ri-layout-grid-line"></i> Grid e Cards</a></li>
-                        <li><a href="#componente-tabs" class="nav-link" data-route="componente-tabs"><i class="ri-file-list-3-line"></i> Tabs</a></li>
-                        <li><a href="#componente-code" class="nav-link" data-route="componente-code"><i class="ri-code-box-line"></i> Bloco de Código</a></li>
-                        <li><a href="#componente-alert" class="nav-link" data-route="componente-alert"><i class="ri-notification-line"></i> Alertas</a></li>
-                        <li><a href="#componente-tabelas" class="nav-link" data-route="componente-tabelas"><i class="ri-table-2"></i> Tabelas</a></li>
-                        <li><a href="#componente-listas" class="nav-link" data-route="componente-listas"><i class="ri-list-unordered"></i> Listas</a></li>
-                        <li><a href="#componente-faq" class="nav-link" data-route="componente-faq"><i class="ri-question-answer-line"></i> FAQ</a></li>
+                        <li><a href="#componente-botoes" class="nav-link" data-route="componente-botoes"><i class="ri-cursor-line"></i> Botões</a></li>
+                        <li><a href="#componente-code" class="nav-link" data-route="componente-code"><i class="ri-code-s-slash-line"></i> Código</a></li>
+                        <li><a href="#componente-alert" class="nav-link" data-route="componente-alert"><i class="ri-alert-line"></i> Alertas</a></li>
+                        <li><a href="#componente-tabelas" class="nav-link" data-route="componente-tabelas"><i class="ri-table-line"></i> Tabelas</a></li>
+                        <li><a href="#componente-listas" class="nav-link" data-route="componente-listas"><i class="ri-list-check"></i> Listas</a></li>
+                        <li><a href="#componente-tabs" class="nav-link" data-route="componente-tabs"><i class="ri-layout-column-line"></i> Tabs</a></li>
+                        <li><a href="#componente-faq" class="nav-link" data-route="componente-faq"><i class="ri-questionnaire-line"></i> FAQ</a></li>
                     </ul>
                 </div>
 
                 <div class="nav-section">
-                    <h3 class="nav-section-title">Extensions</h3>
+                    <h3 class="nav-section-title">
+                        <span class="nav-section-name">Extensions</span>
+                    </h3>
                     <ul class="nav-list">
-                        <li><a href="#extensions" class="nav-link" data-route="extensions"><i class="ri-palette-line"></i> Extensions</a></li>
+                        <li><a href="#extensions" class="nav-link" data-route="extensions"><i class="ri-plug-line"></i> Extensions</a></li>
+                        <li><a href="#extension-doccolors" class="nav-link" data-route="extension-doccolors"><i class="ri-contrast-2-line"></i> DocColors</a></li>
+                        <li><a href="#extension-coloring" class="nav-link" data-route="extension-coloring"><i class="ri-palette-line"></i> Coloring</a></li>
+                        <li><a href="#extension-on-this-page" class="nav-link" data-route="extension-on-this-page"><i class="ri-list-check"></i> On This Page</a></li>
+                        <li><a href="#extension-switch" class="nav-link" data-route="extension-switch"><i class="ri-arrow-left-right-line"></i> Switch</a></li>
                     </ul>
                 </div>
 
                 <div class="nav-section">
-                    <h3 class="nav-section-title">Ferramentas</h3>
+                    <h3 class="nav-section-title">
+                        <span class="nav-section-name">Ferramentas</span>
+                    </h3>
                     <ul class="nav-list">
                         <li><a href="#cli" class="nav-link" data-route="cli"><i class="ri-terminal-box-line"></i> CLI</a></li>
                         <li><a href="#makefile" class="nav-link" data-route="makefile"><i class="ri-tools-line"></i> Makefile</a></li>
@@ -95,7 +117,9 @@
                 </div>
 
                 <div class="nav-section">
-                    <h3 class="nav-section-title">Referência</h3>
+                    <h3 class="nav-section-title">
+                        <span class="nav-section-name">Referência</span>
+                    </h3>
                     <ul class="nav-list">
                         <li><a href="#ref-componentes" class="nav-link" data-route="ref-componentes"><i class="ri-table-line"></i> Tabela de Componentes</a></li>
                         <li><a href="#dicas" class="nav-link" data-route="dicas"><i class="ri-lightbulb-line"></i> Dicas e Boas Práticas</a></li>
@@ -124,7 +148,7 @@
                     </div>
                 </div>
                 <div class="top-header-right">
-                    <a href="https://github.com/LapoLapoNaldo/Lapos-DWS-Framework" target="_blank" class="github-link" title="Ver Repositório no GitHub">
+                    <a href="https://github.com/LapoLapoNaldo/Lapo-DFW" target="_blank" class="github-link" title="Ver Repositório no GitHub">
                         <i class="ri-github-fill"></i>
                         <span class="github-text">GitHub</span>
                     </a>
@@ -137,7 +161,13 @@
                 </div>
             </header>
 
-            <main class="content-viewport" id="contentViewport"></main>
+            <div class="content-row">
+                <main class="content-viewport" id="contentViewport"></main>
+                <aside class="on-this-page" id="onThisPage" aria-label="On This Page">
+                    <div class="otp-title">On This Page</div>
+                    <ul class="otp-list" id="otpList"></ul>
+                </aside>
+            </div>
         </div>
     </div>
 

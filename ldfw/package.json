@@ -1,6 +1,6 @@
 {
   "name": "ldfw",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Lapo's Documentation Framework — compila .ldfw para sites de documentação",
   "bin": {
     "ldfw": "./bin/ldfw.js"
@@ -9,6 +9,13 @@
   "type": "commonjs",
   "engines": {
     "node": ">=18"
+  },
+  "scripts": {
+    "test": "node compiler/__tests__/run.js",
+    "test:parser": "node compiler/__tests__/parser.test.js",
+    "test:extensions": "node compiler/__tests__/extensions.test.js",
+    "start": "ldfw build",
+    "build:docs": "node bin/ldfw.js build document.ldfw -o dist-docs"
   },
   "keywords": [
     "documentation",
@@ -20,10 +27,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LapoLapoNaldo/Lapos-DWS-Framework.git"
+    "url": "git+https://github.com/LapoLapoNaldo/Lapo-DFW.git"
   },
-  "homepage": "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework",
+  "homepage": "https://github.com/LapoLapoNaldo/Lapo-DFW",
   "bugs": {
-    "url": "https://github.com/LapoLapoNaldo/Lapos-DWS-Framework/issues"
+    "url": "https://github.com/LapoLapoNaldo/Lapo-DFW/issues"
   }
 }
